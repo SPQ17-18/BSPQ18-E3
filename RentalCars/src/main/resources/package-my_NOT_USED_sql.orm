@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE orm SYSTEM "file:/javax/jdo/orm.dtd">
+<orm>
+    <package name="es.deusto.server.jdo">
+        <class name="User" identity-type="application">
+			<primary-key name="login"/>
+			<!--<field name="login" primary-key="true">-->
+			<field name="login">
+                <column length="32" jdbc-type="VARCHAR"/>
+            </field>
+			<field name="password" persistence-modifier="persistent">
+                <column length="32" jdbc-type="VARCHAR"/>
+            </field>
+			<field name="messages" mapped-by="user">
+                <join/>
+            </field>
+        </class>
+
+        <class name="Message" identity-type="datastore">
+            <field name="text" persistence-modifier="persistent">
+                <column length="256" jdbc-type="VARCHAR"/>
+            </field>
+			<field name="timestamp" persistence-modifier="persistent">
+                <column jdbc-type="BIGINT"/>
+            </field>
+			<field name="user" persistence-modifier="persistent">
+            </field>
+        </class>
+    </package>
+</orm>
+
+
