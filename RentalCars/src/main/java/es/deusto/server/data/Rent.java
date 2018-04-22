@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 import javax.jdo.annotations.*;
 
-/**a
+/**ajjj
  * SOLO TIENE LOS ATRIBUTOS BASICOS ID, CLIENTE Y COCHE.
  * FALTA POR IMPLEMENTAR EL SISTEMA DE RESERVAS
  * 
