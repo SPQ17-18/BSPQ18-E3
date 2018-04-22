@@ -1,4 +1,4 @@
-package client.gui;
+package es.deusto.client;
 
 
 import javax.swing.*;
