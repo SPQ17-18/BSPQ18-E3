@@ -1,12 +1,13 @@
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+	<groupId>BSPQ18-E3</groupId>
+	<artifactId>RentalCars</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>SavingMessagesRMI-JDO-DAO</name>
+	<name>RentalCars</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -320,5 +321,5 @@
         </pluginRepository>
     </pluginRepositories>
 	
-	<groupId>RentalCars</groupId>
+	
 </project>
