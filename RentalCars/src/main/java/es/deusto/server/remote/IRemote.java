@@ -75,7 +75,7 @@ public interface IRemote extends Remote{
 	 * @return a car with the selected brand
 	 * @throws RemoteException
 	 */
-	Car getCarkByBrand	(String brand)throws RemoteException;
+	Car getCarByBrand	(String brand)throws RemoteException;
 	
 	
 	/**
