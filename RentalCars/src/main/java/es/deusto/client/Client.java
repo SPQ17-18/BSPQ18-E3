@@ -44,7 +44,7 @@ import es.deusto.server.remote.IRemote;
 		
 		public static void mainMenu(IRemote server){
 			String input= "";
-			//Client Client = null;
+			
 			 
 			do{
 				displayMenu(logInMenu);
