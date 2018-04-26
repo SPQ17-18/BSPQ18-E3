@@ -1,17 +1,15 @@
 package es.deusto.client;
 
-import es.deusto.server.data.Message;
-import es.deusto.server.data.User;
-import es.deusto.server.remote.IMessenger;
-
-
 import java.rmi.RemoteException;
 import java.util.List;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import es.deusto.client.gui.LogIn;
+import es.deusto.server.data.Car;
+import es.deusto.server.remote.IRemote;
 
 	public class Client {
 
@@ -131,7 +129,7 @@ import org.slf4j.LoggerFactory;
 			switch(input){
 			case("1"):
 				//Buy
-				buyCar(server);
+				rentCar(server);
 				menuShowcars(server);
 				break;
 			case("2"):
@@ -229,13 +227,13 @@ import org.slf4j.LoggerFactory;
 		
 		public static void searchID(IRemote server){
 			int input;
-			Car b = null;
+			Car c = null;
 			logger.info("ID:");
 			input = Integer.parseInt(System.console().readLine());
 			
 			try {
-				b = server.getCarByID(input);
-				logger.info(b.toString());
+				c = server.getCarByID(input);
+				logger.info(c.toString());
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
@@ -244,13 +242,13 @@ import org.slf4j.LoggerFactory;
 		
 		public static void searchBrand(IRemote server){
 			String input= "";
-			Car b = null;
+			Car c = null;
 			logger.info("Brand:");
 			input = System.console().readLine();
 			
 			try {
-				b = server.getCarByBrand(input);
-				logger.info(b.toString());
+				c = server.getCarByBrand(input);
+				logger.info(c.toString());
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
@@ -261,7 +259,7 @@ import org.slf4j.LoggerFactory;
 			int input;
 			
 			try {
-				cars = server.showcarsInStore();
+				cars = server.showCarsInStore();
 			} catch (RemoteException e) {
 				logger.info(e.getMessage());
 			}
@@ -279,7 +277,7 @@ import org.slf4j.LoggerFactory;
 			List<Car> cars = null;
 			
 			try {
-				cars = server.showcarsInStore();
+				cars = server.showCarsInStore();
 			} catch (RemoteException e) {
 				logger.error(e.getMessage());
 			}
@@ -288,33 +286,23 @@ import org.slf4j.LoggerFactory;
 			logger.info(b.toString());
 		}
 		
-		public static void buyCar(IRemote server){
-			boolean buyOk = false;
+		public static void rentCar(IRemote server){
+			boolean rentOk = false;
 			
 			try {
-				buyOk = server.buyCar(emailClientServer, carsSelectionBrand);
+				rentOk = server.rentCar(emailClientServer, carsSelectionBrand);
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
-			logger.info(""+buyOk);
+			logger.info(""+rentOk);
 			
-			if(buyOk == true){
-				logger.info("You have bought "+carsSelectionBrand);
+			if(rentOk == true){
+				logger.info("You have rent "+carsSelectionBrand);
 			}else{
-				logger.info("Not pssible. Try later!");
+				logger.info("Error.Try later!");
 			}
 		}
-		/*
-		//Adpatarlo para que coja las reviews del coche que esta sellecionado y llamarlo en showCar
-		public static void showReviews(IRemote server){
-			List<Review> reviews = null;
-			try {
-				reviews = server.getAllReviews();
-			} catch (RemoteException e) {
-				logger.info(e.getMessage());
-			}
-		}
-		*/
+		
 		public static void main(String[] args) {
 			if (args.length != 3) {
 				logger.info("Use: java [policy] [codebase] ClientServer.ClientServer [host] [port] [server]");
@@ -327,8 +315,7 @@ import org.slf4j.LoggerFactory;
 			try{
 				String name = "//" + args[0] + ":" + args[1] + "/" + args[2];
 				IRemote server = (IRemote) java.rmi.Naming.lookup(name);
-				//Menu
-				//mainMenu(server);
+				
 				logIn = new LogIn();
 			}catch (Exception e) {
 				logger.error("RMI Example exception: " + e.getMessage());
