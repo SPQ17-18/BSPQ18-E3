@@ -23,15 +23,19 @@ public class Client implements Serializable{
 	private String name;
 	private int creditCard;
 	private String address;	
+	private String email;
+	private String password;
 	
 
-	public Client(String DNI, int age, String name, int creditCard,String address) {
+	public Client(String DNI, int age, String name, int creditCard,String address, String email, String password) {
 		
 		this.DNI = DNI;
 		this.age = age;
 		this.name = name;
 		this.creditCard = creditCard;
 		this.address = address;
+		this.email = email;
+		this.password = password;
 		
 	}
 	
