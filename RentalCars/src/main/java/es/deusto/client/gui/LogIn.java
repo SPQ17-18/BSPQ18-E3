@@ -1,3 +1,5 @@
+/*login window*/
+
 package es.deusto.client.gui;
 
 import java.awt.BorderLayout;
@@ -29,7 +31,8 @@ import es.deusto.client.Client;
 import es.deusto.client.gui.LogIn;
 
 import es.deusto.server.remote.IRemote;
-import es.deusto.server.remote.remote;
+import es.deusto.server.remote.Remote;
+
 
 public class LogIn {
 
@@ -104,7 +107,7 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 		// JLabel component about login message
 		loginMesage = new JLabel("Log In");
 		loginMesage.setForeground(new Color(0, 0, 0));
-		loginMesage.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
+		loginMesage.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		GridBagConstraints gbc_loginMesage = new GridBagConstraints();
 		gbc_loginMesage.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_loginMesage.insets = new Insets(0, 0, 5, 10);
@@ -175,13 +178,13 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 			public void actionPerformed(ActionEvent arg0) {
 				String accessEmail = email.getText();
 				String accessPassword = String.valueOf(password.getPassword());
-				try {
+			/*	try {
 					role = server.getClient(accessEmail).getRole();
 					server.registerClient(accessEmail, accessPassword, role);
 					ClientEmail = accessEmail;
 				} catch (RemoteException e) {
 					logger.info(e.getMessage());
-				}
+				}*/
 				
 				//client and admin
 			}
