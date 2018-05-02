@@ -178,13 +178,13 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 			public void actionPerformed(ActionEvent arg0) {
 				String accessEmail = email.getText();
 				String accessPassword = String.valueOf(password.getPassword());
-			/*	try {
+				try {
 					role = server.getClient(accessEmail).getRole();
 					server.registerClient(accessEmail, accessPassword, role);
-					ClientEmail = accessEmail;
+					clientEmail = accessEmail;
 				} catch (RemoteException e) {
 					logger.info(e.getMessage());
-				}*/
+				}
 				
 				//client and admin
 			}
