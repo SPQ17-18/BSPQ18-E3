@@ -62,12 +62,12 @@ public interface IRemote extends Remote{
 	Car carTest()throws RemoteException;
 	
 	/**
-	 * Get a car by its ID
-	 * @param unique car ID
-	 * @return a Car with the selected ID
+	 * Get a car by its mat
+	 * @param unique car mat
+	 * @return a Car with the selected mat
 	 * @throws RemoteException
 	 */
-	Car getCarByID	(int ID)throws RemoteException;
+	Car getCarByMat	(int mat)throws RemoteException;
 	
 	/**
 	 * Get a Car by its ID
@@ -144,7 +144,7 @@ public interface IRemote extends Remote{
 	 * @return a double 
 	 * @throws RemoteException
 	 */
-	double averageRatingByUseClient(String email)  throws RemoteException;
+	double averageRatingByClient(String email)  throws RemoteException;
 	
 	 /**
 	  * Deletes a Rent
@@ -155,14 +155,14 @@ public interface IRemote extends Remote{
 	
 	 /**
 	  * Delete a car
-	 * @param ID
+	 * @param mat
 	 * @throws RemoteException
 	 */
-	void deleteCar(int ID) throws RemoteException;
+	void deleteCar(int mat) throws RemoteException;
 	
 	 /**
 	  * Creates new car in the database
-	 * @param ID unique identifier
+	 * @param ID unique identifier- mat
 	 * @param colour
 	 * @param model
 	 * @param type 
@@ -170,5 +170,5 @@ public interface IRemote extends Remote{
 	 * @param accesories
 	 * @throws RemoteException
 	 */
-	boolean addCar(int ID, String colour, String model, String type, String brand, List <String> accesories) throws RemoteException;
+	boolean addCar(int mat, String colour, String model, String type, String brand, List <String> accesories) throws RemoteException;
 }
