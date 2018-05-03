@@ -1,10 +1,5 @@
 package es.deusto.server.data;
 
-
-
-
-
-
 import javax.jdo.annotations.*;
 
 import java.io.Serializable;
@@ -25,9 +20,11 @@ public class Client implements Serializable{
 	private String address;	
 	private String email;
 	private String password;
+	private boolean role;		//true --> admin
+ 	//false --> user
 	
 
-	public Client(String DNI, int age, String name, int creditCard,String address, String email, String password) {
+	public Client(String DNI, int age, String name, int creditCard,String address, String email, String password, boolean role) {
 		
 		this.DNI = DNI;
 		this.age = age;
@@ -36,12 +33,21 @@ public class Client implements Serializable{
 		this.address = address;
 		this.email = email;
 		this.password = password;
+		this.role=role;
+		
+	}
+	
+	public Client(String email, String password, boolean role) {
+		// TODO Auto-generated constructor stub
+		this.email = email;
+		this.password = password;
+		this.role = role;
 		
 	}
 	
 	
 	
-	List<Rent> reviews = new ArrayList<Rent>();
+	List<Rent> rents = new ArrayList<Rent>();
 	
 		
 	List<Car> cars = new ArrayList<Car>();
@@ -92,10 +98,36 @@ public class Client implements Serializable{
 	       this.creditCard = creditCard;
 	}
 
-	 public String toString() {
-		 return "Client: DNI --> " + this.DNI + ", name -->  " + this.name + ",  age -->  " + this.age + " address --> " + this. age + " creditcard -->"+ this.creditCard;
-		
+	public String getEmail() {
+		return email;
 	}
+	
+	public void setEmail(String email) {
+	       this.email = email;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+	
+	public void setPassword(String password) {
+	       this.password = password;
+	}
+	
+	public boolean getRole() {
+		return role;
+	}
+
+	public void setRole(boolean role) {
+		this.role = role;
+	}
+	
+	 public String toString() {
+		 return "Client: email --> " + this.email + ", password -->  " + this.password + ",  User Role -->  " + this.role;
+		
+        	
+	 }
+	 
 	 
 }
 	 
@@ -104,4 +136,3 @@ public class Client implements Serializable{
 
 	
 	
-
