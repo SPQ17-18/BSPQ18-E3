@@ -5,16 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-import javax.jdo.annotations.*;
-
-
 public class Car implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-// 
-	private int ID;
+
+	private int mat;
 	private String colour;	
 	private String brand;
 	private String model;
@@ -23,13 +19,20 @@ public class Car implements Serializable{
 
 	
 	public Car(int mat, String colour, String model, String type,List <String> accesories, String brand){
-		this.ID = ID;
+		this.mat = mat;
 		this.colour = colour;
 		this.model = model;
 		this.type = type;
 		this.accesories = accesories;
 		this.brand = brand;
 		
+	}
+	
+	public Car(int mat, String brand, String model, String type) {
+		this.mat=mat;
+		this.brand=brand;
+		this.model=model;		
+		this.type=type;
 	}
 	
 
@@ -42,12 +45,12 @@ public class Car implements Serializable{
 		return this.client;
 	}
 
-	public int getID() {
-		return ID;
+	public int getMat() {
+		return mat;
 	}
 	
-	public void setID(int ID) {
-		this.ID = ID;
+	public void setMat(int mat) {
+		this.mat = mat;
 	}
 
 	public String getColour() {
@@ -81,6 +84,6 @@ public class Car implements Serializable{
 	}
 
 	public String toString() {
-		 return "Car: ID --> " + this.ID + ", brand -->  " + this.brand + ",  model -->  " + this.model + ", type --> "+ this.type + " colour -->  " + this.colour + ", accesories --> "+ this.accesories;
+		 return "Car: mat --> " + this.mat + ", brand -->  " + this.brand + ",  model -->  " + this.model + ", type --> "+ this.type + " colour -->  " + this.colour + ", accesories --> "+ this.accesories;
 	}
 }
