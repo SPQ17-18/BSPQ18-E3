@@ -37,8 +37,9 @@ public class Rent implements Serializable{
 		this.rating = rating;*/
 	}
 	
-	public Rent() {
+	public Rent(int id_rent) {
 		super();
+		this.id_rent=id_rent;
 		// TODO Auto-generated constructor stub
 	}
 
