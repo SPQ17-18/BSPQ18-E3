@@ -2,21 +2,18 @@ package es.deusto.server;
 
 import java.rmi.Naming;
 
-import es.deusto.server.remote.IMessenger;
-import es.deusto.server.remote.Messenger;
-
-
-
-import java.rmi.Naming;
-
+import es.deusto.server.dao.DB;
+import es.deusto.server.dao.IDB;
+import es.deusto.server.data.Car;
+import es.deusto.server.data.Client;
+import es.deusto.server.data.Rent;
+import es.deusto.server.remote.IRemote;
+import es.deusto.server.remote.Remote;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import db.DB;
-import db.IDB;
-import server.data.*;
-import server.remote.*;
+
 
 
 public class Server{
@@ -49,13 +46,13 @@ public class Server{
 			Rent r4 = new Rent(04);
 			Rent r5 = new Rent(05);
 			
-			Car c1 =new Car(1,"Black","AMG GT-R","deportivo","", "Mercedes");
-			Car c2 =new Car(2,"White","AMG GT-C","deportivo","", "Mercedes");
-			Car c3 =new Car(6,"Red","AMG GT-S","deportivo","", "Mercedes");
-			Car c4 =new Car(3,"Blue","Leon SC","compacto","", "SEAT");
-			Car c5= new Car(4,"Red","Ateka","crossover","", "SEAT");
-			Car c6= new Car(5,"White","Transit","comercial","", "FORD");
-			Car c7 =new Car(6,"Red","Mustang","turismo","", "FORD");
+			Car c1 =new Car(123,"Mercedes","AMG GT-R","deportivo");
+			Car c2 =new Car(256,"Mercedes","AMG GT-C","deportivo");
+			Car c3 =new Car(674,"Mercedes","AMG GT-S","deportivo");
+			Car c4 =new Car(310,"SEAT","Leon SC","compacto");
+			Car c5= new Car(485,"SEAT","Ateka","crossover");
+			Car c6= new Car(596,"FORD","Transit","comercial");
+			Car c7 =new Car(603,"FORD","Mustang","turismo");
 
 			IDB db = new DB();
 
@@ -90,14 +87,14 @@ public class Server{
 			
 			
 	
-			db.buyCar("jon", "Car4");
+			db.rentCar("jon", "Car4");
 			double CarAverage=db.averageRatingByCar(c2.getBrand());
 			
-			logger.info("Car avergae"+CarAverage);
+			logger.info("Car average"+CarAverage);
 			
 			double userAverage=db.averageRatingByClient(a2.getEmail());
 
-			logger.info("client avergae"+userAverage);
+			logger.info("client average"+userAverage);
 
 		
 			
@@ -123,5 +120,4 @@ public class Server{
 
 	}
 }
-
 
