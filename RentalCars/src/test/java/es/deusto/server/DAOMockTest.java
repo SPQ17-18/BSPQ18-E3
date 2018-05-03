@@ -10,17 +10,20 @@ import junit.framework.JUnit4TestAdapter;
 import org.junit.runner.RunWith;  
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;  
-import org.mockito.junit.MockitoJUnitRunner; 
-
+import org.mockito.junit.MockitoJUnitRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.junit.Before;
 import org.junit.Test;
 //import org.junit.Ignore;
 
-
+import es.deusto.server.dao.DB;
 import es.deusto.server.dao.IUserDAO;
-import es.deusto.server.data.Message;
-import es.deusto.server.data.User;
-import es.deusto.server.remote.Messenger;
+import es.deusto.server.data.Car;
+import es.deusto.server.data.Client;
+import es.deusto.server.remote.IRemote;
+import es.deusto.server.remote.Remote;
+
 
 /**
  * 
@@ -30,7 +33,9 @@ import es.deusto.server.remote.Messenger;
 @RunWith(MockitoJUnitRunner.class)  
 public class DAOMockTest {
 	
-	Messenger m;
+	DB db;
+	final static  Logger logger = LoggerFactory.getLogger(DAOMockTest.class);
+	static int iteration = 0;
 	
 	@Mock
 	IUserDAO dao;
@@ -41,79 +46,95 @@ public class DAOMockTest {
 
 	@Before
 	public void setUp() throws Exception {		
-		m = new Messenger(dao);
-
+		logger.info("Entering setUp: {}", iteration++);
+		db = new DB(dao);
+		logger.info("Leaving setUp");
 	}
 
 	@Test
 	//@Ignore
 	public void testRegisterUserCorrectly() {
 	
+		logger.info("Starting testRegisterUserCorrectly() ");
 		// Stubbing - return a given value when a specific method is called
-		when( dao.retrieveUser("cortazar") ).thenReturn( null );
-		m.registerUser("cortazar", "cortazar");
+		when( dao.retrieveClient("cortazar") ).thenReturn( null );
+		Client cl = new Client ("cortazar", "cortazar",false);
+	/*?????*/	//db.registerClient(cl);
 		
 		//Use ArgumentCaptor to capture argument values for further assertions.
-		ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass( User.class );
+		ArgumentCaptor<Client> userCaptor = ArgumentCaptor.forClass( Client.class );
 		
 		// Setting expectations -  the method storeUser() is called once and the argument is intercepted
-		verify (dao).storeUser(userCaptor.capture());
-		User newUser = userCaptor.getValue();
-		System.out.println("Registering mock new user: " + newUser.getLogin());
+		verify (dao).storeClient(userCaptor.capture());
+		Client newUser = userCaptor.getValue();
+		logger.info("Registering mock new user: " + newUser.getEmail());
 	
-		assertEquals( "cortazar", newUser.getLogin());
+		assertEquals( "cortazar", newUser.getEmail());
+		logger.debug("Finishing testRegisterUserCorrectly() ");
 		
 	}
 	
 	@Test
 	public void testRegisterUserAlreadyExists() {
-		User u = new User("cortazar","cortazar");
-		
-		when( dao.retrieveUser("cortazar") ).thenReturn(u);
+		Client cl = new Client("cortazar","cortazar",false);
+		Client cl1 = new Client("cortazar","dipina",false);
+		when( dao.retrieveClient("cortazar") ).thenReturn(cl);
 		// When the user exist, we update the password
-		m.registerUser("cortazar", "dipina");
+		/*?????*/ // db.registerClient(cl1);
 		
 		
-		ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass( User.class );
-		verify (dao).updateUser(userCaptor.capture());
-		User newUser = userCaptor.getValue();
-		System.out.println("Changing password of mock user: " + newUser.getPassword());
-		assertEquals( "dipina", newUser.getPassword());
+		ArgumentCaptor<Client> userCaptor = ArgumentCaptor.forClass( Client.class );
+		verify (dao).updateClient(userCaptor.capture());
+		Client newClient= userCaptor.getValue();
+		logger.info("Changing password of mock user: " + newClient.getPassword());
+		assertEquals( "dipina", newClient.getPassword());
+		
 		
 	}
 
-	@Test(expected=RemoteException.class)
-	public void testSayMessageUserInvalid() throws RemoteException {
-		
-		when( dao.retrieveUser("cortazar") ).thenReturn( null );
-		System.out.println("Say message and invalid user, testing exception");
-		
-		m.sayMessage("cortazar", "cortazar", "testing message");
-			
-	}
+	
+	
+	
+	
 	
 	@Test
-	public void testSayMessageUserValid() throws RemoteException {
+	public void testAddCarValid() throws RemoteException {
 		// Setting up the test data
-		User u = new User("cortazar","cortazar");
-		Message mes = new Message("testing message");
-		mes.setUser(u);
-		u.addMessage(mes) ;
+		
+		Car c =new Car(596,"FORD","Transit","comercial");
 		
 		//Stubbing
-		when( dao.retrieveUser("cortazar") ).thenReturn(u);
+		when( dao.retrieveCar (2) ).thenReturn(null);
 		
 		//Calling the method under test
 		
-		m.sayMessage("cortazar", "cortazar", "testing message");
+		db.addCarToDb(c);
 		
 		// Verifying the outcome
-		ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass( User.class );
-		verify (dao).updateUser(userCaptor.capture());
-		User newUser = userCaptor.getValue();
+		ArgumentCaptor<Car> carCaptor = ArgumentCaptor.forClass( Car.class );
+		verify (dao).storeCar(carCaptor.capture());
+		Car newCar = carCaptor.getValue();
 		
-		assertEquals( "cortazar", newUser.getMessages().get(0).getUser().getLogin());
+		assertEquals( c.toString(), newCar.toString());
+		
 		
 	}
-
-}
+	
+	
+	@Test(expected=RemoteException.class)
+	public void testAddCarInvalidRemote() throws RemoteException {
+		// Setting up the test data
+		
+		Car c =null;
+		
+		
+		
+		logger.error("Invalid car remote, testing exception");
+		IRemote remote = new Remote();
+		
+		//Calling the method under test
+		remote.addCar(c);
+	}
+	
+	
+	
