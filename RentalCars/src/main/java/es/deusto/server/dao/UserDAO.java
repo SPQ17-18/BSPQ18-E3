@@ -1,9 +1,9 @@
 package es.deusto.server.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.jdo.JDOHelper;
-import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,102 +12,364 @@ import es.deusto.server.data.Car;
 import es.deusto.server.data.Client;
 import es.deusto.server.data.Rent;
 
-public  class UserDAO implements IUserDAO{
-	
-	
+
+
+public class UserDAO implements IUserDAO {
+
 	private PersistenceManagerFactory pmf;
 	final static  Logger logger = LoggerFactory.getLogger(UserDAO.class);
 
 	public UserDAO(){
 		pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 	}
-
-	@Override
-	public boolean storeClient(Client c) {
+	
+	public boolean storeClient(Client u) {
 		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public Client retrieveClient(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		boolean ret=true;
+		try {
+			tx.begin();
+
+			pm.makePersistent(u);
+			tx.commit();
+		} catch (Exception ex) {
+
+			ret=false;
+
+		} finally {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+		}
+		return ret;
 	}
 
-	@Override
-	public boolean updateClient(Client c) {
+
+	public Client retrieveClient(String DNI) {
 		// TODO Auto-generated method stub
-		return false;
+		Client client = null;
+		Client clientCopy = null;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		pm.getFetchPlan().setMaxFetchDepth(2);
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			client = pm.getObjectById(Client.class, DNI);
+			clientCopy = (Client)pm.detachCopy(client);
+			tx.commit();
+		} catch (javax.jdo.JDOObjectNotFoundException jonfe)
+		{
+
+		}
+
+		finally {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+		}
+
+		return clientCopy;
 	}
 
-	@Override
+	
+	public boolean updateClient(Client u) {
+		// TODO Auto-generated method stub
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		boolean r =true;
+		try {
+			tx.begin();
+			pm.makePersistent(u);
+			tx.commit();
+		} catch (Exception ex) {
+
+			r=false;
+		} finally {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+		}
+		return r;
+	}
+
+
+
+
+
 	public Rent retrieveRent(int id_rent) {
 		// TODO Auto-generated method stub
-		return null;
+		Rent rent = null;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		pm.getFetchPlan().setMaxFetchDepth(3);
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			rent = pm.getObjectById(Rent.class, id_rent);
+			tx.commit();
+		} catch (javax.jdo.JDOObjectNotFoundException jonfe)
+		{
+
+		}
+
+		finally {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+		}
+
+		return rent;
 	}
 
-	@Override
-	public boolean updateRent(Rent r) {
+	
+	public boolean updateRent(Rent rent) {
 		// TODO Auto-generated method stub
-		return false;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		boolean r =true;
+		try {
+			tx.begin();
+			pm.makePersistent(rent);
+			tx.commit();
+		} catch (Exception ex) {
+
+			r=false;
+		} finally {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+		}
+		return r;
 	}
 
-	@Override
-	public boolean storeCar(Car c) {
+	
+	public boolean storeCar(Car b) {
 		// TODO Auto-generated method stub
-		return false;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		boolean ret=true;
+		try {
+			tx.begin();
+
+			pm.makePersistent(b);
+			tx.commit();
+		} catch (Exception ex) {
+
+			ret=false;
+
+		} finally {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+		}
+		return ret;
 	}
 
-	@Override
+	
 	public Car retrieveCar(int ID) {
 		// TODO Auto-generated method stub
-		return null;
+		Car car = null;
+		Car carCopy = null;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		pm.getFetchPlan().setMaxFetchDepth(2);
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			car = pm.getObjectById(Car.class, ID);
+			carCopy = (Car)pm.detachCopy(car);
+			tx.commit();
+		} catch (javax.jdo.JDOObjectNotFoundException jonfe)
+		{
+
+		}
+
+		finally {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+		}
+
+		return carCopy;
 	}
 
-	@Override
-	public boolean updateCar(Car c) {
+	
+	public boolean updateCar(Car b) {
 		// TODO Auto-generated method stub
-		return false;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		boolean r =true;
+		try {
+			tx.begin();
+			pm.makePersistent(b);
+			tx.commit();
+		} catch (Exception ex) {
+
+			r=false;
+		} finally {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+		}
+		return r;
 	}
 
-	@Override
+	
 	public Car retrieveCarByParameter(String brand) {
 		// TODO Auto-generated method stub
-		return null;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		pm.getFetchPlan().setMaxFetchDepth(3);
+		Car car = null;
+
+		try {
+			tx.begin();
+			Extent<Car> extentP = pm.getExtent(Car.class);
+
+			for (Car p : extentP) {
+
+				if (p.getBrand().equals(brand)) {
+					car = p;
+				}
+			}
+			tx.commit();
+		} catch (Exception ex) {
+
+
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		logger.info(car.toString());
+		return car;
 	}
 
-	@Override
 	public List<Client> getAllClients() {
 		// TODO Auto-generated method stub
-		return null;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		pm.getFetchPlan().setMaxFetchDepth(3);
+
+		List<Client> clients=new ArrayList<>();
+		try {
+			tx.begin();
+			Extent<Client>tentP = pm.getExtent(Client.class);
+
+			for (Client p : tentP) {
+
+				clients.add(p);
+
+
+			}
+
+			tx.commit();
+		} catch (Exception ex) {
+
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+
+		return clients;
 	}
 
-	@Override
 	public List<Rent> getAllRents() {
 		// TODO Auto-generated method stub
-		return null;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		pm.getFetchPlan().setMaxFetchDepth(3);
+
+		List<Rent> rents =new ArrayList<>();
+		try {
+			tx.begin();
+			Extent<Rent> extentP = pm.getExtent(Rent.class);
+
+			for (Rent p : extentP) {
+
+				rents.add(p);
+
+
+			}
+
+			tx.commit();
+		} catch (Exception ex) {
+
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+
+		return rents;
 	}
 
-	@Override
 	public List<Car> getAllCars() {
 		// TODO Auto-generated method stub
-		return null;
-	}
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		pm.getFetchPlan().setMaxFetchDepth(3);
 
-	@Override
+		List<Car> cars=new ArrayList<>();
+		try {
+			tx.begin();
+			Extent<Car> extentP = pm.getExtent(Car.class);
+
+			for (Car p : extentP) {
+
+				cars.add(p);
+
+
+			}
+
+			tx.commit();
+		} catch (Exception ex) {
+
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+
+		return cars;
+	}
 	public void deleteRent(Rent r) {
 		// TODO Auto-generated method stub
-		
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		tx.begin();
+		pm.deletePersistent(r);
+		tx.commit();
 	}
-
-	@Override
-	public void deleteCar(Car c) {
+	public void deleteCar(Car b) {
 		// TODO Auto-generated method stub
-		
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		tx.begin();
+		pm.deletePersistent(b);
+		tx.commit();
+
 	}
 
-	
-	
-
-	
 	
 }
