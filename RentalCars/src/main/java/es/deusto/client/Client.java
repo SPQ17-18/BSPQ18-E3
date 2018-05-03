@@ -232,7 +232,7 @@ import es.deusto.server.remote.IRemote;
 			input = Integer.parseInt(System.console().readLine());
 			
 			try {
-				c = server.getCarByID(input);
+				c = server.getCarByMat(input);
 				logger.info(c.toString());
 			} catch (RemoteException e) {
 				e.printStackTrace();
