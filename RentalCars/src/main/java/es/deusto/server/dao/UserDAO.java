@@ -178,7 +178,7 @@ public class UserDAO implements IUserDAO {
 	}
 
 	
-	public Car retrieveCar(int ID) {
+	public Car retrieveCar(int Mat) {
 		// TODO Auto-generated method stub
 		Car car = null;
 		Car carCopy = null;
@@ -187,7 +187,7 @@ public class UserDAO implements IUserDAO {
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-			car = pm.getObjectById(Car.class, ID);
+			car = pm.getObjectById(Car.class, Mat);
 			carCopy = (Car)pm.detachCopy(car);
 			tx.commit();
 		} catch (javax.jdo.JDOObjectNotFoundException jonfe)
