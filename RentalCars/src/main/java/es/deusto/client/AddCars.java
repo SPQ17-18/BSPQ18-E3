@@ -6,8 +6,8 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import server.remote.IRemote;
-import server.remote.Remote;
+import es.deusto.server.remote.IRemote;
+import es.deusto.server.remote.Remote;
 
 import java.awt.*;
 import java.awt.event.*;

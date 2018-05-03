@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import es.deusto.client.Client;
+import es.deusto.client.ClientServer;
 import es.deusto.client.gui.LogIn;
 
 import es.deusto.server.remote.IRemote;
@@ -36,7 +36,7 @@ import es.deusto.server.remote.Remote;
 
 public class LogIn {
 
-final static  Logger logger = LoggerFactory.getLogger(Client.class);
+final static  Logger logger = LoggerFactory.getLogger(ClientServer.class);
 	
 
 	private JFrame frame;

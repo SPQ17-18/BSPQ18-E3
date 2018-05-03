@@ -13,7 +13,7 @@ import es.deusto.server.remote.IRemote;
 
 	public class ClientServer {
 
-		final static  Logger logger = LoggerFactory.getLogger(Client.class);
+		final static  Logger logger = LoggerFactory.getLogger(ClientServer.class);
 		
 		private static String[] logInMenu = {"Log In", "Sign Up"};
 		private static String[] showCarsMenu = {"Search", "Show all the cars", "Log Out"};
