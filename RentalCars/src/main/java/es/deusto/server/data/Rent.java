@@ -5,8 +5,6 @@ import java.io.Serializable;
 
 import javax.jdo.annotations.*;
 
-
-
 @PersistenceCapable(detachable="true")
 public class Rent implements Serializable{
 	

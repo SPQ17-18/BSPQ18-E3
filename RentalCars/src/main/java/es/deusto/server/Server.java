@@ -13,16 +13,11 @@ import es.deusto.server.remote.Remote;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
-
 public class Server{
 
 	final static  Logger logger = LoggerFactory.getLogger(Server.class);
 	public static void main(String[] args) {
 
-		
-		
 		if (args.length != 3) {
 			logger.info("[S] How to invoke: java [policy] [codebase] Server.Server [host] [port] [server]");
 			System.exit(0);
@@ -37,8 +32,6 @@ public class Server{
 		try {
 			IRemote objServer = new Remote();
 			Naming.rebind(name, objServer);
-
-	
 
 			Rent r1 = new Rent(01);
 			Rent r2 = new Rent(02);
@@ -73,19 +66,11 @@ public class Server{
 			Client a4 =db.showClient("jon");
 			Client a5=db.showClient("janire");
 			
-			
 			db.addRent(c1, r1, a1);	
 			db.addRent(c2, r2, a2);
 			
 			db.addRent(c3, r3, a3);
 			db.addRent(c3, r4, a4);
-			db.addRent(c2, r5, a5);
-			
-			
-			
-			
-			
-			
 	
 			db.rentCar("jon", "Car4");
 			double CarAverage=db.averageRatingByCar(c2.getBrand());
@@ -96,28 +81,17 @@ public class Server{
 
 			logger.info("client average"+userAverage);
 
-		
-			
-
-		
-			
 			logger.info("[S] Server '" + name + "' active and waiting...");
 			java.io.InputStreamReader inputStreamReader = new java.io.InputStreamReader ( System.in );
 			java.io.BufferedReader stdin = new java.io.BufferedReader ( inputStreamReader );
 			@SuppressWarnings("unused")
 			String line  = stdin.readLine();
 
-
-
-
-
-
 		} catch (Exception e) {
 			logger.error("[S] Server exception: ");
 			logger.trace(e.getMessage());
 			e.printStackTrace();
 		}
-
 	}
 }
 
