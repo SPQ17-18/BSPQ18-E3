@@ -7,13 +7,19 @@ import junit.framework.JUnit4TestAdapter;
 import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.junit.AfterClass;
 import org.junit.After;
 //import org.junit.Ignore;
 
-import es.deusto.server.data.User;
-import es.deusto.server.remote.IMessenger;
-import es.deusto.server.remote.Messenger;
+import es.deusto.server.data.Car;
+import es.deusto.server.data.Client;
+import es.deusto.server.data.Rent;
+
+import es.deusto.server.remote.IRemote;
+
+import es.deusto.server.remote.Remote;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -39,8 +45,8 @@ public class RMITest {
 	private static Thread rmiRegistryThread = null;
 	private static Thread rmiServerThread = null;
 	
-	private IMessenger messenger;
-
+	private IRemote remote;
+	final static Logger logger = LoggerFactory.getLogger(RMITest.class);
 	public static junit.framework.Test suite() {
 		return new JUnit4TestAdapter(RMITest.class);
 	}
@@ -86,14 +92,16 @@ public class RMITest {
 
 				try {
 					
-					IMessenger messenger = new Messenger();
-					Naming.rebind(name, messenger);
+					IRemote remote = new Remote();
+					Naming.rebind(name, remote);
 				} catch (RemoteException re) {
-					System.err.println(" # Messenger RemoteException: " + re.getMessage());
+					logger.error(" # Messenger RemoteException: ");
+					logger.trace(re.getMessage());
 					re.printStackTrace();
 					System.exit(-1);
 				} catch (MalformedURLException murle) {
-					System.err.println(" # Messenger MalformedURLException: " + murle.getMessage());
+					logger.error(" # Messenger MalformedURLException: ");
+					logger.trace(murle.getMessage());
 					murle.printStackTrace();
 					System.exit(-1);
 				}
@@ -104,6 +112,8 @@ public class RMITest {
 		try {
 			Thread.sleep(4000);
 		} catch (InterruptedException ie) {
+			logger.error("Interruption Exception");
+			logger.trace(ie.getMessage());
 			ie.printStackTrace();
 		}
 	
@@ -120,11 +130,12 @@ public class RMITest {
 
 		String name = "//127.0.0.1:1099/MessengerRMIDAO";
 		System.out.println("BeforeTest - Setting the client ready for calling TestServer name: " + name);
-		messenger = (IMessenger) java.rmi.Naming.lookup(name);
+		remote = (IRemote) java.rmi.Naming.lookup(name);
 		}
 		catch (Exception re) {
-			System.err.println(" # Messenger RemoteException: " + re.getMessage());
-	//		re.printStackTrace();
+			logger.error(" # Messenger RemoteException: ");
+			logger.trace(re.getMessage());
+			re.printStackTrace();
 			System.exit(-1);
 		} 
 		
@@ -133,10 +144,12 @@ public class RMITest {
 	@Test public void registerNewUserTest() {
 		try{
 			System.out.println("Test 1 - Register new user");
-			messenger.registerUser("ipina", "ipina");
+			remote.registerClient("user1prueba", "user1prueba", false);
 		}
 		catch (Exception re) {
-			System.err.println(" # Messenger RemoteException: " + re.getMessage());
+			logger.error(" RemoteException: " );
+			logger.trace(re.getMessage());
+			re.printStackTrace();
 		} 
 		/*
 		 * Very simple test, inserting a valid new user
@@ -147,13 +160,15 @@ public class RMITest {
 	@Test public void registerExistingUserTest() {
 		try{
 			System.out.println("Test 2 - Register existing user. Change password");
-			messenger.registerUser("smith", "smith");
+			remote.registerClient("smith", "smith",false);
 			// Silly way of testing the password testing
-			messenger.registerUser("smith", "doe");
+			remote.registerClient("smith", "doe",false);
 			
 		}
 		catch (Exception re) {
-			System.err.println(" # Messenger RemoteException: " + re.getMessage());
+			logger.error(" RemoteException: " + re.getMessage());
+			logger.trace(re.getMessage());
+			re.printStackTrace();
 		} 
 		/*
 		 * Very simple test 
@@ -161,45 +176,122 @@ public class RMITest {
 		assertTrue( true );
 	}
 	
+	@Test public void carTestValidation() {
+		logger.info("Test 3 - Game Test ");
+		
+		
+		Car c = new Car(1,"prueba","pruabe","pruebaaa");
 	
-	@Test public void sayMessageValidUser() {
-		System.out.println("Test 3 - Sending message - Valid User");
-		String ret = null;
-		try{
-			messenger.registerUser("cortazar","cortazar");
-			ret = messenger.sayMessage("cortazar", "cortazar", "testing message");
+		
+		Car carTest = null;
+		
+		try{	
+			carTest = remote.carTest();		
+			
 		} catch (RemoteException e){
+			logger.error(" # RemoteException: " + e.getMessage());
+			logger.trace(e.getMessage());
+			e.printStackTrace();
+			
 			
 		}
-		assertEquals("testing message", ret);
-	}
 	
-	
-	@After public  void deleteDatabase() {
-		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-		PersistenceManager pm = pmf.getPersistenceManager();
-        Transaction tx = pm.currentTransaction();
-        try
-        {
-            tx.begin();
-	
-            System.out.println("Deleting test users from persistence. Cleaning up.");
-            Query<User> q1 = pm.newQuery(User.class);
-            long numberInstancesDeleted = q1.deletePersistentAll();
-            System.out.println("Deleted " + numberInstancesDeleted + " user");
-			
-            tx.commit();
-        }
-        finally
-        {
-            if (tx.isActive())
-            {
-                tx.rollback();
-            }
-            pm.close();
-        }
+		assertEquals(c.toString(), carTest.toString());
 		
 	}
+	
+	@Test public void showCarsInStoreTest() {
+		try{
+			logger.info("Test 4 - showCarsInStore");
+			Car c1 =new Car(2,"adf","cochee","coche1");
+			remote.addCar(c1);
+			remote.showCarsInStore();
+			
+		}
+		catch (Exception re){
+			logger.error(" RemoteException: " );
+			logger.trace(re.getMessage());
+			re.printStackTrace();
+			
+		}
+		
+		assertTrue( true );
+		
+		
+		
+	}
+	
+	@Test public void showClientsTest() {
+		try{
+			logger.info("Test 5 - showclients");
+			
+			remote.registerClient("HL2","j",false);
+			remote.getAllClients();
+			
+		}
+		catch (Exception re){
+			logger.error(" RemoteException: " );
+			logger.trace(re.getMessage());
+			re.printStackTrace();
+			
+		}
+		
+		assertTrue( true );
+
+	}
+	
+	
+	@Test public void getThings(){
+		boolean a = true;
+		
+		try {
+			logger.info("Test 6 - showClients");
+			
+			Client cl1;
+			Rent r1 = new Rent( 01);
+			Car c1 =new Car(123,"Mercedes","AMG GT-R","deportivo");
+			Car c2=null;
+			remote.registerClient("Javier","javier",false);
+			cl1=remote.getClient("Javier");
+			
+			remote.addCar(c1);
+			
+			
+			
+			c2 =remote.getCarByMat(c1.getMat());
+			
+			remote.addRent(c2, r1, cl1);
+			remote.getRent(r1.getid_rent());
+			remote.getAllRents();
+			remote.rentCar(cl1.getEmail(), c2.getBrand());
+			
+			
+		}
+			catch (Exception re){
+				logger.error(" RemoteException: " );
+				logger.trace(re.getMessage());
+				re.printStackTrace();
+				a=false;
+				
+		}
+		assertTrue(a);
+	}
+	@Test(expected=RemoteException.class)
+	public void showUserFailTest() throws RemoteException{
+			
+			logger.info("Test 7 - showClientsFail");
+			
+			
+			remote.getClient(null);
+			
+			
+	
+		
+				
+	}
+	
+	
+	
 	
 
 	@AfterClass static public void tearDown() {
