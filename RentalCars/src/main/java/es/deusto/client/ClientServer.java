@@ -17,9 +17,9 @@ import es.deusto.server.remote.IRemote;
 		
 		private static String[] logInMenu = {"Log In", "Sign Up"};
 		private static String[] showCarsMenu = {"Search", "Show all the cars", "Log Out"};
-		private static String[] searchMenu = {"ID", "Brand", "Go back"};
-		private static String[] carSelectionMenu = {"Buy", "Write a review","Go back"};
-		private static String[] reviewMenu = {"Rank", "Comment", "Go back"};
+		private static String[] searchMenu = {"Mat", "Brand", "Go back"};
+		private static String[] carSelectionMenu = {"Rent", "View car selection","Go back"};
+		private static String[] carDetailsMenu = {"Brand", "Model", "Go back"};
 		private static String emailClientServer;
 		private static String carsSelectionBrand;
 		
@@ -51,16 +51,10 @@ import es.deusto.server.remote.IRemote;
 				input = System.console().readLine();
 				switch(input){
 				case("1"):
-					//Log in
-					 logIn(server);
-					//if(log != true){
-						//log = logIn(server);
-						//menuShowcars(server);
-					
+					logIn(server);
 					menuShowcars(server);
 					break;
 				case("2"):
-					//Sing Up = Create a new Client
 					signUp(server);
 					break;
 				case("exit"):
@@ -103,8 +97,8 @@ import es.deusto.server.remote.IRemote;
 			input = System.console().readLine();
 			switch (input) {
 			case("1"):
-				//ID
-				searchID(server);
+				//Mat
+				searchMat(server);
 				menuShowcars(server);
 				break;
 			case("2"):
@@ -128,13 +122,13 @@ import es.deusto.server.remote.IRemote;
 			input = System.console().readLine();
 			switch(input){
 			case("1"):
-				//Buy
+				//Rent
 				rentCar(server);
 				menuShowcars(server);
 				break;
 			case("2"):
-				//Write a review
-				menuReviews(server);
+				//Show details.
+				menuDetails(server);
 				break;
 			case("3"):
 				//Go back
@@ -146,17 +140,17 @@ import es.deusto.server.remote.IRemote;
 			}
 		}
 		
-		public static void menuReviews(IRemote server){
+		public static void menuDetails(IRemote server){
 			String input = "";
-			displaySubMenu(reviewMenu);
+			displaySubMenu(carDetailsMenu);
 			input = System.console().readLine();
 			switch (input) {
 			case("1"):
-				//Rank
+				//Brand
 				//TODO
 				break;
 			case("2"):
-				//Comment
+				//Model
 				//TODO
 				break;
 			case("3"):
@@ -225,10 +219,10 @@ import es.deusto.server.remote.IRemote;
 			logger.info("You have been register. Now Log In.");
 		}
 		
-		public static void searchID(IRemote server){
+		public static void searchMat(IRemote server){
 			int input;
 			Car c = null;
-			logger.info("ID:");
+			logger.info("Mat:");
 			input = Integer.parseInt(System.console().readLine());
 			
 			try {
