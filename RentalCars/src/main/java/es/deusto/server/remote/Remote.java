@@ -202,7 +202,7 @@ public class Remote extends UnicastRemoteObject implements IRemote {
 		}
 		return carRents;
 	}
-	public  double averageRatingByCar(String brand){
+	/**public  double averageRatingByCar(String brand){
 		IDB db =new DB();
 		double average=0;
 		try{
@@ -225,7 +225,7 @@ public class Remote extends UnicastRemoteObject implements IRemote {
 
 	}
 
-	
+	*/
 	@Override
 	public void deleteRent(int id_rent){
 		// TODO Auto-generated method stub

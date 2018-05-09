@@ -32,7 +32,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/F541U/.m2/repository/org/databene/contiperf/2.2.0/contiperf-2.2.0.jar">
+	<classpathentry exported="true" kind="lib" path="C:/Users/HP/.m2/repository/org/databene/contiperf/2.2.0/contiperf-2.2.0.jar">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="maven.groupId" value="org.databene"/>

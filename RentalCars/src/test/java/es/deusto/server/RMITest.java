@@ -178,22 +178,14 @@ public class RMITest {
 	
 	@Test public void carTestValidation() {
 		logger.info("Test 3 - Game Test ");
-		
-		
-		Car c = new Car(1,"prueba","pruabe","pruebaaa");
-	
-		
+		Car c = new Car(1,"prueba","pruabe"," ");
 		Car carTest = null;
-		
 		try{	
 			carTest = remote.carTest();		
-			
 		} catch (RemoteException e){
 			logger.error(" # RemoteException: " + e.getMessage());
 			logger.trace(e.getMessage());
-			e.printStackTrace();
-			
-			
+			e.printStackTrace();	
 		}
 	
 		assertEquals(c.toString(), carTest.toString());

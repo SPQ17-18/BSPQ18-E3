@@ -13,8 +13,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import es.deusto.server.db.DB;
-import es.deusto.server.db.IDB;
+import es.deusto.server.dao.DB;
+import es.deusto.server.dao.IDB;
 import junit.framework.JUnit4TestAdapter;
 import es.deusto.server.data.Car;
 
@@ -44,7 +44,8 @@ public class ContiPerfTest {
 	public void storeCar() {
 		logger.info("ContiPerf store car");
 		
-		//Car c =new Car(count,"Conti", "probando",10.3);
+		Car c =new Car(123, "hh", "gg", "ff");
+		
 		
 		db.addCarToDb(c);
 		count++;
@@ -58,7 +59,7 @@ public class ContiPerfTest {
 		
 		String idEmail ="" + count3 ;
 			logger.info("Test 1 - Register new user");
-			db.registerUser(idEmail, "ipina",false);
+			db.registerClient(idEmail, "ipina",false);
 			logger.info("User email" + idEmail);
 			
 			count3++;
@@ -76,7 +77,7 @@ public class ContiPerfTest {
 	public void storeCarDuration() {
 		logger.info("ContiPerf  storeCarDuration");
 		
-		//Car c =new Car(count,"Conti", "probando",10.3);
+		Car c =new Car(123, "hh", "gg", "ff");
 		
 		db.addCarToDb(c);
 		count++;
