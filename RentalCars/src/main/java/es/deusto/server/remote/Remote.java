@@ -254,10 +254,10 @@ public class Remote extends UnicastRemoteObject implements IRemote {
  * @return boolean true if the car is created and stored in db
  */
 	@Override
-	public boolean addCar(int mat, String colour, String model, String type,String brand, List<String> accesories ) {
+	public boolean addCar(int mat, String colour, String model, String type,String brand, boolean accesories ) {
 		// TODO Auto-generated method stub
 		IDB db = new DB();
-		Car c=new Car(mat, colour, model, type, accesories ,brand);
+		Car c=new Car(mat, colour, model, type, brand ,accesories);
 		try{
 			db.addCarToDb(c);
 		}catch(Exception e){

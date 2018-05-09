@@ -50,10 +50,10 @@ final static  Logger logger = LoggerFactory.getLogger(ClientServer.class);
 	private JButton btnLogIn;
 	private JLabel loginMesage;
 	private JLabel signUpMesage;
-	
 	private JButton btnNewClient;
-	
 	private String clientEmail;
+	ShowcarsAdmin ShowCarsAdmin;
+	ShowCars ShowCars;
 	private boolean role = false;   //true --> admin
 									//false -->  client
 	IRemote server;
@@ -187,6 +187,20 @@ final static  Logger logger = LoggerFactory.getLogger(ClientServer.class);
 				}
 				
 				//client and admin
+				
+				if(role == false){
+					ShowCars = new ShowCars(clientEmail);
+					frame.setVisible(false);
+					frame.dispose();
+					frame.revalidate();
+					frame.repaint();
+				}else{
+					ShowCarsAdmin = new ShowcarsAdmin(clientEmail);
+					frame.setVisible(false);
+					frame.dispose();
+					frame.revalidate();
+					frame.repaint();
+				}
 			}
 		});
 		btnLogIn.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -336,7 +350,10 @@ final static  Logger logger = LoggerFactory.getLogger(ClientServer.class);
 					} catch (RemoteException e) {
 						logger.info(e.getMessage());
 					}
-					
+					ShowCars = new ShowCars(clientEmail);
+					frame.dispose();
+					frame.revalidate();
+					frame.repaint();
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "Sorry , try again!", "InfoBox: " + "Log In", JOptionPane.ERROR_MESSAGE);

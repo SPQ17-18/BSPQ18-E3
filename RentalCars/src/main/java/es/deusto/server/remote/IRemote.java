@@ -170,5 +170,5 @@ public interface IRemote extends Remote{
 	 * @param accesories
 	 * @throws RemoteException
 	 */
-	boolean addCar(int mat, String colour, String model, String type, String brand, List <String> accesories) throws RemoteException;
+	boolean addCar(int mat, String colour, String model, String type, String brand, boolean accesories) throws RemoteException;
 }
