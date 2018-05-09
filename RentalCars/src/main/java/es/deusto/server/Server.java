@@ -73,13 +73,6 @@ public class Server{
 			db.addRent(c3, r4, a4);
 	
 			db.rentCar("jon", "Car4");
-			double CarAverage=db.averageRatingByCar(c2.getBrand());
-			
-			logger.info("Car average"+CarAverage);
-			
-			double userAverage=db.averageRatingByClient(a2.getEmail());
-
-			logger.info("client average"+userAverage);
 
 			logger.info("[S] Server '" + name + "' active and waiting...");
 			java.io.InputStreamReader inputStreamReader = new java.io.InputStreamReader ( System.in );
