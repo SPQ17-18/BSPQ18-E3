@@ -39,13 +39,13 @@ public class Server{
 			Rent r4 = new Rent(04);
 			Rent r5 = new Rent(05);
 			
-			Car c1 =new Car(123,"Mercedes","AMG GT-R","deportivo");
-			Car c2 =new Car(256,"Mercedes","AMG GT-C","deportivo");
-			Car c3 =new Car(674,"Mercedes","AMG GT-S","deportivo");
-			Car c4 =new Car(310,"SEAT","Leon SC","compacto");
-			Car c5= new Car(485,"SEAT","Ateka","crossover");
-			Car c6= new Car(596,"FORD","Transit","comercial");
-			Car c7 =new Car(603,"FORD","Mustang","turismo");
+			Car c1 =new Car(123,"Mercedes","AMG GT-R","deportivo",120);
+			Car c2 =new Car(256,"Mercedes","AMG GT-C","deportivo",35);
+			Car c3 =new Car(674,"Mercedes","AMG GT-S","deportivo",45);
+			Car c4 =new Car(310,"SEAT","Leon SC","compacto",150);
+			Car c5= new Car(485,"SEAT","Ateka","crossover",200);
+			Car c6= new Car(596,"FORD","Transit","comercial",75);
+			Car c7 =new Car(603,"FORD","Mustang","turismo",65);
 
 			IDB db = new DB();
 

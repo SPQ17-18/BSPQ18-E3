@@ -66,10 +66,11 @@ public class Remote extends UnicastRemoteObject implements IRemote {
 	public boolean addCar(Car car) throws RemoteException{
 		if(car!=null){
 			IDB db = new DB();
-			return db.addCarToDb(car);
+			//return db.addCarToDb(car);
 		}else{
 			throw new RemoteException("Invalid car");
 		}
+		return false;
 	}
 
 	@Override
@@ -88,7 +89,7 @@ public class Remote extends UnicastRemoteObject implements IRemote {
 	@Override
 	public Car carTest() {
 
-		Car c = new Car(123,"Mercedes","AMG GT-R","deportivo");
+		Car c = new Car(123,"Mercedes","AMG GT-R","deportivo",85);
 
 		IDB db = new DB();
 
@@ -105,7 +106,7 @@ public class Remote extends UnicastRemoteObject implements IRemote {
 		IDB db =new DB();
 		Car c = null;
 		try{
-			c = db.showCarByMat(mat);
+		//	c = db.showCarByMat(mat);
 		}catch (Exception e){
 
 		}
@@ -149,12 +150,7 @@ public class Remote extends UnicastRemoteObject implements IRemote {
 
 		}else{
 			throw new RemoteException();
-
-
-
 		}
-
-
 	}
 
 	@Override
@@ -163,7 +159,7 @@ public class Remote extends UnicastRemoteObject implements IRemote {
 		IDB db =new DB();
 		boolean a=false;
 		try{
-			a = db.rentCar(email, brand);
+			//a = db.rentCar(email, brand);
 		}catch(Exception e){
 
 		}
@@ -175,7 +171,7 @@ public class Remote extends UnicastRemoteObject implements IRemote {
 		IDB db =new DB();
 		boolean a=false;
 		try{
-			a = db.addRent(c, r, cl);
+		//	a = db.addRent(c, r, cl);
 		}catch(Exception e){
 
 		}
@@ -253,11 +249,10 @@ public class Remote extends UnicastRemoteObject implements IRemote {
 /**
  * @return boolean true if the car is created and stored in db
  */
-	@Override
-	public boolean addCar(int mat, String colour, String model, String type,String brand, boolean accesories ) {
+	public boolean addCar(int mat, String colour, String model, String type,String brand, boolean accesories, double price ) {
 		// TODO Auto-generated method stub
 		IDB db = new DB();
-		Car c=new Car(mat, colour, model, type, brand ,accesories);
+		Car c=new Car(mat, colour, model, type, brand ,accesories, price);
 		try{
 			db.addCarToDb(c);
 		}catch(Exception e){
@@ -280,6 +275,19 @@ public List<Rent> getClientsRents(String email) throws RemoteException {
 	}
 	return clientsRents;
 }
+
+@Override
+public double averageRatingByCar(String brand) throws RemoteException {
+	// TODO Auto-generated method stub
+	return 0;
+}
+
+@Override
+public double averageRatingByClient(String email) throws RemoteException {
+	// TODO Auto-generated method stub
+	return 0;
+}
+
 
 
 

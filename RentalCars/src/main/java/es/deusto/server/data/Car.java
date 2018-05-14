@@ -16,35 +16,34 @@ public class Car implements Serializable{
 	private String model;
 	private String type;
 	private boolean accesories;
+	private double price;
 
 	
-	public Car(int mat, String colour, String model, String type, String brand, boolean accesories){
+	public Car(int mat, String colour, String model, String type, String brand, boolean accesories,double price){
 		this.mat = mat;
 		this.colour = colour;
 		this.model = model;
 		this.type = type;
 		this.accesories = true;
 		this.brand = brand;
+		this.price=price;
 		
 	}
 	
-	public Car(int mat, String brand, String model, String type) {
+	public Car(int mat, String brand, String model, String type, double price) {
 		this.mat=mat;
 		this.brand=brand;
 		this.model=model;		
 		this.type=type;
+		this.price=price;
 	}
 	
 
 	
 	List<Rent> rents = new ArrayList<Rent>();
 	
-	List<Client> client = new ArrayList<Client>();
-	
-	public List<Client> getClient(){
-		return this.client;
-	}
-
+	List<Client> clients = new ArrayList<Client>();
+		
 	public int getMat() {
 		return mat;
 	}
@@ -82,8 +81,36 @@ public class Car implements Serializable{
 	public void setAccesories(boolean accesories){
 		this.accesories = accesories;
 	}
+	
+	public double  getPrice() {
+		return price;
+	}
+	
+	public void setPrice(double price) {
+		this.price = price;
+	}
 
 	public String toString() {
 		 return "Car: mat --> " + this.mat + ", brand -->  " + this.brand + ",  model -->  " + this.model + ", type --> "+ this.type + " colour -->  " + this.colour + ", accesories --> "+ this.accesories;
+	}
+	
+	public void addRent(Rent rent){
+		rents.add(rent);
+	}
+	public void removeRent(Rent rent){
+		rents.remove(rent);
+	}
+	public List<Rent> getRents(){
+		return this.rents;
+	}
+	
+	public void addClient(Client client){
+		clients.add(client);
+	}
+	public void removeClient(Client client){
+		clients.remove(client);
+	}
+	public List<Client> getClients(){
+		return this.clients;
 	}
 }

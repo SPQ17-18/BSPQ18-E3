@@ -16,7 +16,7 @@ public class Client implements Serializable{
 	private String DNI;
 	private int age;
 	private String name;
-	private int creditCard;
+	private double money=0;
 	private String address;	
 	private String email;
 	private String password;
@@ -24,12 +24,12 @@ public class Client implements Serializable{
  	//false --> user
 	
 
-	public Client(String DNI, int age, String name, int creditCard,String address, String email, String password, boolean role) {
+	public Client(String DNI, int age, String name, double money,String address, String email, String password, boolean role) {
 		
 		this.DNI = DNI;
 		this.age = age;
 		this.name = name;
-		this.creditCard = creditCard;
+		this.money = money;
 		this.address = address;
 		this.email = email;
 		this.password = password;
@@ -42,6 +42,7 @@ public class Client implements Serializable{
 		this.email = email;
 		this.password = password;
 		this.role = role;
+		this.money=200;
 		
 	}
 	
@@ -53,9 +54,6 @@ public class Client implements Serializable{
 	List<Car> cars = new ArrayList<Car>();
 	
 
-	public List<Car> getCars(){
-		return this.cars;
-	}
 	
 	
 	public String getDNI() {
@@ -90,13 +88,7 @@ public class Client implements Serializable{
 	       this.address = address;
 	}
 
-	public int getCreditCard() {
-		return creditCard;
-	}
 	
-	public void setCreditCard(int creditCard) {
-	       this.creditCard = creditCard;
-	}
 
 	public String getEmail() {
 		return email;
@@ -122,11 +114,38 @@ public class Client implements Serializable{
 		this.role = role;
 	}
 	
+	public double getMoney() {
+		return money;
+	}
+	public void setMoney(double money) {
+		this.money = money;
+	}
+	
 	 public String toString() {
 		 return "Client: email --> " + this.email + ", password -->  " + this.password + ",  User Role -->  " + this.role;
 		
         	
 	 }
+	 
+	 public void addRent(Rent rent){
+		 rents.add(rent);
+		}
+		public void removeRent(Rent rent){
+			rents.remove(rent);
+		}
+		public List<Rent> getRents(){
+			return this.rents;
+		}
+		
+		public void addCar(Car car){
+			cars.add(car);
+		}
+		public void removeCar(Car car){
+			cars.remove(car);
+		}
+		public List<Car> getCars(){
+			return this.cars;
+		}
 	 
 	 
 }
