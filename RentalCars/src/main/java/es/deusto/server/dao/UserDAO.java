@@ -48,7 +48,7 @@ public class UserDAO implements IUserDAO {
 	}
 
 
-	public Client retrieveClient(String DNI) {
+	public Client retrieveClient(String email) {
 		// TODO Auto-generated method stub
 		Client client = null;
 		Client clientCopy = null;
@@ -57,7 +57,7 @@ public class UserDAO implements IUserDAO {
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-			client = pm.getObjectById(Client.class, DNI);
+			client = pm.getObjectById(Client.class, email);
 			clientCopy = (Client)pm.detachCopy(client);
 			tx.commit();
 		} catch (javax.jdo.JDOObjectNotFoundException jonfe)
@@ -153,7 +153,7 @@ public class UserDAO implements IUserDAO {
 	}
 
 	
-	public boolean storeCar(Car b) {
+	public boolean storeCar(Car c) {
 		// TODO Auto-generated method stub
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
@@ -161,7 +161,7 @@ public class UserDAO implements IUserDAO {
 		try {
 			tx.begin();
 
-			pm.makePersistent(b);
+			pm.makePersistent(c);
 			tx.commit();
 		} catch (Exception ex) {
 
@@ -207,14 +207,14 @@ public class UserDAO implements IUserDAO {
 	}
 
 	
-	public boolean updateCar(Car b) {
+	public boolean updateCar(Car c) {
 		// TODO Auto-generated method stub
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		boolean r =true;
 		try {
 			tx.begin();
-			pm.makePersistent(b);
+			pm.makePersistent(c);
 			tx.commit();
 		} catch (Exception ex) {
 
@@ -361,12 +361,12 @@ public class UserDAO implements IUserDAO {
 		pm.deletePersistent(r);
 		tx.commit();
 	}
-	public void deleteCar(Car b) {
+	public void deleteCar(Car c) {
 		// TODO Auto-generated method stub
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		tx.begin();
-		pm.deletePersistent(b);
+		pm.deletePersistent(c);
 		tx.commit();
 
 	}
