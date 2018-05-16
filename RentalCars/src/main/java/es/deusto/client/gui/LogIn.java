@@ -28,8 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import es.deusto.client.ClientServer;
-import es.deusto.client.gui.LogIn;
-
 import es.deusto.server.remote.IRemote;
 import es.deusto.server.remote.Remote;
 
@@ -101,7 +99,8 @@ final static  Logger logger = LoggerFactory.getLogger(ClientServer.class);
 		logIn.setBackground(SystemColor.window);
 		logIn.setLayout(new GridBagLayout());
 		frame.getContentPane().add(logIn, BorderLayout.CENTER);
-
+		 frame.setLocationRelativeTo(null);
+		frame.setSize(750, 600);
 		
 		
 		// JLabel component about login message
