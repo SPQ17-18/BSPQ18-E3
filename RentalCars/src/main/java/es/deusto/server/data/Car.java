@@ -15,16 +15,16 @@ public class Car implements Serializable{
 	private String brand;
 	private String model;
 	private String type;
-	private boolean accesories;
+	private String accesories;
 	private double price;
 
 	
-	public Car(int mat, String colour, String model, String type, String brand, boolean accesories,double price){
+	public Car(int mat, String colour, String model, String type, String brand, String accesories,double price){
 		this.mat = mat;
 		this.colour = colour;
 		this.model = model;
 		this.type = type;
-		this.accesories = true;
+		this.accesories = accesories;
 		this.brand = brand;
 		this.price=price;
 		
@@ -75,13 +75,31 @@ public class Car implements Serializable{
 	public void setModel(String model) {
 		this.model = model;
 	}
-	public boolean accesories(){
-		return this.accesories;
+	
+	
+	
+	public String getAccesories() {
+		return accesories;
 	}
-	public void setAccesories(boolean accesories){
+
+	public void setAccesories(String accesories) {
 		this.accesories = accesories;
 	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	
+
+	public void setRents(List<Rent> rents) {
+		this.rents = rents;
+	}
+
 	public double  getPrice() {
 		return price;
 	}

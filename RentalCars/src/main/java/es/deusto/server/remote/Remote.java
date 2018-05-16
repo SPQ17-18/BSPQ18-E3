@@ -249,7 +249,7 @@ public class Remote extends UnicastRemoteObject implements IRemote {
 /**
  * @return boolean true if the car is created and stored in db
  */
-	public boolean addCar(int mat, String colour, String model, String type,String brand, boolean accesories, double price ) {
+	public boolean addCar(int mat, String colour, String model, String type,String brand, String accesories, double price ) {
 		// TODO Auto-generated method stub
 		IDB db = new DB();
 		Car c=new Car(mat, colour, model, type, brand ,accesories, price);
@@ -287,6 +287,7 @@ public double averageRatingByClient(String email) throws RemoteException {
 	// TODO Auto-generated method stub
 	return 0;
 }
+
 
 
 
