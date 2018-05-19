@@ -27,14 +27,14 @@ import javax.swing.JTextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import es.deusto.client.ClientServer;
+import es.deusto.client.Client;
 import es.deusto.server.remote.IRemote;
 import es.deusto.server.remote.Remote;
 
 
 public class LogIn {
 
-final static  Logger logger = LoggerFactory.getLogger(ClientServer.class);
+final static  Logger logger = LoggerFactory.getLogger(Client.class);
 	
 
 	private JFrame frame;
@@ -179,7 +179,7 @@ final static  Logger logger = LoggerFactory.getLogger(ClientServer.class);
 				String accessPassword = String.valueOf(password.getPassword());
 				try {
 					role = server.getClient(accessEmail).getRole();
-					server.registerClient(accessEmail, accessPassword, role);
+					server.registerClient(accessEmail);
 					clientEmail = accessEmail;
 				} catch (RemoteException e) {
 					logger.info(e.getMessage());
@@ -345,7 +345,7 @@ final static  Logger logger = LoggerFactory.getLogger(ClientServer.class);
 				if (passtxt.equals(confpasstxt) && !emailSignUp.equals("Email Address") && !fullName.equals("Full Name")){
 					try {
 						role = false;
-						server.registerClient(emailSignUp.getText(), passtxt, role);
+						server.registerClient(emailSignUp.getText());
 					} catch (RemoteException e) {
 						logger.info(e.getMessage());
 					}
