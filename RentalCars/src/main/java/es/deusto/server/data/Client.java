@@ -37,8 +37,9 @@ public class Client implements Serializable{
 		
 	}
 	
-	public Client(String email, String password, boolean role) {
+	public Client(String name, String email, String password, boolean role) {
 		// TODO Auto-generated constructor stub
+		this.name=name;
 		this.email = email;
 		this.password = password;
 		this.role = role;
@@ -128,7 +129,7 @@ public class Client implements Serializable{
 	 }
 	 
 	 public void addRent(Rent rent){
-		 rents.add(rent);
+		 this.rents.add(rent);
 		}
 		public void removeRent(Rent rent){
 			rents.remove(rent);

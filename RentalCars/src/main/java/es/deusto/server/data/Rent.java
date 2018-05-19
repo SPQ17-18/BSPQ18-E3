@@ -22,30 +22,21 @@ public class Rent implements Serializable{
 	private String comment;
 	private double rating;
 	*/
-	public Rent( Client client, Car car/**, String comment, double rating*/) {
-		super();
-		
-		this.client = client;
-		this.car = car;
-		/**this.comment = comment;
-		this.rating = rating;*/
-	}
-	
-	public Rent(int id_rent) {
+	public Rent( int id_rent, Client client, Car car) {
 		super();
 		this.id_rent=id_rent;
+		this.client = client;
+		this.car = car;
+	}
+	
+	public Rent(int id_rent, Client client) {
+		super();
+		this.id_rent=id_rent;
+		this.client=client;
 		// TODO Auto-generated constructor stub
 	}
 
-/**
-	public Rent( String comment, double rating) {
-		super();
-		
-		this.comment = comment;
-		this.rating = rating;
-	}
 
-*/
 	public Client getClient() {
 		return client;
 	}
@@ -59,19 +50,6 @@ public class Rent implements Serializable{
 		this.car = car;
 	}
 	
-/**	public String getComment() {
-		return comment;
-	}
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
-	public double getRating() {
-		return rating;
-	}
-	public void setRating(double rating) {
-		this.rating = rating;
-	}
-*/
 
 	public int getid_rent() {
 		return id_rent;
