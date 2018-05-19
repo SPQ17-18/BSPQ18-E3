@@ -11,9 +11,9 @@ import es.deusto.client.gui.LogIn;
 import es.deusto.server.data.Car;
 import es.deusto.server.remote.IRemote;
 
-	public class ClientServer {
+	public class Client {
 
-		final static  Logger logger = LoggerFactory.getLogger(ClientServer.class);
+		final static  Logger logger = LoggerFactory.getLogger(Client.class);
 		
 		private static String[] logInMenu = {"Log In", "Sign Up"};
 		private static String[] showCarsMenu = {"Search", "Show all the cars", "Log Out"};
@@ -179,7 +179,7 @@ import es.deusto.server.remote.IRemote;
 			password = input;		
 			
 			try {
-				server.registerClient(emailClientServer, password, false);
+				server.registerClient(emailClientServer);
 				
 			} catch (RemoteException e) {
 				logger.info(e.getMessage());
@@ -212,7 +212,7 @@ import es.deusto.server.remote.IRemote;
 				}
 			}while(!password1.equals(password2));
 			try {
-				server.registerClient(email, password1, false);
+				server.registerClient(email);
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
