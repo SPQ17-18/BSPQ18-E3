@@ -4,8 +4,8 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
+
 
 import es.deusto.client.gui.LogIn;
 import es.deusto.server.data.Car;
@@ -13,7 +13,7 @@ import es.deusto.server.remote.IRemote;
 
 	public class Client {
 
-		final static  Logger logger = LoggerFactory.getLogger(Client.class);
+		final static  Logger logger = Logger.getLogger(Client.class);
 		
 		private static String[] logInMenu = {"Log In", "Sign Up"};
 		private static String[] showCarsMenu = {"Search", "Show all the cars", "Log Out"};
@@ -310,7 +310,7 @@ import es.deusto.server.remote.IRemote;
 				String name = "//" + args[0] + ":" + args[1] + "/" + args[2];
 				IRemote server = (IRemote) java.rmi.Naming.lookup(name);
 				
-				logIn = new LogIn();
+				logIn = new LogIn(server);
 			}catch (Exception e) {
 				logger.error("RMI Example exception: " + e.getMessage());
 				e.printStackTrace();

@@ -3,51 +3,27 @@ package es.deusto.client.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.Insets;
 import java.awt.SystemColor;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.RowFilter;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
-
 import es.deusto.server.remote.IRemote;
 import es.deusto.server.remote.Remote;
 
-import java.awt.GridLayout;
-
-import javax.swing.AbstractButton;
-import javax.swing.BoxLayout;
-import javax.swing.JScrollBar;
 import javax.swing.JTextPane;
 
 
@@ -58,7 +34,7 @@ public class ShowDescriptionAdmin implements ActionListener {
 	private JFrame frame;
 	
 	private JPanel carPanel;
-	private JLabel lblImage;
+
 	private JLabel lblBrand;
 	private JTextField txtBrand;
 	private JLabel lblModel;
@@ -77,13 +53,12 @@ public class ShowDescriptionAdmin implements ActionListener {
 	private JTextField txtRentR;
 	private JButton btnGoBack;
 	private JTable rentsTable;
-	//private ReviewTableModel m;
 	private JScrollPane scrollRents;
 	private JPanel rentPanel;
 	private JLabel label;
 	private JButton btnRemove;
 	
-	private JButton btnEditImage;
+
 	private JButton btnEditBrand;
 	private JButton btnEditModel;
 	private JButton btnEditType;
@@ -149,17 +124,7 @@ public class ShowDescriptionAdmin implements ActionListener {
 		frame.getContentPane().add(carPanel, BorderLayout.CENTER);
 		carPanel.setLayout(null);
 		
-		lblImage = new JLabel("Image");
-		lblImage.setBounds(46, 39, 232, 274);
-		carPanel.add(lblImage);
 		
-		this.btnEditImage = new JButton(" Edit ");
-		this.btnEditImage.setOpaque(false);
-		this.btnEditImage.setContentAreaFilled(false);
-		this.btnEditImage.setBorderPainted(false);
-		this.btnEditImage.setBounds(46, 39, 260, 274);
-		carPanel.add(this.btnEditImage);
-		this.btnEditImage.addActionListener(this);
 		
 		lblBrand = new JLabel("Brand:");
 		lblBrand.setBounds(357, 60, 32, 23);
@@ -215,13 +180,13 @@ public class ShowDescriptionAdmin implements ActionListener {
 		txtModel.setBounds(415, 94, 177, 23);
 		carPanel.add(txtModel);
 		
-		this.btnEditModel = new JButton(" Edit ");
-		this.btnEditModel.setOpaque(false);
-		this.btnEditModel.setContentAreaFilled(false);
-		this.btnEditModel.setBorderPainted(false);
-		this.btnEditModel.setBounds(542, 94, 177, 23);
+		btnEditModel = new JButton(" Edit ");
+		btnEditModel.setOpaque(false);
+		btnEditModel.setContentAreaFilled(false);
+		btnEditModel.setBorderPainted(false);
+		btnEditModel.setBounds(542, 94, 177, 23);
 		carPanel.add(this.btnEditModel);
-		this.btnEditModel.addActionListener(this);
+		btnEditModel.addActionListener(this);
 		
 		try {
 			txtType = new JTextField(server.getCarByBrand(brand).getType());
@@ -234,13 +199,13 @@ public class ShowDescriptionAdmin implements ActionListener {
 		txtType.setBounds(415, 128, 177, 23);
 		carPanel.add(txtType);
 		
-		this.btnEditType = new JButton(" Edit ");
-		this.btnEditType.setOpaque(false);
-		this.btnEditType.setContentAreaFilled(false);
-		this.btnEditType.setBorderPainted(false);
-		this.btnEditType.setBounds(542, 128, 177, 23);
+		btnEditType = new JButton(" Edit ");
+		btnEditType.setOpaque(false);
+		btnEditType.setContentAreaFilled(false);
+		btnEditType.setBorderPainted(false);
+		btnEditType.setBounds(542, 128, 177, 23);
 		carPanel.add(this.btnEditType);
-		this.btnEditType.addActionListener (this);
+		btnEditType.addActionListener (this);
 		
 		try {
 			txtColour = new JTextField(server.getCarByBrand(brand).getColour());
@@ -253,13 +218,13 @@ public class ShowDescriptionAdmin implements ActionListener {
 		txtColour.setBounds(415, 162, 177, 23);
 		carPanel.add(txtColour);
 		
-		this.btnEditColour = new JButton(" Edit ");
-		this.btnEditColour.setOpaque(false);
-		this.btnEditColour.setContentAreaFilled(false);
-		this.btnEditColour.setBorderPainted(false);
-		this.btnEditColour.setBounds(542, 162, 177, 23);
+		btnEditColour = new JButton(" Edit ");
+		btnEditColour.setOpaque(false);
+		btnEditColour.setContentAreaFilled(false);
+		btnEditColour.setBorderPainted(false);
+		btnEditColour.setBounds(542, 162, 177, 23);
 		carPanel.add(this.btnEditColour);
-		this.btnEditColour.addActionListener(this);
+		btnEditColour.addActionListener(this);
 		
 		try {
 			txtPrice = new JTextField(""+server.getCarByBrand(brand).getPrice());
@@ -287,32 +252,29 @@ public class ShowDescriptionAdmin implements ActionListener {
 		txtMat.setBounds(415, 196, 177, 23);
 		carPanel.add(txtMat);
 		
-		this.btnEditMat = new JButton(" Edit ");
-		this.btnEditMat.setOpaque(false);
-		this.btnEditMat.setContentAreaFilled(false);
-		this.btnEditMat.setBorderPainted(false);
-		this.btnEditMat.setBounds(542, 196, 177, 23);
+		btnEditMat = new JButton(" Edit ");
+		btnEditMat.setOpaque(false);
+		btnEditMat.setContentAreaFilled(false);
+		btnEditMat.setBorderPainted(false);
+		btnEditMat.setBounds(542, 196, 177, 23);
 		carPanel.add(this.btnEditMat);
-		this.btnEditMat.addActionListener(this);
+		btnEditMat.addActionListener(this);
 		
-		try {
-			txtRentR = new JTextField("" + server.averageRatingByCar(brand)+ " /10");
-		} catch (RemoteException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
+		
+		txtRentR = new JTextField("");
+		
 		txtRentR.setEditable(false);
 		txtRentR.setColumns(10);
 		txtRentR.setBounds(716, 136, 92, 23);
 		carPanel.add(txtRentR);
 		
-		this.btnEditRentR = new JButton(" Edit ");
-		this.btnEditRentR.setOpaque(false);
-		this.btnEditRentR.setContentAreaFilled(false);
-		this.btnEditRentR.setBorderPainted(false);
-		this.btnEditRentR.setBounds(800, 136, 92, 23);
+		btnEditRentR = new JButton(" Edit ");
+		btnEditRentR.setOpaque(false);
+		btnEditRentR.setContentAreaFilled(false);
+		btnEditRentR.setBorderPainted(false);
+		btnEditRentR.setBounds(800, 136, 92, 23);
 		carPanel.add(this.btnEditRentR);
-		this.btnEditRentR.addActionListener(this);
+		btnEditRentR.addActionListener(this);
 		
 		txtAccesories = new JTextPane();
 		txtAccesories.setEditable(false);
@@ -325,22 +287,22 @@ public class ShowDescriptionAdmin implements ActionListener {
 		txtAccesories.setBounds(357, 251, 460, 58);
 		carPanel.add(txtAccesories);
 		
-		this.btnEditAccesories = new JButton(" Edit ");
-		this.btnEditAccesories.setOpaque(false);
-		this.btnEditAccesories.setContentAreaFilled(false);
-		this.btnEditAccesories.setBorderPainted(false);
-		this.btnEditAccesories.setBounds(810, 251, 92, 23);
+		btnEditAccesories = new JButton(" Edit ");
+		btnEditAccesories.setOpaque(false);
+		btnEditAccesories.setContentAreaFilled(false);
+		btnEditAccesories.setBorderPainted(false);
+		btnEditAccesories.setBounds(810, 251, 92, 23);
 		carPanel.add(this.btnEditAccesories);
-		this.btnEditAccesories.addActionListener(this);
+		btnEditAccesories.addActionListener(this);
 		
 		
-		this.btnEditPrice = new JButton(" Edit ");
-		this.btnEditPrice.setOpaque(false);
-		this.btnEditPrice.setContentAreaFilled(false);
-		this.btnEditPrice.setBorderPainted(false);
-		this.btnEditPrice.setBounds(800, 81, 89, 23);
+		btnEditPrice = new JButton(" Edit ");
+		btnEditPrice.setOpaque(false);
+		btnEditPrice.setContentAreaFilled(false);
+		btnEditPrice.setBorderPainted(false);
+		btnEditPrice.setBounds(800, 81, 89, 23);
 		carPanel.add(this.btnEditPrice);
-		this.btnEditPrice.addActionListener(this);
+		btnEditPrice.addActionListener(this);
 		
 		rentPanel = new JPanel();
 		rentPanel.setBounds(0, 337, 975, 285);

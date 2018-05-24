@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 
-
+@PersistenceCapable
 public class Client implements Serializable{
 	
 	

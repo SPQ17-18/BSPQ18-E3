@@ -1,10 +1,8 @@
 package es.deusto.client.gui;
 
 
-/* sorter???
- * CarTableModel??
- * visualizar boton search
- * */
+
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -38,20 +36,19 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import es.deusto.server.remote.IRemote;
+//import es.deusto.server.remote.Remote;
 import es.deusto.server.remote.Remote;
+
 
 public class ShowCars {
 
-	private ShowDescription showDescription;
 	private JFrame frame;
 
 	private JPanel carSearch;
-	private JLabel lblConnect;
 	private JLabel lblSearch;
 	private String textuser;
 	private JComboBox cmbSearch;
 	private String cmbSearchSelection;
-	private JPanel car;
 	private JTextField textSearchUser;
 	private JButton btnSearch;
 	private JTable listOfCars;
@@ -60,8 +57,11 @@ public class ShowCars {
 	private JButton btnLogOut;
 
 	private static String email;
+	private static String brand;
 	private LogIn logIn;
 	IRemote server;
+	private ShowDescription showDescrip;
+	//private String cl=null;
 	
 	/**
 	 * Launch the application.
@@ -70,7 +70,7 @@ public class ShowCars {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ShowCars window = new ShowCars(email);
+					new ShowCars(email);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -118,6 +118,34 @@ public class ShowCars {
 		carSearch.setLayout(new GridBagLayout());
 		frame.getContentPane().add(carSearch, BorderLayout.CENTER);
 		//Search.setVisible(false);
+		
+		btnSearch = new JButton("Search");
+		btnSearch.setVerticalAlignment(SwingConstants.TOP);
+		btnSearch.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
+		btnSearch.setBackground(SystemColor.controlHighlight);
+		GridBagConstraints gbc_btnAddACar = new GridBagConstraints();
+		gbc_btnAddACar.insets = new Insets(0, 0, 5, 0);
+		gbc_btnAddACar.gridx = 4;
+		gbc_btnAddACar.gridy = 0;
+		carSearch.add(btnSearch, gbc_btnAddACar);
+		btnSearch.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					showDescrip = new ShowDescription(brand, email);
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				frame.dispose();
+				frame.revalidate();
+				frame.repaint();
+			}
+		});
+		
+		
 		
 		// JLabel component about search message
 		lblSearch = new JLabel("Car Search");
@@ -201,7 +229,7 @@ public class ShowCars {
 				
 				
 				try {
-					showDescription = new ShowDescription(brand, email);
+					showDescrip = new ShowDescription(brand, email);
 					frame.dispose();
 					frame.revalidate();
 					frame.repaint();
@@ -226,6 +254,7 @@ public class ShowCars {
 		btnSearch.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
 		btnSearch.setBackground(new Color(95, 158, 160));
 		btnSearch.addActionListener(new ActionListener() {
+			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
 				String searchText = textSearchUser.getText();
 				String type = (String) cmbSearch.getSelectedItem();
@@ -250,7 +279,6 @@ public class ShowCars {
 		gbc_btnSearch.gridx = 3;
 		gbc_btnSearch.gridy = 2;
 		gbc_btnSearch.fill= GridBagConstraints.BOTH;
-		
 		carSearch.add(btnSearch, gbc_btnSearch);		
 		
 		// Create JButton for refreshing data of JTable
@@ -276,7 +304,7 @@ public class ShowCars {
 		btnLogOut.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				logIn = new LogIn();
+				logIn = new LogIn(null);
 				frame.dispose();
 				frame.revalidate();
 				frame.repaint();
@@ -290,11 +318,21 @@ public class ShowCars {
 		carSearch.add(btnLogOut, gbc_btnLogOut);
 		
 	}
+	
+
+	public void setVisible(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 class CarTableModel  extends AbstractTableModel {
 
-	String[] columnNames = { "Brand", "Model", "Matricula", "Rent", "Price" };
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	String[] columnNames = { "Mat", "Colour", "Model", "Type","Brand", "Accesories", "Price" };
 	Object[][] data = null;
 
 	@Override
@@ -338,10 +376,13 @@ class CarTableModel  extends AbstractTableModel {
 			}
 			for (int i = 0; i < server.showCarsInStore().size(); i++)
 			{
-				data[i][0] = server.showCarsInStore().get(i).getBrand();
-				data[i][1] = server.showCarsInStore().get(i).getModel();
-				data[i][2] = "" + server.showCarsInStore().get(i).getMat();
-				data[i][4] = "" + server.showCarsInStore().get(i).getPrice() + " €";
+				data[i][0] = server.showCarsInStore().get(i).getMat();
+				data[i][1] = server.showCarsInStore().get(i).getColour();
+				data[i][2] = server.showCarsInStore().get(i).getModel();
+				data[i][3] = server.showCarsInStore().get(i).getType();
+				data[i][4] = server.showCarsInStore().get(i).getBrand();
+				data[i][5] = server.showCarsInStore().get(i).getAccesories();
+				data[i][6] =server.showCarsInStore().get(i).getPrice() + " €";
 			}
 		} catch (RemoteException e) {
 			e.printStackTrace();

@@ -14,15 +14,17 @@ import es.deusto.server.data.Rent;
 public interface IRemote extends Remote{
 
 	 /**
-	  * creates a new client
+	  * register a new client
 	 * @param email 
 	 * @param password
 	 * @param role (true admin; false client)
 	 * @return true or false to tell if it worked
 	 * @throws RemoteException
 	 */
-	boolean registerClient(String email, String password,boolean role) throws RemoteException;
+	boolean registerClient(String client) throws RemoteException;
 	
+	
+	boolean login( String nick) throws RemoteException;
 	 /**
 	  * adds a car to database
 	 * @param car
@@ -130,21 +132,6 @@ public interface IRemote extends Remote{
 	 */
 	List<Rent> getCarRents(String brand)  throws RemoteException;
 	
-	 /**
-	  * Get the average Rating of a car
-	 * @param brand of the car
-	 * @return a double 
-	 * @throws RemoteException
-	 */
-	double averageRatingByCar(String brand)  throws RemoteException;
-	
-	 /**
-	  * Get the average Rating given by a Client
-	 * @param email
-	 * @return a double 
-	 * @throws RemoteException
-	 */
-	double averageRatingByClient(String email)  throws RemoteException;
 	
 	 /**
 	  * Deletes a Rent

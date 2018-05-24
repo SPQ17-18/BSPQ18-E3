@@ -1,9 +1,6 @@
 package es.deusto.client.controller;
 
-import java.util.logging.Logger;
-
-
-
+import org.apache.log4j.Logger;
 import es.deusto.server.remote.IRemote;
 
 public class RMIServiceLocator {

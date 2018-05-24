@@ -4,12 +4,11 @@ package es.deusto.server.data;
 
 import java.io.Serializable;
 
-import javax.jdo.annotations.*;
+import javax.jdo.annotations.PersistenceCapable;
 
 
 
-
-
+@PersistenceCapable
 public class Employee implements Serializable{
 	
 	private static final long serialVersionUID = 1L;

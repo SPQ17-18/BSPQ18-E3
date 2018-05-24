@@ -65,7 +65,7 @@ public class ShowcarsAdmin {
 	
 	private static String email;
 	private LogIn logIn;
-	private AddCars addCar;
+	private AddCar addCar;
 	IRemote server;
 	
 	
@@ -109,7 +109,7 @@ public class ShowcarsAdmin {
 		initializecarSearchAdmin();
 	}
 	
-	public ShowcarsAdmin() {
+	/*public ShowcarsAdmin() {
 		
 		// Create and set up the window.
 		frame = new JFrame("Car Rent");
@@ -127,7 +127,7 @@ public class ShowcarsAdmin {
 			e.printStackTrace();
 		}
 		initializecarSearchAdmin();
-	}
+	}*/
 	
 	/**
 	 * Initialize the contents of the carSearch JPanel 
@@ -157,7 +157,7 @@ public class ShowcarsAdmin {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				addCar = new AddCars(email);
+				addCar = new AddCar(email);
 				frame.dispose();
 				frame.revalidate();
 				frame.repaint();
@@ -165,7 +165,7 @@ public class ShowcarsAdmin {
 		});
 		
 		// JLabel component about search message
-		lblSearch = new JLabel("Car Search");
+		lblSearch = new JLabel("Add cars");
 		lblSearch.setBackground(SystemColor.window);
 		lblSearch.setForeground(new Color(0, 0, 0));
 		lblSearch.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
@@ -317,7 +317,7 @@ public class ShowcarsAdmin {
 		btnLogOut.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				logIn = new LogIn();
+				logIn = new LogIn(null);
 				frame.dispose();
 				frame.revalidate();
 				frame.repaint();

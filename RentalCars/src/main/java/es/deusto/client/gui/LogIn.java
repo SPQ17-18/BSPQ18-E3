@@ -28,8 +28,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import es.deusto.client.Client;
-import es.deusto.server.remote.IRemote;
-import es.deusto.server.remote.Remote;
+import es.deusto.client.controller.Controller;
+import es.deusto.server.remote.*;
+
+
 
 
 public class LogIn {
@@ -55,23 +57,27 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 	private boolean role = false;   //true --> admin
 									//false -->  client
 	IRemote server;
+	private Controller controller = null;
 	
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+		//final LogIn log= new LogIn(args);
+		/*EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LogIn logIn = new LogIn();
+					LogIn logIn = new LogIn(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-		});
+		});*/
 	}
 	/**
 	 * Create the application.
+	 * @param controller 
 	 */
-	public LogIn() {
-		
+	public LogIn(IRemote server) {
+		this.server = server;
+		System.out.println("Server: " + server);
 		// Create and set up the window.
 		frame = new JFrame("Rental Cars");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -80,19 +86,15 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 		frame.setBounds(0, 0, 991, 661);
 		frame.setVisible(true);
 		frame.setBackground(SystemColor.window);
-		 try {
-			server = new Remote();
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
+		 
 		// Initialize the contents of the frame.
-		initializeLogIn();
+		initializeLogIn(server);
 	}
 	
 	/**
 	 * Initialize the contents of the Log In JPanel 
 	 */
-	private void initializeLogIn(){
+	private void initializeLogIn(IRemote server){
 
 		// Beginning of Log In JPanel~window 
 		logIn = new JPanel();
@@ -178,7 +180,8 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 				String accessEmail = email.getText();
 				String accessPassword = String.valueOf(password.getPassword());
 				try {
-					role = server.getClient(accessEmail).getRole();
+					System.out.println("Server: " + server);
+					role =server.getClient(accessEmail).getRole();
 					server.registerClient(accessEmail);
 					clientEmail = accessEmail;
 				} catch (RemoteException e) {

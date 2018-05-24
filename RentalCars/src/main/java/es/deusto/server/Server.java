@@ -1,28 +1,20 @@
 package es.deusto.server;
 
-import java.rmi.Naming;
 
-import es.deusto.server.dao.DB;
-import es.deusto.server.dao.IDB;
-import es.deusto.server.data.Car;
-import es.deusto.server.data.Client;
-import es.deusto.server.data.Rent;
+
+
 import es.deusto.server.remote.IRemote;
 import es.deusto.server.remote.Remote;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.rmi.Naming;
+import org.apache.log4j.Logger;
 
 public class Server{
 
-	final static  Logger logger = LoggerFactory.getLogger(Server.class);
+	private static  final Logger logger = Logger.getLogger(Server.class);
+	
 	public static void main(String[] args) {
-
-		if (args.length != 3) {
-			logger.info("[S] How to invoke: java [policy] [codebase] Server.Server [host] [port] [server]");
-			System.exit(0);
-		}
-
+		
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new SecurityManager());
 		}
@@ -30,61 +22,24 @@ public class Server{
 		String name = "//" + args[0] + ":" + args[1] + "/" + args[2];
 
 		try {
-			IRemote objServer = new Remote();
-			Naming.rebind(name, objServer);
-
-			Rent r1 = new Rent(01);
-			Rent r2 = new Rent(02);
-			Rent r3 = new Rent(03);
-			Rent r4 = new Rent(04);
-			Rent r5 = new Rent(05);
 			
-			Car c1 =new Car(123,"Mercedes","AMG GT-R","deportivo",120);
-			Car c2 =new Car(256,"Mercedes","AMG GT-C","deportivo",35);
-			Car c3 =new Car(674,"Mercedes","AMG GT-S","deportivo",45);
-			Car c4 =new Car(310,"SEAT","Leon SC","compacto",150);
-			Car c5= new Car(485,"SEAT","Ateka","crossover",200);
-			Car c6= new Car(596,"FORD","Transit","comercial",75);
-			Car c7 =new Car(603,"FORD","Mustang","turismo",65);
-
-			IDB db = new DB();
-
-			db.addCarToDb(c4);
-			db.addCarToDb(c1);
-			db.addCarToDb(c2);
-			db.addCarToDb(c3);
-
-			db.registerClient("gorka", "qwerty", false);
-			db.registerClient("nacho", "qwerty", false);
-			db.registerClient("javier", "qwerty", false);
-			db.registerClient("jon", "qwerty", false);
-			db.registerClient("janire", "qwerty", true);
-	
-			Client a1 =db.showClient("gorka");						
-			Client a2 =db.showClient("nacho");
-			Client a3 =db.showClient("javier");
-			Client a4 =db.showClient("jon");
-			Client a5=db.showClient("janire");
 			
-			db.addRent(c1, r1, a1);	
-			db.addRent(c2, r2, a2);
+			IRemote server = new Remote();
 			
-			db.addRent(c3, r3, a3);
-			db.addRent(c3, r4, a4);
-	
-			db.rentCar("jon", "Car4");
-
+			Naming.rebind(name, server);
+			
 			logger.info("[S] Server '" + name + "' active and waiting...");
+			System.out.println("servidor arrancado");
+			
 			java.io.InputStreamReader inputStreamReader = new java.io.InputStreamReader ( System.in );
 			java.io.BufferedReader stdin = new java.io.BufferedReader ( inputStreamReader );
-			@SuppressWarnings("unused")
+			
 			String line  = stdin.readLine();
-
 		} catch (Exception e) {
-			logger.error("[S] Server exception: ");
-			logger.trace(e.getMessage());
+		
+			logger.error("- Error in server" + e.getMessage());
+
 			e.printStackTrace();
 		}
 	}
 }
-

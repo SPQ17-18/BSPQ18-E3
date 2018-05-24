@@ -1,9 +1,12 @@
 package es.deusto.client.controller;
 
 import java.rmi.RemoteException;
-import java.util.logging.Logger;
+import org.apache.log4j.ConsoleAppender;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
 
-import es.deusto.client.gui.VentanaLogin;
+import es.deusto.client.gui.LogIn;
+
 
 public class Controller {
 	private final static Logger logger = Logger.getLogger(Controller.class.getName());
@@ -11,15 +14,10 @@ public class Controller {
 	 
 		private static RMIServiceLocator rsl;
 	
-	public Controller(String[] args) throws RemoteException {
-		rsl = new RMIServiceLocator();
-		rsl.setService(args[0], args[1], args[2]);
-		new VentanaLogin(this);
+	public Controller() {
 	}
 
-	public Controller(){
-		
-	}
+
 	public static Controller getController() {
 		return cont;
 	}
@@ -35,22 +33,17 @@ public class Controller {
 	
 	//Login
 		
-	 public boolean login(String nick, String contrasenia) {
-	    	
-		 try {
-	    		
-	    		return rsl.getService().logIn(nick);
-	            
-	        }catch(Exception e) {
-	            e.printStackTrace();
-	        }
-	    	return false;
-	    }
-
-
-		public static void exit() {
-	    	System.exit(0);
-	    }
-	
-	
+	 public boolean login(String nick, String password) {
+		 boolean login = false;
+			String st=nick+"#"+password;
+			
+			try {
+				login = rsl.getService().login(st);
+			} catch (Exception e) {
+				(logger).addAppender(new ConsoleAppender(new PatternLayout(),"A problem occured in the log in."));
+				// e.printStackTrace();
+			}
+			
+			return login;
+		}	
 }
