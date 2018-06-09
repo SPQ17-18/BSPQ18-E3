@@ -1,38 +1,27 @@
 package es.deusto.client.controller;
 
-import org.apache.log4j.Logger;
-import es.deusto.server.remote.IRemote;
+import es.deusto.server.remote.ICarsRemote;
 
 public class RMIServiceLocator {
-	private IRemote remote;
-	
-	private final static Logger logger = Logger.getLogger(Controller.class.getName());
-	
-	
+	private ICarsRemote icr;
+
 	public RMIServiceLocator(){ 
-	    
     }
 	
-	  
 	
-	  public void setService(String args0, String args1, String args2) {
-			try {
-
-				String service = "//" + args0 + ":" + args1 + "/" + args2;
-
-    			
-    			
-    			 remote = (IRemote) java.rmi.Naming.lookup(service);
-    				System.out.println("* Server '" + service + "' active and waiting...");
-    			} catch (Exception e) {
-    				System.err.println("- Exception running the server: " + e.getMessage());
-    				e.printStackTrace();
-    			}
-    }
-  
-
-		public IRemote getService() {
-			return remote;
-		}
-
+	public ICarsRemote getService() {
+		return icr;
 	}
+	
+	
+	public void setService(String[] args) {
+		try {
+			String name = "//" + args[0] + ":" + args[1] + "/" + args[2];
+			icr = (ICarsRemote) java.rmi.Naming.lookup(name);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+}

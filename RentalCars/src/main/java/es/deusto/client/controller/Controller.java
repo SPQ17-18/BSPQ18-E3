@@ -1,49 +1,111 @@
 package es.deusto.client.controller;
 
 import java.rmi.RemoteException;
-import org.apache.log4j.ConsoleAppender;
+import java.util.List;
+
 import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
 
-import es.deusto.client.gui.LogIn;
-
+import es.deusto.client.controller.RMIServiceLocator;
+import es.deusto.client.gui.InitialWindow;
+import es.deusto.server.data.Client;
+import es.deusto.server.data.Car;
+import es.deusto.server.data.Rent;
 
 public class Controller {
-	private final static Logger logger = Logger.getLogger(Controller.class.getName());
-	private static final Controller cont= new Controller();
-	 
-		private static RMIServiceLocator rsl;
 	
-	public Controller() {
-	}
+	private RMIServiceLocator rsl;
 
-
-	public static Controller getController() {
-		return cont;
-	}
-	
-	
-	public static boolean setController(String[] args) throws RemoteException {
-		rsl = new RMIServiceLocator();
-		rsl.setService(args[0], args[1], args[2]);
-		return true;
+	/**
+	 * Constructor de CinePlusController
+	 * @param rmi - RMIServiceLocator
+	 */
+	public Controller(RMIServiceLocator rmi) {
+		this.rsl = rmi;
 	}
 	
 	
 	
-	//Login
-		
-	 public boolean login(String nick, String password) {
-		 boolean login = false;
-			String st=nick+"#"+password;
-			
-			try {
-				login = rsl.getService().login(st);
-			} catch (Exception e) {
-				(logger).addAppender(new ConsoleAppender(new PatternLayout(),"A problem occured in the log in."));
-				// e.printStackTrace();
-			}
-			
-			return login;
-		}	
+	
+	
+	public boolean RegistrarClient(String user, String email, String name, String address, String password,
+			String age, boolean admin) throws RemoteException {
+		return rsl.getService().registrarClient(user, email, name, address, password, age, admin);
+	}
+	
+	
+	public boolean RegistreClient(String user, String email, String name, String address, String password,
+			String age, float money, boolean admin) throws RemoteException {
+		return rsl.getService().registreClient(user, email, name, address, password, age, money, admin);
+	}
+	
+	
+	public boolean Login(String user, String password) throws RemoteException {
+		return rsl.getService().clientRegistrado(user, password);
+	}
+	
+	
+	public List<String> getModel() throws RemoteException {
+		return rsl.getService().Model();
+	}
+	
+	
+	public List<String> getBrand() throws RemoteException {
+		return rsl.getService().Brand();
+	}
+	
+	
+	public boolean Rent(Rent rent) throws RemoteException {
+		return rsl.getService().Rent(rent);
+	}
+	
+	
+	public List<Car> Search(String brand, String model,String type) throws RemoteException {
+		return rsl.getService().Search(brand, model, type);
+	}
+	
+	public List<Car> getRent(String email) throws RemoteException {
+		return rsl.getService().getRent(email);
+	}
+	
+	
+	public Client returnClient(String email)throws RemoteException {
+		return rsl.getService().returnClient(email);
+	}
+	
+	
+	public void updateClient(Client cli)throws RemoteException {
+		rsl.getService().updateClient(cli);
+	}
+	
+	
+	public void deleteClient(Client cli)throws RemoteException {
+		 rsl.getService().deleteClient(cli);
+	}
+	public void exit() {
+		System.exit(0);
+	}
+	
+	public static void main(String[] args) {
+		if (args.length != 3) {
+			System.out.println("Use: java [policy] [codebase] Client.Client [host] [port] [server]");
+			System.exit(0);
+		}
+		if (System.getSecurityManager() == null) {
+			System.setSecurityManager(new SecurityManager());
+		}
+					try {
+						RMIServiceLocator rmi=new RMIServiceLocator();
+						rmi.setService(args);
+						Controller con=new Controller(rmi);
+						InitialWindow.frame = new InitialWindow(rmi,con);
+						InitialWindow.frame.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				
+}
+					
+	
+	
+	
 }
