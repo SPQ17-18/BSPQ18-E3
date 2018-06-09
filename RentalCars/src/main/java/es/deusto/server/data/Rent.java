@@ -1,66 +1,43 @@
 package es.deusto.server.data;
 
-
 import java.io.Serializable;
 
-import javax.jdo.annotations.*;
+import javax.jdo.annotations.ForeignKey;
+import javax.jdo.annotations.ForeignKeyAction;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 
-@PersistenceCapable(detachable="true")
+
+@PersistenceCapable
 public class Rent implements Serializable{
+
 	
 	private static final long serialVersionUID = 1L;
+	@Persistent
+	@ForeignKey(name="email", deleteAction=ForeignKeyAction.RESTRICT)
+	private String email;
+	@ForeignKey(name="mat", deleteAction=ForeignKeyAction.RESTRICT)
+	private int mat;
 	
-	//@PrimaryKey
-	private int id_rent; 
 	
-	//@Persistent (defaultFetchGroup="true")
-	private Client client;
-	
-	//@Persistent (defaultFetchGroup="true")
-	private Car car;
-	/**
-	private String comment;
-	private double rating;
-	*/
-	public Rent( int id_rent, Client client, Car car) {
-		super();
-		this.id_rent=id_rent;
-		this.client = client;
-		this.car = car;
+	public Rent(String email,int mat) {
+		this.email=email;
+		this.mat=mat;
 	}
 	
-	public Rent(int id_rent, Client client) {
-		super();
-		this.id_rent=id_rent;
-		this.client=client;
-		// TODO Auto-generated constructor stub
+	
+	public String getEmail() {
+		return email;
+	}
+
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public int getMat() {
+		return mat;
 	}
 
 
-	public Client getClient() {
-		return client;
-	}
-	public void setClient(Client client) {
-		this.client = client;
-	}
-	public Car getCar() {
-		return car;
-	}
-	public void setCar(Car car) {
-		this.car = car;
-	}
-	
-
-	public int getid_rent() {
-		return id_rent;
-	}
-
-	@Override
-	public String toString() {
-		return "Rent [id_rent=" + id_rent +  ", client=" + client + ", car=" + car + "]";
-	}
-
-	public void setid_rent(int id_rent) {
-		this.id_rent = id_rent;
-	} 
 }
