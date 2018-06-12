@@ -1,27 +1,29 @@
 package es.deusto.client;
-
 import java.rmi.RemoteException;
 import java.util.List;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
-import org.apache.log4j.Logger;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import es.deusto.client.gui.LogIn;
 import es.deusto.server.data.Car;
 import es.deusto.server.remote.IRemote;
 
+
+
 	public class Client {
 
-		final static  Logger logger = Logger.getLogger(Client.class);
+		final static  Logger logger = LoggerFactory.getLogger(Client.class);
 		
 		private static String[] logInMenu = {"Log In", "Sign Up"};
-		private static String[] showCarsMenu = {"Search", "Show all the cars", "Log Out"};
-		private static String[] searchMenu = {"Mat", "Brand", "Go back"};
-		private static String[] carSelectionMenu = {"Rent", "View car selection","Go back"};
-		private static String[] carDetailsMenu = {"Brand", "Model", "Go back"};
-		private static String emailClientServer;
-		private static String carsSelectionBrand;
+		private static String[] showBooksMenu = {"Search", "Show all the books", "Log Out"};
+		private static String[] searchMenu = {"ISBN", "Title", "Go back"};
+		private static String[] bookSelectionMenu = {"Buy", "Write a review","Go back"};
+		private static String[] reviewMenu = {"Rank", "Comment", "Go back"};
+		private static String emailUser;
+		private static String bookSelectionTitle;
 		
 		public static void displayMenu(String[] options){
 			logger.info("Menu");
@@ -44,17 +46,23 @@ import es.deusto.server.remote.IRemote;
 		
 		public static void mainMenu(IRemote server){
 			String input= "";
-			
+			//User user = null;
 			 
 			do{
 				displayMenu(logInMenu);
 				input = System.console().readLine();
 				switch(input){
 				case("1"):
-					logIn(server);
-					menuShowcars(server);
+					//Log in
+					 logIn(server);
+					//if(log != true){
+						//log = logIn(server);
+						//menuShowBooks(server);
+					
+					menuShowBooks(server);
 					break;
 				case("2"):
+					//Sing Up = Create a new user
 					signUp(server);
 					break;
 				case("exit"):
@@ -67,8 +75,8 @@ import es.deusto.server.remote.IRemote;
 
 		}
 		
-		public static void menuShowcars(IRemote server){
-			displaySubMenu(showCarsMenu);
+		public static void menuShowBooks(IRemote server){
+			displaySubMenu(showBooksMenu);
 			String input = "";
 			input = System.console().readLine();
 			switch(input){
@@ -77,9 +85,9 @@ import es.deusto.server.remote.IRemote;
 				menuSearch(server);
 				break;
 			case("2"):
-				showcars(server);
+				showBooks(server);
 				//Select one
-				menuCar(server);
+				menuBook(server);
 				break;
 			case("3"):
 				//Log Out
@@ -97,18 +105,18 @@ import es.deusto.server.remote.IRemote;
 			input = System.console().readLine();
 			switch (input) {
 			case("1"):
-				//Mat
-				searchMat(server);
-				menuShowcars(server);
+				//ISBN
+				searchISBN(server);
+				menuShowBooks(server);
 				break;
 			case("2"):
-				//Brand
-				searchBrand(server);
-				menuShowcars(server);
+				//Title
+				searchTitle(server);
+				menuShowBooks(server);
 				break;
 			case("3"):
 				//Go back
-				menuShowcars(server);
+				menuShowBooks(server);
 				break;
 			default:
 				logger.info("Not valid");
@@ -116,23 +124,23 @@ import es.deusto.server.remote.IRemote;
 			}
 		}
 		
-		public static void menuCar(IRemote server){
+		public static void menuBook(IRemote server){
 			String input = "";
-			displaySubMenu(carSelectionMenu);
+			displaySubMenu(bookSelectionMenu);
 			input = System.console().readLine();
 			switch(input){
 			case("1"):
-				//Rent
-				rentCar(server);
-				menuShowcars(server);
+				//Buy
+				buyBook(server);
+				menuShowBooks(server);
 				break;
 			case("2"):
-				//Show details.
-				menuDetails(server);
+				//Write a review
+				menuReviews(server);
 				break;
 			case("3"):
 				//Go back
-				menuShowcars(server);
+				menuShowBooks(server);
 				break;
 			default:
 				logger.info("Not valid");
@@ -140,22 +148,22 @@ import es.deusto.server.remote.IRemote;
 			}
 		}
 		
-		public static void menuDetails(IRemote server){
+		public static void menuReviews(IRemote server){
 			String input = "";
-			displaySubMenu(carDetailsMenu);
+			displaySubMenu(reviewMenu);
 			input = System.console().readLine();
 			switch (input) {
 			case("1"):
-				//Brand
+				//Rank
 				//TODO
 				break;
 			case("2"):
-				//Model
+				//Comment
 				//TODO
 				break;
 			case("3"):
 				//Go back
-				menuCar(server);
+				menuBook(server);
 				break;
 			default:
 				logger.info("Not valid");
@@ -172,14 +180,14 @@ import es.deusto.server.remote.IRemote;
 					
 			logger.info("Email:");
 			input = System.console().readLine();
-			emailClientServer = input;
+			emailUser = input;
 			
 			logger.info("Password:");
 			input = System.console().readLine();
 			password = input;		
 			
 			try {
-				server.registerClient(emailClientServer);
+				server.registerClient(emailUser, password, false);
 				
 			} catch (RemoteException e) {
 				logger.info(e.getMessage());
@@ -212,94 +220,104 @@ import es.deusto.server.remote.IRemote;
 				}
 			}while(!password1.equals(password2));
 			try {
-				server.registerClient(email);
+				server.registerClient(email, password1, false);
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
 			logger.info("You have been register. Now Log In.");
 		}
 		
-		public static void searchMat(IRemote server){
+		public static void searchISBN(IRemote server){
 			int input;
-			Car c = null;
-			logger.info("Mat:");
+			Car b = null;
+			logger.info("ISBN:");
 			input = Integer.parseInt(System.console().readLine());
 			
 			try {
-				c = server.getCarByMat(input);
-				logger.info(c.toString());
+				b = server.getCarBymat(input);
+				logger.info(b.toString());
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
 			
 		}
 		
-		public static void searchBrand(IRemote server){
+		public static void searchTitle(IRemote server){
 			String input= "";
-			Car c = null;
-			logger.info("Brand:");
+			Car b = null;
+			logger.info("Title:");
 			input = System.console().readLine();
 			
 			try {
-				c = server.getCarByBrand(input);
-				logger.info(c.toString());
+				b = server.getCarByBrand(input);
+				logger.info(b.toString());
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
 		}
 		
-		public static void showcars(IRemote server){
-			List<Car> cars = null;
+		public static void showBooks(IRemote server){
+			List<Car> books = null;
 			int input;
 			
 			try {
-				cars = server.showCarsInStore();
+				books = server.showCarsInStore();
 			} catch (RemoteException e) {
 				logger.info(e.getMessage());
 			}
 
-			for(int i = 0; i<cars.size(); i++){
-				Car b = cars.get(i);
+			for(int i = 0; i<books.size(); i++){
+				Car b = books.get(i);
 				logger.info((i+1) + ".-" + b.toString());
 			}
-			logger.info("Choose a Car to visualize: ");
+			logger.info("Choose a book to visualize: ");
 			input =  Integer.parseInt(System.console().readLine());
-			showCar(server, input - 1);
+			showBook(server, input - 1);
 		}
 		
-		public static void showCar(IRemote server, int numCar){
-			List<Car> cars = null;
+		public static void showBook(IRemote server, int numBook){
+			List<Car> books = null;
 			
 			try {
-				cars = server.showCarsInStore();
+				books = server.showCarsInStore();
 			} catch (RemoteException e) {
 				logger.error(e.getMessage());
 			}
-			Car b = cars.get(numCar);
-			carsSelectionBrand = b.getBrand();
+			Car b = books.get(numBook);
+			bookSelectionTitle = b.getBrand();
 			logger.info(b.toString());
 		}
 		
-		public static void rentCar(IRemote server){
-			boolean rentOk = false;
+		public static void buyBook(IRemote server){
+			boolean buyOk = false;
 			
 			try {
-				rentOk = server.rentCar(emailClientServer, carsSelectionBrand);
+				buyOk = server.rentCar(emailUser, bookSelectionTitle);
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
-			logger.info(""+rentOk);
+			logger.info(""+buyOk);
 			
-			if(rentOk == true){
-				logger.info("You have rent "+carsSelectionBrand);
+			if(buyOk == true){
+				logger.info("You have bought "+bookSelectionTitle);
 			}else{
-				logger.info("Error.Try later!");
+				logger.info("Not pssible. Try later!");
 			}
 		}
-		
+		/*
+		//Adpatarlo para que coja las reviews del libro que esta sellecionado y llamarlo en showBook
+		public static void showReviews(IRemote server){
+			List<Review> reviews = null;
+			try {
+				reviews = server.getAllReviews();
+			} catch (RemoteException e) {
+				logger.info(e.getMessage());
+			}
+		}
+		*/
 		public static void main(String[] args) {
 			if (args.length != 3) {
-				logger.info("Use: java [policy] [codebase] ClientServer.ClientServer [host] [port] [server]");
+				logger.info("Use: java [policy] [codebase] Client.Client [host] [port] [server]");
 				System.exit(0);
 			}
 			if (System.getSecurityManager() == null) {
@@ -309,7 +327,8 @@ import es.deusto.server.remote.IRemote;
 			try{
 				String name = "//" + args[0] + ":" + args[1] + "/" + args[2];
 				IRemote server = (IRemote) java.rmi.Naming.lookup(name);
-				
+				//Menu
+				//mainMenu(server);
 				logIn = new LogIn(server);
 			}catch (Exception e) {
 				logger.error("RMI Example exception: " + e.getMessage());

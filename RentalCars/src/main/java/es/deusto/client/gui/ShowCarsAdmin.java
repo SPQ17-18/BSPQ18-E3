@@ -1,6 +1,8 @@
 package es.deusto.client.gui;
 
-
+/*sorter???
+ * 
+ * */
 
 
 import java.awt.BorderLayout;
@@ -36,32 +38,36 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import es.deusto.server.remote.IRemote;
-//import es.deusto.server.remote.Remote;
 import es.deusto.server.remote.Remote;
 
 
-public class ShowCars {
+public class ShowCarsAdmin {
 
+	private ShowDescriptionAdmin showDescriptionAdmin;
 	private JFrame frame;
 
 	private JPanel carSearch;
+	private JLabel lblConnect;
 	private JLabel lblSearch;
 	private String textuser;
 	private JComboBox cmbSearch;
 	private String cmbSearchSelection;
+	private JPanel car;
 	private JTextField textSearchUser;
 	private JButton btnSearch;
 	private JTable listOfCars;
+	TableModel carTableModel;
 	private JScrollPane scrollListCars;
 	private JButton btnRefresh;
+	private JButton btnAddCar;
+	private JButton btnDeleteCar;
 	private JButton btnLogOut;
-
+	
 	private static String email;
-	private static String brand;
 	private LogIn logIn;
+	private AddCar addCar;
 	IRemote server;
-	private ShowDescription showDescrip;
-	//private String cl=null;
+	
 	
 	/**
 	 * Launch the application.
@@ -70,7 +76,7 @@ public class ShowCars {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new ShowCars(email);
+					ShowCarsAdmin window = new ShowCarsAdmin(email);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -81,18 +87,16 @@ public class ShowCars {
 	/**
 	 * Create the application.
 	 */
-	public ShowCars(String email) {
+	public ShowCarsAdmin(String email) {
 		
 		// Create and set up the window.
-		frame = new JFrame("Rental Car");
+		frame = new JFrame("Car Rent");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// Display the window.
 		frame.setBounds(0, 0, 991, 661);
 		frame.setVisible(true);
 		frame.setBackground(SystemColor.window);
-		 frame.setLocationRelativeTo(null);
-		frame.setSize(750, 600);
 		
 		// Initialize the contents of the frame.
 		try {
@@ -101,54 +105,67 @@ public class ShowCars {
 			e.printStackTrace();
 		}
 		this.email = email;
-		initializeShowCars();
+		
+		initializecarSearchAdmin();
 	}
 	
+	/*public ShowcarsAdmin() {
+		
+		// Create and set up the window.
+		frame = new JFrame("Car Rent");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		// Display the window.
+		frame.setBounds(0, 0, 991, 661);
+		frame.setVisible(true);
+		frame.setBackground(SystemColor.window);
+		
+		// Initialize the contents of the frame.
+		try {
+			server = new Remote();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		initializecarSearchAdmin();
+	}*/
+	
 	/**
-	 * Initialize the contents of the CarSearch JPanel 
+	 * Initialize the contents of the carSearch JPanel 
 	 */
-	private void initializeShowCars(){
+	private void initializecarSearchAdmin(){
 		
 		// initialization of items used
 		String[] Menu = {"Brand", "Model", "Matricula"};
 
-		// Beginning of car Search JPanel
+		// Beginning of Car Search JPanel
 		carSearch = new JPanel();
 		carSearch.setBackground(SystemColor.window);
 		carSearch.setLayout(new GridBagLayout());
 		frame.getContentPane().add(carSearch, BorderLayout.CENTER);
-		//Search.setVisible(false);
+		//carSearch.setVisible(false);
 		
-		btnSearch = new JButton("Search");
-		btnSearch.setVerticalAlignment(SwingConstants.TOP);
-		btnSearch.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
-		btnSearch.setBackground(SystemColor.controlHighlight);
+		btnAddCar = new JButton("Add car");
+		btnAddCar.setVerticalAlignment(SwingConstants.TOP);
+		btnAddCar.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
+		btnAddCar.setBackground(SystemColor.controlHighlight);
 		GridBagConstraints gbc_btnAddACar = new GridBagConstraints();
 		gbc_btnAddACar.insets = new Insets(0, 0, 5, 0);
 		gbc_btnAddACar.gridx = 4;
 		gbc_btnAddACar.gridy = 0;
-		carSearch.add(btnSearch, gbc_btnAddACar);
-		btnSearch.addActionListener(new ActionListener() {
+		carSearch.add(btnAddCar, gbc_btnAddACar);
+		btnAddCar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				try {
-					showDescrip = new ShowDescription(brand, email);
-				} catch (RemoteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				addCar = new AddCar(email);
 				frame.dispose();
 				frame.revalidate();
 				frame.repaint();
 			}
 		});
 		
-		
-		
 		// JLabel component about search message
-		lblSearch = new JLabel("Car Search");
+		lblSearch = new JLabel("Add cars");
 		lblSearch.setBackground(SystemColor.window);
 		lblSearch.setForeground(new Color(0, 0, 0));
 		lblSearch.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
@@ -172,14 +189,14 @@ public class ShowCars {
 		carSearch.add(cmbSearch, gbc_cmbSearch);
 		
 		// JTextField component about the text that is going to be searched
-		textSearchUser = new JTextField("");
+		textSearchUser = new JTextField("Enter text here!");
 		textSearchUser.setBackground(SystemColor.window);
 		textSearchUser.addMouseListener(new MouseAdapter() {
-			
+			@Override
 			public void mouseEntered(MouseEvent e) {
 				cmbSearchSelection = (String) cmbSearch.getSelectedItem();
 				textuser = textSearchUser.getText();
-				if (textuser.equals("Enter text here")) textSearchUser.setText("");
+				if (textuser.equals("")) textSearchUser.setText("");
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -199,13 +216,13 @@ public class ShowCars {
 		gbc_textSearchUser.fill= GridBagConstraints.BOTH;
 		carSearch.add(textSearchUser, gbc_textSearchUser);
 
-		// JTable with all the available s
+		// JTable with all the available cars
 		
 		// Create the JTable and the table model 
-		final TableModel CarTableModel = new CarTableModel();
-		((es.deusto.client.gui.CarTableModel) CarTableModel).setValues(server);
-		 final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(CarTableModel);
-		listOfCars = new JTable(CarTableModel);
+		carTableModel = new CarTableModel();
+		((es.deusto.client.gui.CarTableModel) carTableModel).setValues(server);
+		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(carTableModel);
+		listOfCars = new JTable(carTableModel);
 		listOfCars.setRowHeight(40);
 		listOfCars.setRowSorter(sorter);
 		listOfCars.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -219,24 +236,19 @@ public class ShowCars {
 		Dimension d = listOfCars.getPreferredSize();
 		scrollListCars.setPreferredSize(
 		    new Dimension(d.width,listOfCars.getRowHeight()*listOfCars.getRowCount()+25));
-		
-		listOfCars.addMouseListener(new MouseAdapter() { // Mouse Listener -> go to a specific car
+		// Mouse Listener -> go to a specific car
+		listOfCars.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//Select a row to see the description window
-				listOfCars.getSelectedRow();
-				String brand = (String) CarTableModel.getValueAt(listOfCars.getSelectedRow(), 0);
-				
-				
-				try {
-					showDescrip = new ShowDescription(brand, email);
+				if (e.getClickCount() == 2) {
+					//Select a row to see the description window
+					listOfCars.getSelectedRow();
+					String title = (String) carTableModel.getValueAt(listOfCars.getSelectedRow(), 0);
+					showDescriptionAdmin = new ShowDescriptionAdmin(title, email);
 					frame.dispose();
 					frame.revalidate();
-					frame.repaint();
-				} catch (RemoteException e1) {
-					e1.printStackTrace();
+					frame.repaint();	
 				}
-
 			}
 		});
 		
@@ -254,21 +266,17 @@ public class ShowCars {
 		btnSearch.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
 		btnSearch.setBackground(new Color(95, 158, 160));
 		btnSearch.addActionListener(new ActionListener() {
-			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
 				String searchText = textSearchUser.getText();
 				String type = (String) cmbSearch.getSelectedItem();
 				if (searchText.length() != 0){
-					if(type == "Brand"){
-						@SuppressWarnings("rawtypes")
+					if(type == "Title"){
 						RowFilter rowFilter = RowFilter.regexFilter(searchText, 0);
 						((DefaultRowSorter<TableModel, Integer>) listOfCars.getRowSorter()).setRowFilter(rowFilter);
-					}else if (type == "Type"){
-						@SuppressWarnings("rawtypes")
+					}else if (type == "Author"){
 						RowFilter rowFilter = RowFilter.regexFilter(searchText, 1);
 						((DefaultRowSorter<TableModel, Integer>) listOfCars.getRowSorter()).setRowFilter(rowFilter);
-					}else if(type == "Matricula"){
-						@SuppressWarnings("rawtypes")
+					}else if(type == "ISBN"){
 						RowFilter rowFilter = RowFilter.regexFilter(searchText, 2);
 						((DefaultRowSorter<TableModel, Integer>) listOfCars.getRowSorter()).setRowFilter(rowFilter);	
 					}
@@ -282,6 +290,8 @@ public class ShowCars {
 		gbc_btnSearch.gridx = 3;
 		gbc_btnSearch.gridy = 2;
 		gbc_btnSearch.fill= GridBagConstraints.BOTH;
+		//Image imgSearch = new ImageIcon(this.getClass().getResource("search.png")).getImage();
+		//btnSearch.setIcon( (Icon) new ImageIcon(imgSearch));
 		carSearch.add(btnSearch, gbc_btnSearch);		
 		
 		// Create JButton for refreshing data of JTable
@@ -307,12 +317,40 @@ public class ShowCars {
 		btnLogOut.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				logIn = new LogIn(null);
+				logIn = new LogIn(server);
 				frame.dispose();
 				frame.revalidate();
 				frame.repaint();
 			}
 		});
+		
+		btnDeleteCar = new JButton("Delete car");
+		btnDeleteCar.setVerticalAlignment(SwingConstants.TOP);
+		btnDeleteCar.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
+		btnDeleteCar.setBackground(SystemColor.controlHighlight);
+		GridBagConstraints gbc_btnDeleteACar = new GridBagConstraints();
+		gbc_btnDeleteACar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnDeleteACar.gridx = 3;
+		gbc_btnDeleteACar.gridy = 4;
+		carSearch.add(btnDeleteCar, gbc_btnDeleteACar);
+		btnDeleteCar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				int selectedRow = listOfCars.getSelectedRow();
+				try {
+					server.deleteCar(Integer.parseInt((String) carTableModel.getValueAt(selectedRow, 2)));
+				} catch (NumberFormatException e1) {
+					e1.printStackTrace();
+				} catch (RemoteException e1) {
+					e1.printStackTrace();
+				}
+				ShowCarsAdmin refresh = new ShowCarsAdmin(email);
+				
+			}
+		});
+		
 		btnLogOut.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
 		btnLogOut.setBackground(SystemColor.controlHighlight);
 		GridBagConstraints gbc_btnLogOut = new GridBagConstraints();
@@ -321,75 +359,4 @@ public class ShowCars {
 		carSearch.add(btnLogOut, gbc_btnLogOut);
 		
 	}
-	
-
-	public void setVisible(boolean b) {
-		// TODO Auto-generated method stub
-		
-	}
-}
-
-class CarTableModel  extends AbstractTableModel {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	String[] columnNames = { "Mat", "Colour", "Model", "Type","Brand", "Accesories", "Price" };
-	Object[][] data = null;
-
-	@Override
-	public int getColumnCount() {
-		return columnNames.length;
-	}
-
-	@Override
-	public String getColumnName(int col) {
-		 return columnNames[col];
-	}
-
-	@Override
-	public int getRowCount() {
-		 return data.length;
-	}
-
-	@Override
-	public Object getValueAt(int row, int col) {
-		return data[row][col];
-	}
-
-	@Override
-	public boolean isCellEditable(int row, int col) {
-		return false;
-	}
-
-	@Override
-	public void setValueAt(Object value, int row, int col) {
-		data[row][col] = value;
-        fireTableCellUpdated(row, col);
-	}
-	
-	public void setValues(IRemote server) {
-		try {
-			if(server.showCarsInStore().size()!= 0){
-				data = new String[server.showCarsInStore().size()][5];
-			}
-			else{
-				data = new String[0][5];
-			}
-			for (int i = 0; i < server.showCarsInStore().size(); i++)
-			{
-				data[i][0] = server.showCarsInStore().get(i).getMat();
-				data[i][1] = server.showCarsInStore().get(i).getColour();
-				data[i][2] = server.showCarsInStore().get(i).getModel();
-				data[i][3] = server.showCarsInStore().get(i).getType();
-				data[i][4] = server.showCarsInStore().get(i).getBrand();
-				data[i][5] = server.showCarsInStore().get(i).getAccesories();
-				data[i][6] =server.showCarsInStore().get(i).getPrice() + " €";
-			}
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-	}
-
 }

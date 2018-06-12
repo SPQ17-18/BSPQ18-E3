@@ -9,27 +9,136 @@ import es.deusto.server.data.Car;
 import es.deusto.server.data.Client;
 import es.deusto.server.data.Rent;
 
+
+
+
 public class DB implements IDB{
 
-	
 	private static final long serialVersionUID = 1L;
-	IUserDAO dao;
+	IDAO dao;
 	final static  Logger logger = LoggerFactory.getLogger(DB.class);
-	
+
 	public DB(){
 		super();
-		dao = new UserDAO();
+		dao = new DAO();
 
 	}
 
-	public DB(IUserDAO udao) {
+	public DB(IDAO udao) {
 		super();
 		dao = udao;
 
 	}
-	
-	
-	
+
+	@Override
+	public List<Client> getAllClients() {
+		// TODO Auto-generated method stub
+		return dao.getAllClients();
+	}
+
+	@Override
+	public List<Rent> getAllRents() {
+		// TODO Auto-generated method stub
+		return dao.getAllRents();
+	}
+
+	@Override
+	public List<Car> getAllCars() {
+		// TODO Auto-generated method stub
+		return dao.getAllCars();
+	}
+
+	@Override
+	public boolean rentCar(String email, String car_brand) {
+		// TODO Auto-generated method stub
+		Car car =null;		
+		Client client =null;
+		boolean ret=true;
+		double price;
+		try {
+			car= dao.retrieveCarByParameter(car_brand);									
+			client = dao.retrieveClient(email);					
+		} catch (Exception  e) {
+			logger.error("Exception launched in checking if the data already exist: ");
+			logger.trace(e.getMessage());
+			e.printStackTrace();
+			ret=false;
+		}
+		if(client.getMoney()>=car.getPrice()){
+
+			if (car == null  || client ==null ) {
+
+			}else if (car !=null  &&  client != null  ){
+				car.addClient(client);										
+				client.addCar(car);	
+
+				price=car.getPrice();
+
+				client.setMoney(client.getMoney()-price);
+
+				dao.updateCar(car);
+				dao.updateClient(client);
+
+			}	
+
+		}
+		else{
+			logger.error("Price higher than your balance");
+		}
+
+
+		return ret;
+
+	}
+
+
+	public boolean addRent(Car b, Rent r, Client u ) {
+		Car car =null;
+		Rent rent = null ;
+		Client client =null;
+		boolean ret=true;
+
+		try {
+
+			car= dao.retrieveCarByParameter(b.getBrand());				
+			rent = dao.retrieveRent(r.getId_rent());
+			client = dao.retrieveClient(u.getEmail());
+
+
+		} catch (Exception  e) {
+			logger.error("Exception launched in checking if the data already exist: ");
+			e.printStackTrace();
+			ret=false;
+		}
+
+
+		if (car == null  || client == null ||rent !=null ) {
+
+			logger.info("he llegado aqui");
+
+		}else if (car !=null  && client !=null && rent == null  ){
+			int a= getAllRents().size()+1;
+			r.setCar(car);
+			r.setClient(client);
+			r.setId_rent(a);
+
+			car.addRent(r);										
+			client.addRent(r);
+
+
+			dao.updateCar(car);
+			dao.updateClient(client);
+			//TODO:: llamar a registerRent
+			dao.retrieveRent(r.getId_rent());
+		}
+
+		return ret;	
+	}
+
+
+
+
+
 	@Override
 	public boolean registerClient(String email, String password, boolean role) {
 		// TODO Auto-generated method stub
@@ -60,26 +169,39 @@ public class DB implements IDB{
 		return ret;
 	}
 
-	@Override
-	public List<Car> getAllCars() {
-		// TODO Auto-generated method stub
-		return dao.getAllCars();
+	public boolean registerClient(Client u) {
+
+
+		Client client = null;
+		boolean ret=true;
+
+		try {
+			client = dao.retrieveClient(u.getEmail());
+		} catch (Exception  e) {
+			logger.error("Exception launched: ");
+			logger.trace(e.getMessage());
+			e.getStackTrace();
+			ret=false;
+		}
+
+		if (client != null) {
+
+			client.setPassword(u.getPassword());
+			client.setRole(u.getRole());
+
+			dao.updateClient(client);
+
+		} else {
+
+
+			dao.storeClient(u);
+
+		}
+		return ret;
 	}
 
 	@Override
-	public List<Client> getAllClients() {
-		// TODO Auto-generated method stub
-		return dao.getAllClients();
-	}
-
-	@Override
-	public List<Rent> getAllRents() {
-		// TODO Auto-generated method stub
-		return dao.getAllRents();
-	}
-
-	@Override
-	public boolean addCarToDb(Car c) {
+	public boolean addCarToDb(Car b) {
 		// TODO Auto-generated method stub
 		Car car = null;
 
@@ -87,7 +209,7 @@ public class DB implements IDB{
 
 		try {
 
-			car  = dao.retrieveCar(c.getMat());
+			car  = dao.retrieveCar(b.getMat());
 
 
 		} catch (Exception  e) {
@@ -103,7 +225,7 @@ public class DB implements IDB{
 
 
 
-			dao.storeCar(c);
+			dao.storeCar(b);
 
 
 		}
@@ -112,117 +234,23 @@ public class DB implements IDB{
 	}
 
 	@Override
-	public boolean addRent(Car c, Rent r, Client cl) {
+	public Car showCarBymat(int mat) {
 		// TODO Auto-generated method stub
-		Car car =null;
-		Rent rent = null ;
-		Client client =null;
-		boolean ret=true;
-
-		try {
-
-			car= dao.retrieveCarByParameter(c.getBrand());				
-			rent = dao.retrieveRent(r.getid_rent());
-			client = dao.retrieveClient(cl.getEmail());
-
-
-		} catch (Exception  e) {
-			logger.error("Exception launched in checking if the data already exist: ");
-			e.printStackTrace();
-			ret=false;
-		}
-
-
-		if (car == null  || client == null ||rent !=null ) {
-
-
-
-		}else if (car !=null  && client !=null && rent == null  ){
-			int a= getAllRents().size()+1;
-			r.setCar(car);
-			r.setClient(client);
-			r.setid_rent(a);
-
-			car.addRent(r);										
-			client.addRent(r);
-
-
-			dao.updateCar(car);
-			dao.updateClient(client);
-
-		}
-
-		return ret;	
-		
-	}
-
-	@Override
-	public boolean rentCar(String email, String car_brand) {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-				Car car =null;		
-				Client client =null;
-				boolean ret=true;
-				double price;
-				try {
-					car= dao.retrieveCarByParameter(car_brand);									
-					client = dao.retrieveClient(email);					
-				} catch (Exception  e) {
-					logger.error("Exception launched in checking if the data already exist: ");
-					logger.trace(e.getMessage());
-					e.printStackTrace();
-					ret=false;
-				}
-				if(client.getMoney()>=car.getPrice()){
-
-					if (car == null  || client ==null ) {
-
-					}else if (car !=null  &&  client != null  ){
-						car.addClient(client);										
-						client.addCar(car);	
-
-						price=car.getPrice();
-
-						client.setMoney(client.getMoney()-price);
-
-						dao.updateCar(car);
-						dao.updateClient(client);
-
-					}	
-
-				}
-				else{
-					logger.error("Price higher than your balance");
-				}
-
-
-				return ret;
-	}
-
-	@Override
-	public Car showCarByMat(int mat) {
-		// TODO Auto-generated method stub
-		Car c=dao.retrieveCar(mat);
-		
-		return c;
+		Car b=dao.retrieveCar(mat);
+		// ao.retrieveLicenseByName(name);
+		return b;
 	}
 
 	@Override
 	public Car showCarByBrand(String brand) {
 		// TODO Auto-generated method stub
-		Car c=dao.retrieveCarByParameter(brand);
-		return c;
+		Car b=dao.retrieveCarByParameter(brand);
+		// ao.retrieveLicenseByName(name);
+		return b;
 	}
 
 	@Override
-	public Client showClient(String email) {
-		// TODO Auto-generated method stub
-		Client c=dao.retrieveClient(email);
-		return c;
-	}
-
-	@Override
-	public Rent showRent(int id_rent) {
+	public Rent showRent( int id_rent) {
 		// TODO Auto-generated method stub
 		Rent r=dao.retrieveRent(id_rent);
 
@@ -230,23 +258,48 @@ public class DB implements IDB{
 	}
 
 	@Override
-	public List<Rent> getClientRents(String email) {
+	public Client showClient(String email) {
 		// TODO Auto-generated method stub
-		Client c=showClient(email);
-		List<Rent> clientRents=c.getRents();
-		return clientRents;
+		Client u=dao.retrieveClient(email);
+		// ao.retrieveLicenseByName(name);
+		return u;
 	}
+	public List<Rent> getClientRents(String email){
+		Client u=showClient(email);
+		List<Rent> clientRents=u.getRents();
+		return clientRents;
 
-	@Override
-	public List<Rent> getCarRents(String brand) {
-		// TODO Auto-generated method stub
-		Car c= showCarByBrand(brand);
-		List<Rent> carRents=c.getRents();
+	}
+	public List<Rent> getCarRents(String brand){
+		Car b = showCarByBrand(brand);
+		List<Rent> carRents=b.getRents();
 		return carRents;
 	}
+	public double averageRatingByCar(String brand){
+		List<Rent> carRents=null;
+		carRents=getCarRents(brand);
+		double total=0;
 
-	@Override
-	public boolean deleteRent(int id_rent) {
+
+		for(Rent r : carRents){
+			total=total+r.getRating();
+
+		}
+		return total/carRents.size();
+	}
+	public double averageRatingByClient(String email){
+		List<Rent> clientRents=null;
+		clientRents=getClientRents(email);
+		double total=0;
+
+
+		for(Rent r : clientRents){
+			total=total+r.getRating();
+
+		}
+		return total/clientRents.size();
+	}
+	public boolean deleteRent(int id_rent){
 		boolean ret=false;
 		Rent r;
 
@@ -256,25 +309,24 @@ public class DB implements IDB{
 			dao.deleteRent(r);
 
 
-			ret=true;
-		}
+			ret=true;}
 		else{
 
 		}
 
 
 		return ret;
+
+
 	}
-
-	@Override
-	public boolean deleteCar(int mat) {
+	public boolean deleteCar(int mat){
 		boolean ret=false;
-		Car c;
+		Car b;
 
-		c =showCarByMat(mat);
-		if(c!=null){
+		b =showCarBymat(mat);
+		if(b!=null){
 
-			dao.deleteCar(c);
+			dao.deleteCar(b);
 
 
 			ret=true;}
@@ -284,38 +336,41 @@ public class DB implements IDB{
 
 
 		return ret;
-		
+
+
 	}
 
 	@Override
-	public boolean registerClient(Client cl) {
-		// TODO Auto-generated method stub
-		Client client = null;
-		boolean ret=true;
-
-		try {
-			client = dao.retrieveClient(cl.getEmail());
-		} catch (Exception  e) {
-			logger.error("Exception launched: ");
-			logger.trace(e.getMessage());
-			e.getStackTrace();
-			ret=false;
-		}
-
-		if (client != null) {
-
-			client.setPassword(cl.getPassword());
-			client.setRole(cl.getRole());
-
-			dao.updateClient(client);
-
-		} else {
-
-
-			dao.storeClient(cl);
-
-		}
-		return ret;
-	}
 	
+		public boolean registerRent(Rent r) {
+
+
+			Rent rent = null;
+			boolean ret=true;
+
+			try {
+				rent = dao.retrieveRent(r.getId_rent());
+			} catch (Exception  e) {
+				logger.error("Exception launched: ");
+				logger.trace(e.getMessage());
+				e.getStackTrace();
+				ret=false;
+			}
+
+			if (rent != null) {
+
+				rent.setId_rent(r.getId_rent());
+				rent.setComment(r.getComment());
+				rent.setRating(r.getRating());
+
+				
+				dao.updateRent(rent);
+			} else {
+
+				dao.storeRent(r);
+
+			}
+			return ret;
+		}
+
 }

@@ -32,6 +32,7 @@ public class AddCar {
 	private JTextField textFieldBrand;
 	private JTextField textFieldAccesories;
 	private JTextField textFieldPrice;
+	private JLabel lblMatricula;
 	private JLabel lblBrand;
 	private JLabel lblType;
 	private JLabel lblColour;
@@ -50,7 +51,8 @@ public class AddCar {
 	private static double price;
 	private static String accesories;
 	private static String email;
-	private ShowcarsAdmin showCaradmin;
+	private String img;
+	private ShowCarsAdmin showCaradmin;
 	
 	/**
 	 * Launch the application.
@@ -102,37 +104,37 @@ public class AddCar {
 		frame.getContentPane().add(carPanel, BorderLayout.CENTER);
 		carPanel.setLayout(null);
 		
-		JLabel lblMatricula = new JLabel("Matricula:");
+		lblMatricula = new JLabel("Matricula:");
 		lblMatricula.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblMatricula.setBounds(32, 29, 76, 14);
 		carPanel.add(lblMatricula);
 		
-		JLabel lblNewLabel = new JLabel("Brand:");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel.setBounds(32, 177, 57, 14);
-		carPanel.add(lblNewLabel);
+		lblBrand = new JLabel("Brand:");
+		lblBrand.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblBrand.setBounds(32, 177, 57, 14);
+		carPanel.add(lblBrand);
 		
-		JLabel lblNewLabel_1 = new JLabel("Colour:");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1.setBounds(32, 65, 46, 14);
-		carPanel.add(lblNewLabel_1);
+		lblColour = new JLabel("Colour:");
+		lblColour.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblColour.setBounds(32, 65, 46, 14);
+		carPanel.add(lblColour);
 		
-		JLabel lblNewLabel_2 = new JLabel("Model:");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_2.setBounds(32, 104, 46, 14);
-		carPanel.add(lblNewLabel_2);
+		lblModel = new JLabel("Model:");
+		lblModel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblModel.setBounds(32, 104, 46, 14);
+		carPanel.add(lblModel);
 		
-		JLabel lblType = new JLabel("Type:");
+		lblType = new JLabel("Type:");
 		lblType.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblType.setBounds(32, 141, 46, 14);
 		carPanel.add(lblType);
 		
-		JLabel lblAccesories = new JLabel("Accesories:");
+		lblAccesories = new JLabel("Accesories:");
 		lblAccesories.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblAccesories.setBounds(32, 216, 76, 14);
 		carPanel.add(lblAccesories);
 		
-		JLabel lblPrice = new JLabel("Price:");
+		lblPrice = new JLabel("Price:");
 		lblPrice.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblPrice.setBounds(32, 249, 46, 14);
 		carPanel.add(lblPrice);
@@ -191,8 +193,8 @@ public class AddCar {
 				
 				
 				try {
-					server.addCar(Mat, colour, model,type,brand,accesories,price);
-					showCaradmin = new ShowcarsAdmin(email);
+					server.addCar(Mat, colour,brand,model, type, price, accesories, img);
+					showCaradmin = new ShowCarsAdmin(email);
 					frame.dispose();
 					frame.revalidate();
 					frame.repaint();
@@ -204,4 +206,3 @@ public class AddCar {
 		});
 	}
 }
-

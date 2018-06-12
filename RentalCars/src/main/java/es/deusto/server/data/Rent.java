@@ -4,40 +4,102 @@ import java.io.Serializable;
 
 import javax.jdo.annotations.ForeignKey;
 import javax.jdo.annotations.ForeignKeyAction;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
 
-@PersistenceCapable
+
+@PersistenceCapable (detachable = "true")
+@Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Rent implements Serializable{
-
+	
 	
 	private static final long serialVersionUID = 1L;
-	@Persistent
-	@ForeignKey(name="email", deleteAction=ForeignKeyAction.RESTRICT)
-	private String email;
-	@ForeignKey(name="mat", deleteAction=ForeignKeyAction.RESTRICT)
-	private int mat;
 	
+	@PrimaryKey
+	private int id_rent; 
 	
-	public Rent(String email,int mat) {
-		this.email=email;
-		this.mat=mat;
+	@Persistent (defaultFetchGroup="true")
+	private Client client;
+	
+	@Persistent (defaultFetchGroup="true")
+	private Car car;
+	
+	private String comment;
+	private double rating;
+	
+	public Rent( Client client, Car car, String comment, double rating) {
+		super();
+		
+		this.client = client;
+		this.car = car;
+		this.comment = comment;
+		this.rating = rating;
 	}
+	 
 	
 	
-	public String getEmail() {
-		return email;
+	public Rent() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	
-	public void setEmail(String email) {
-		this.email = email;
+
+
+	public Rent( String comment, double rating) {
+		super();
+		
+		this.comment = comment;
+		this.rating = rating;
 	}
 
-	public int getMat() {
-		return mat;
+
+
+	public Client getClient() {
+		return client;
+	}
+	public void setClient(Client client) {
+		this.client = client;
+	}
+	public Car getCar() {
+		return car;
+	}
+	public void setCar(Car car) {
+		this.car = car;
+	}
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	public double getRating() {
+		return rating;
+	}
+	public void setRating(double rating) {
+		this.rating = rating;
 	}
 
 
+
+	public int getId_rent() {
+		return id_rent;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Rent [id_rent=" + id_rent +  ", comment=" + comment
+				+ ", rating=" + rating + "]";
+	}
+
+
+
+	public void setId_rent(int id_rent) {
+		this.id_rent = id_rent;
+	} 
 }

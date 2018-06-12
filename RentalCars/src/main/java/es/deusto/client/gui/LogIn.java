@@ -28,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import es.deusto.client.Client;
-import es.deusto.client.controller.Controller;
 import es.deusto.server.remote.*;
 
 
@@ -52,12 +51,12 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 	private JLabel signUpMesage;
 	private JButton btnNewClient;
 	private String clientEmail;
-	ShowcarsAdmin ShowCarsAdmin;
+	ShowCarsAdmin ShowCarsAdmin;
 	ShowCars ShowCars;
 	private boolean role = false;   //true --> admin
 									//false -->  client
 	IRemote server;
-	private Controller controller = null;
+	//private Controller controller = null;
 	
 	public static void main(String[] args) {
 		//final LogIn log= new LogIn(args);
@@ -182,7 +181,7 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 				try {
 					System.out.println("Server: " + server);
 					role =server.getClient(accessEmail).getRole();
-					server.registerClient(accessEmail);
+					server.registerClient(accessEmail, accessPassword, role);
 					clientEmail = accessEmail;
 				} catch (RemoteException e) {
 					logger.info(e.getMessage());
@@ -197,7 +196,7 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 					frame.revalidate();
 					frame.repaint();
 				}else{
-					ShowCarsAdmin = new ShowcarsAdmin(clientEmail);
+					ShowCarsAdmin = new ShowCarsAdmin(clientEmail);
 					frame.setVisible(false);
 					frame.dispose();
 					frame.revalidate();
@@ -348,7 +347,7 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 				if (passtxt.equals(confpasstxt) && !emailSignUp.equals("Email Address") && !fullName.equals("Full Name")){
 					try {
 						role = false;
-						server.registerClient(emailSignUp.getText());
+						server.registerClient(emailSignUp.getText(), confpasstxt, role);
 					} catch (RemoteException e) {
 						logger.info(e.getMessage());
 					}

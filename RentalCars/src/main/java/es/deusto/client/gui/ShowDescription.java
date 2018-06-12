@@ -221,7 +221,7 @@ public class ShowDescription {
 			}
 		});
 		
-		/*rentPanel = new JPanel();
+		rentPanel = new JPanel();
 		rentPanel.setBounds(0, 337, 975, 285);
 		carPanel.add(rentPanel);
 		rentPanel.setLayout(null);
@@ -259,7 +259,7 @@ public class ShowDescription {
 		lblRentR.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblRentR.setBounds(699, 73, 68, 17);
 		rentPanel.add(lblRentR);
-		*/
+		
 		cmbRentR = new JComboBox<Integer>();
 		for(int i=0;i<11;i++){
 			cmbRentR.addItem(i);
@@ -290,7 +290,7 @@ public class ShowDescription {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ShowCars showBooks = new ShowCars(email);
+				ShowCars showcars = new ShowCars(email);
 				frame.dispose();
 				frame.revalidate();
 				frame.repaint();
@@ -358,7 +358,7 @@ public void setValues(IRemote server) {
 		for (int i = 0; i < server.getCarRents(brand).size(); i++)
 		{
 			data[i][0] = server.getCarRents(brand).get(i).getClient().getEmail();
-			data[i][1] = server.getCarRents(brand).get(i).getid_rent();
+			data[i][1] = server.getCarRents(brand).get(i).getId_rent();
 		}
 	} catch (RemoteException e) {
 		e.printStackTrace();
@@ -366,6 +366,4 @@ public void setValues(IRemote server) {
 }
 
 }
-
-
 

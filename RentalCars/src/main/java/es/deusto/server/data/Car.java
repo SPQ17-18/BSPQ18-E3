@@ -1,10 +1,13 @@
 package es.deusto.server.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable (detachable = "true")
@@ -22,9 +25,7 @@ public class Car implements Serializable{
 	private String accesories;
 	private double price;	
 	
-	public Car() {
-		
-	}
+	
 
 
 	public Car(int mat, String colour, String brand, String model, String type, String accesories, double price) {
@@ -38,6 +39,20 @@ public class Car implements Serializable{
 	this.price = price;
 }
 
+	public Car(int mat, String brand, String model, double price) {
+		this.mat = mat;
+		this.brand = brand;
+		this.model = model;
+		this.price = price;
+	}
+
+	@Persistent(defaultFetchGroup="true", mappedBy="car", dependentElement="true")
+	@Join	
+	List<Rent> rents = new ArrayList<Rent>();
+	
+	@Persistent(defaultFetchGroup="true", dependentElement="true")
+	@Join	
+	List<Client> clients = new ArrayList<Client>();
 
 
 	public int getMat() {
@@ -123,6 +138,27 @@ public class Car implements Serializable{
 	}
 
 
+	public void addRent(Rent rent){
+		rents.
+		add
+		(rent);
+	}
+	public void removeRent(Rent rent){
+		rents.remove(rent);
+	}
+	public List<Rent> getRents(){
+		return this.rents;
+	}
+	
+	public void addClient(Client client){
+		clients.add(client);
+	}
+	public void removeclient(Client client){
+		clients.remove(client);
+	}
+	public List<Client> getClients(){
+		return this.clients;
+	}
 
 	
 	

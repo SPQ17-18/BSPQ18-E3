@@ -51,5 +51,15 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="C:/Program Files/mysql-connector-java-8.0.11/mysql-connector-java-8.0.11.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/exec-maven-plugin-1.2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/HP/.m2/repository/org/datanucleus/datanucleus-core/5.1.10/datanucleus-core-5.1.10.jar" sourcepath="C:/Users/HP/.m2/repository/org/datanucleus/datanucleus-core/5.1.10/datanucleus-core-5.1.10-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.datanucleus"/>
+			<attribute name="maven.artifactId" value="datanucleus-core"/>
+			<attribute name="maven.version" value="5.1.10"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

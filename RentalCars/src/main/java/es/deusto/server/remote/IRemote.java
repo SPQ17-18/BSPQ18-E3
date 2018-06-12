@@ -1,6 +1,5 @@
 package es.deusto.server.remote;
 
-
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -11,22 +10,21 @@ import es.deusto.server.data.Rent;
 
 
 
+
 public interface IRemote extends Remote{
 
 	 /**
-	  * register a new client
+	  * creates a new client
 	 * @param email 
 	 * @param password
-	 * @param role (true admin; false client)
+	 * @param role (true admin; false user)
 	 * @return true or false to tell if it worked
 	 * @throws RemoteException
 	 */
-	boolean registerClient(String client) throws RemoteException;
+	boolean registerClient(String email, String password,boolean role) throws RemoteException;
 	
-	
-	boolean login( String nick) throws RemoteException;
 	 /**
-	  * adds a car to database
+	  * adds a car to the database
 	 * @param car
 	 * @return true or false to tell if it worked 
 	 * @throws RemoteException
@@ -40,7 +38,10 @@ public interface IRemote extends Remote{
 	 * @throws RemoteException
 	 */
 	List<Car> showCarsInStore() throws RemoteException;
+	//List<Car> showOwnedCars(String email) throws RemoteException;
 	
+	//List<Car> showRentsOfCar(int mat) throws RemoteException;
+	//List<Car> showRentsOfCar(String colour) throws RemoteException;
 	
 	/**
 	 * gives you a all the clients in the database
@@ -50,7 +51,7 @@ public interface IRemote extends Remote{
 	List<Client> getAllClients() throws RemoteException;
 	
 	/**
-	 * gives you a all the Rents in the database
+	 * gives you a all the Rent in the database
 	 * @return a list<Rent> with all the cars in the database
 	 * @throws RemoteException
 	 */
@@ -65,16 +66,16 @@ public interface IRemote extends Remote{
 	
 	/**
 	 * Get a car by its mat
-	 * @param unique car mat
+	 * @param mat unique car ID
 	 * @return a Car with the selected mat
 	 * @throws RemoteException
 	 */
-	Car getCarByMat	(int mat)throws RemoteException;
+	Car getCarBymat	(int mat)throws RemoteException;
 	
 	/**
-	 * Get a Car by its ID
-	 * @param brand of the car
-	 * @return a car with the selected brand
+	 * Get a Car by its brand
+	 * @param brand name of the car
+	 * @return a Car with the selected Title
 	 * @throws RemoteException
 	 */
 	Car getCarByBrand	(String brand)throws RemoteException;
@@ -91,57 +92,72 @@ public interface IRemote extends Remote{
 	/**
 	 * Get a Client by its Email
 	 * @param email
-	 * @return a User
+	 * @return a Client
 	 * @throws RemoteException
 	 */
 	Client getClient(String email)throws RemoteException;
 	
 	
 	 /**
-	  * Rent a car
+	  * rent a car
 	 * @param email of the client
-	 * @param brand of the car
+	 * @param car_colour colour of the car
 	 * @return true of false to tell if it worked
 	 * @throws RemoteException
 	 */
-	boolean rentCar(String email, String brand) throws RemoteException;
+	boolean rentCar(String email, String car_brand) throws RemoteException;
 	
 	 /**
 	  * add a new rent to a car
 	 * @param b the car to add a rent
 	 * @param r the Rent
-	 * @param u the client who made the rent
+	 * @param u the Client who made the rent
 	 * @return true of false to tell if it worked
 	 * @throws RemoteException
 	 */
-	boolean addRent(Car c, Rent r, Client cli) throws RemoteException;
+	boolean addRent(Car b, Rent r, Client u) throws RemoteException;
 	
 	 /**
 	  * Get all the Rents a Client Made
-	 * @param email of the client
+	 * @param email of the user
 	 * @return a List<Rent> 
 	 * @throws RemoteException
 	 */
-	List<Rent> getClientsRents(String email)  throws RemoteException;
+	List<Rent> getClientRents(String email)  throws RemoteException;
 	
 	 /**
-	  * Get all the Rents of a car
-	 * @param brand of the car
+	  * Get all the Rents of a Car
+	 * @param colour of the car
 	 * @return List<Rent>
 	 * @throws RemoteException
 	 */
-	List<Rent> getCarRents(String brand)  throws RemoteException;
-	
+	List<Rent> getCarRents(String colour)  throws RemoteException;
 	
 	 /**
-	  * Deletes a Rent
+	  * Get the average Rating of a car
+	 * @param colour of the car
+	 * @return a double 
+	 * @throws RemoteException
+	 */
+	double averageRatingByCar(String colour)  throws RemoteException;
+	
+	 /**
+	  * Get the average Rating given by a Client
+	 * @param email
+	 * @return a double 
+	 * @throws RemoteException
+	 */
+	double averageRatingByClient(String email)  throws RemoteException;
+	
+	 /**
+	  * Eliminates a Rent
 	 * @param id_rent
 	 * @throws RemoteException
 	 */
 	void deleteRent(int id_rent) throws RemoteException;
 	
 	 /**
-	  * Delete a car
+	  * Eliminates a Car
 	 * @param mat
 	 * @throws RemoteException
 	 */
@@ -149,13 +165,16 @@ public interface IRemote extends Remote{
 	
 	 /**
 	  * Creates new car in the database
-	 * @param ID unique identifier- mat
-	 * @param colour
-	 * @param model
-	 * @param type 
-	 * @param brand
+	 * @param mat unique identifier
+	 * @param colour  String of the car
+	 * @param brand genre of car
+	 * @param model 
+	 * @param type
+	 * @param price
 	 * @param accesories
+	 * @param img
+	 * @return true of false to tell if it worked
 	 * @throws RemoteException
 	 */
-	boolean addCar(int mat, String colour, String model, String type, String brand, String accesories, double price) throws RemoteException;
+	boolean addCar(int mat, String colour, String brand, String model, String type, double price, String accesories, String img) throws RemoteException;
 }

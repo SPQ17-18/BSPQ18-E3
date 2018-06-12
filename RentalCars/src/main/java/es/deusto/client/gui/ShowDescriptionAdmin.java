@@ -338,7 +338,7 @@ public class ShowDescriptionAdmin implements ActionListener {
 						
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ShowcarsAdmin showCarsAdmin = new ShowcarsAdmin(email);
+				ShowCarsAdmin showCarsAdmin = new ShowCarsAdmin(email);
 				frame.dispose();
 				frame.revalidate();
 				frame.repaint();
@@ -354,7 +354,7 @@ public class ShowDescriptionAdmin implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				int selectedRow = rentsTable.getSelectedRow();
 				try {
-					server.deleteRent(server.getCarRents(brand).get(selectedRow).getid_rent());
+					server.deleteRent(server.getCarRents(brand).get(selectedRow).getId_rent());
 				} catch (NumberFormatException e1) {
 					e1.printStackTrace();
 				} catch (RemoteException e1) {
