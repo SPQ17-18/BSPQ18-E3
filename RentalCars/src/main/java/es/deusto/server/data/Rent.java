@@ -49,7 +49,7 @@ public class Rent implements Serializable{
 
 
 
-	public Rent( String comment, double rating) {
+	public Rent(String comment, double rating) {
 		super();
 		
 		this.comment = comment;
@@ -88,7 +88,9 @@ public class Rent implements Serializable{
 	public int getId_rent() {
 		return id_rent;
 	}
-
+	public void setId_rent(int id_rent) {
+		this.id_rent=id_rent;
+	}
 
 
 	@Override
@@ -99,7 +101,5 @@ public class Rent implements Serializable{
 
 
 
-	public void setId_rent(int id_rent) {
-		this.id_rent = id_rent;
-	} 
+
 }

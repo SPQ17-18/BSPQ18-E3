@@ -93,7 +93,7 @@ public class Remote extends UnicastRemoteObject implements IRemote {
 	@Override
 	public Car carTest() {
 
-		Car b = new Car(1,"Prueba coche","Jon", 19.90);
+		Car b = new Car(1,"Prueba coche","Janire", 19.90);
 
 		IDB db = new DB();
 

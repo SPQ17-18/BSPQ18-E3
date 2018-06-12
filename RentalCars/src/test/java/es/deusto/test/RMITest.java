@@ -281,7 +281,7 @@ public class RMITest {
 			}
 			assertTrue(a);
 		}
-		/*@Test(expected=RemoteException.class)
+		@Test(expected=RemoteException.class)
 		public void showClientFailTest() throws RemoteException{
 				
 				logger.info("Test 7 - showClientsFail");
@@ -293,7 +293,7 @@ public class RMITest {
 		
 			
 					
-		}*/
+		}
 		
 	
 /**

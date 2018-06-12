@@ -1,5 +1,7 @@
 package es.deusto.server;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.rmi.Naming;
 
 
@@ -7,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import es.deusto.server.data.Client;
+import es.deusto.server.dao.DAO;
 import es.deusto.server.dao.DB;
 import es.deusto.server.dao.IDB;
 import es.deusto.server.data.Car;
@@ -40,11 +43,11 @@ public class Server{
 
 	
 
-			Rent r1 = new Rent( "Rent 1",6.6);
-			Rent r2 = new Rent( "Rent 2",8.6);
-			Rent r3 = new Rent( "Rent 3",7.6);
-			Rent r4 = new Rent( "Rent 4",3.6);
-			Rent r5 = new Rent( "Rent 5",5.6);
+			Rent r1 = new Rent("Rent 1", 6.6);
+			Rent r2 = new Rent("Rent 2",8.6);
+			Rent r3 = new Rent("Rent 3",7.6);
+			Rent r4 = new Rent("Rent 4",3.6);
+			Rent r5 = new Rent("Rent 5",5.6);
 			
 			Car c1=new Car(123, "Red", "Brand1", "Model1", "Type1", "Accesories1", 45.62);
 			Car c2=new Car(124, "Blue", "Brand2", "Model2", "Type2", "Accesories2", 75.42);
@@ -85,7 +88,7 @@ public class Server{
 			db.addRent(c3, r4, a3);
 			db.addRent(c2, r5, a4);
 			
-			
+			db.registerRent(r1);
 			
 			
 			
@@ -104,14 +107,10 @@ public class Server{
 		
 			
 			logger.info("[S] Server '" + name + "' active and waiting...");
-			java.io.InputStreamReader inputStreamReader = new java.io.InputStreamReader ( System.in );
-			java.io.BufferedReader stdin = new java.io.BufferedReader ( inputStreamReader );
+			InputStreamReader inputStreamReader = new InputStreamReader ( System.in );
+			BufferedReader stdin = new BufferedReader ( inputStreamReader );
 			@SuppressWarnings("unused")
 			String line  = stdin.readLine();
-
-
-
-
 
 
 		} catch (Exception e) {

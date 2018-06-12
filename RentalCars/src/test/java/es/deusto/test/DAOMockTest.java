@@ -93,10 +93,10 @@ public class DAOMockTest {
 		
 	}
 	@Test
-	public void testAddBookValid() throws RemoteException {
+	public void testAddCarValid() throws RemoteException {
 		// Setting up the test data
 		
-		Car c =new Car(2,"maria","pabloaut",0.2);
+		Car c =new Car(2,"jon","pruebaa",0.2);
 		
 		//Stubbing
 		when( dao.retrieveCar (2) ).thenReturn(null);
@@ -114,37 +114,21 @@ public class DAOMockTest {
 		
 	}
 	@Test(expected=RemoteException.class)
-	public void testAddBookInvalidRemote() throws RemoteException {
+	public void testAddCarInvalidRemote() throws RemoteException {
 		// Setting up the test data
 		
 		Car c =null;
 		
 		//Stubbing
-		//when( dao.retrieveBook (a) ).thenReturn(null);
+		//when( dao.retrieveCar (a) ).thenReturn(null);
 		
-		logger.error("Invalid book remote, testing exception");
+		logger.error("Invalid Car remote, testing exception");
 		IRemote remote = new Remote();
 		
 		//Calling the method under test
 		remote.addCar(c);
 	}
 
-	/**
-	@Test(expected=AssertionError.class)
-	public void testAddBookInvalidDB() throws RemoteException {
-		// Setting up the test data
-		
-		Book b =null;
-		
-		//Stubbing
-		//when( dao.retrieveBook (a) ).thenReturn(null);
-		
-		logger.info("Invalid book remote, testing exception");
-		
-		
-		//Calling the method under test
-		db.addBookToDb(b);
-	}
-**/
+	
 
 }
