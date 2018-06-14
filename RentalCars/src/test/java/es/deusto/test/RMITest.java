@@ -210,7 +210,7 @@ public class RMITest {
 		@Test public void showCarsInStoreTest() {
 			try{
 				logger.info("Test 4 - showCarsInStore");
-				Car b1 =new Car(2,"Car11","janire",0.2);
+				Car b1 =new Car(2,"Blue","ford", "focus", "deportivo", "no accesories",0.2);
 				remote.addCar(b1);
 				remote.showCarsInStore();
 				
@@ -232,7 +232,7 @@ public class RMITest {
 			try{
 				logger.info("Test 5 - showClients");
 				
-				remote.registerClient("Car11","janire",false);
+				remote.registerClient("prueba","pruebaaaa",false);
 				remote.getAllClients();
 				
 			}

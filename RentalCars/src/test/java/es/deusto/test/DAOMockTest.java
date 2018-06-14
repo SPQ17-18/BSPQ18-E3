@@ -96,7 +96,7 @@ public class DAOMockTest {
 	public void testAddCarValid() throws RemoteException {
 		// Setting up the test data
 		
-		Car c =new Car(2,"jon","pruebaa",0.2);
+		Car c =new Car(2,"White","Citroen", "c4", "turismo", "gps",0.2);
 		
 		//Stubbing
 		when( dao.retrieveCar (2) ).thenReturn(null);

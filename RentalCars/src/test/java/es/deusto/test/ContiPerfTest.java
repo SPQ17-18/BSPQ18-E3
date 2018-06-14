@@ -45,7 +45,7 @@ public class ContiPerfTest {
 	public void storeCar() {
 		logger.info("ContiPerf storeCar");
 		
-		Car b =new Car(count,"Conti", "prueba",10.3);
+		Car b =new Car(154,"Blue", "Citroen", "c1", "deportivo", "gps",10.3);
 		
 		db.addCarToDb(b);
 		count++;
@@ -77,7 +77,7 @@ public class ContiPerfTest {
 	public void storeCarDuration() {
 		logger.info("ContiPerf  storeCarDuration");
 		
-		Car b =new Car(count,"Conti", "prueba",10.3);
+		Car b =new Car(155,"black", "Citroen", "c1", "turismo", "no accesories",10.3);
 		
 		db.addCarToDb(b);
 		count++;
