@@ -62,8 +62,8 @@ public class ShowDescription {
 	private JTextField txtPrice;
 	private JLabel lblMat;
 	private JTextField txtMat;
-	private JLabel lblRentR;
-	private JTextField txtRentR;
+	private JLabel lblRank;
+	private JTextField txtRank;
 	private JButton btnRent;
 	private JButton btnGoBack;
 	private JTable rentsTable;
@@ -72,8 +72,8 @@ public class ShowDescription {
 	private JLabel label;
 	private JTextPane txtRent;
 	private JButton btnSend;
-	private JComboBox<Integer> cmbRentR;
-	private JLabel lCmbRentR;
+	private JComboBox<Integer> cmbRate;
+	private JLabel lCmbRate;
 	
 	
 	private String email;
@@ -125,9 +125,9 @@ public class ShowDescription {
 		frame.getContentPane().add(carPanel, BorderLayout.CENTER);
 		carPanel.setLayout(null);
 		
-		lblImage = new JLabel("Image");
+		/*lblImage = new JLabel("Image");
 		lblImage.setBounds(46, 39, 232, 274);
-		carPanel.add(lblImage);
+		carPanel.add(lblImage);*/
 		
 		lblBrand = new JLabel("Brand:");
 		lblBrand.setBounds(357, 60, 32, 23);
@@ -153,9 +153,9 @@ public class ShowDescription {
 		lblPrice.setBounds(674, 80, 64, 24);
 		carPanel.add(lblPrice);
 		
-		lblRentR = new JLabel("RentR: ");
-		lblRentR.setBounds(674, 136, 45, 23);
-		carPanel.add(lblRentR);
+		lblRank = new JLabel("Rank: ");
+		lblRank.setBounds(674, 136, 45, 23);
+		carPanel.add(lblRank);
 		
 		txtBrand = new JTextField(brand);
 		txtBrand.setEditable(false);
@@ -244,10 +244,10 @@ public class ShowDescription {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					server.addRent(server.getCarByBrand(brand),new Rent(txtRent.getText(), cmbRentR.getSelectedIndex()),server.getClient(email));
+					server.addRent(server.getCarByBrand(brand),new Rent(txtRent.getText(), cmbRate.getSelectedIndex()),server.getClient(email));
 					JOptionPane.showMessageDialog(null, "Your comment and rate SEND!", "InfoBox: ", JOptionPane.INFORMATION_MESSAGE);
 					txtRent.setText("");
-					cmbRentR.setSelectedIndex(0);
+					cmbRate.setSelectedIndex(0);
 				} catch (RemoteException e1) {
 					e1.printStackTrace();
 				}
@@ -257,17 +257,17 @@ public class ShowDescription {
 		
 		rentPanel.add(btnSend);
 		
-		lblRentR = new JLabel("Rate:");
-		lblRentR.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblRentR.setBounds(699, 73, 68, 17);
-		rentPanel.add(lblRentR);
+		lCmbRate = new JLabel("Rate:");
+		lCmbRate.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lCmbRate.setBounds(699, 73, 68, 17);
+		rentPanel.add(lCmbRate);
 		
-		cmbRentR = new JComboBox<Integer>();
+		cmbRate = new JComboBox<Integer>();
 		for(int i=0;i<11;i++){
-			cmbRentR.addItem(i);
+			cmbRate.addItem(i);
 		}
-		cmbRentR.setBounds(735,70,40,25);
-		rentPanel.add(cmbRentR);
+		cmbRate.setBounds(735,70,40,25);
+		rentPanel.add(cmbRate);
 		
 		// Create the JTable and the table model 
 		TableModel rentTableModel = new RentTableModel(brand, server);
@@ -309,7 +309,7 @@ class RentTableModel extends AbstractTableModel {
  */
 private static final long serialVersionUID = 1L;
 
-String[] columnNames = {"USER", "COMMENT"};
+String[] columnNames = {"CLIENT", "COMMENT"};
 Object[][] data = null;
 
 String brand;
@@ -360,7 +360,7 @@ public void setValues(IRemote server) {
 		for (int i = 0; i < server.getCarRents(brand).size(); i++)
 		{
 			data[i][0] = server.getCarRents(brand).get(i).getClient().getEmail();
-			data[i][1] = server.getCarRents(brand).get(i).getId_rent();
+			data[i][1] = server.getCarRents(brand).get(i).getComment();
 		}
 	} catch (RemoteException e) {
 		e.printStackTrace();

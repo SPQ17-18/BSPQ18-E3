@@ -39,13 +39,13 @@ public class Car implements Serializable{
 	this.price = price;
 }
 
-	public Car(int mat, String brand, String model, double price) {
+	/*public Car(int mat, String brand, String model, double price) {
 		this.mat = mat;
 		this.brand = brand;
 		this.model = model;
 		this.price = price;
 	}
-
+*/
 	@Persistent(defaultFetchGroup="true", mappedBy="car", dependentElement="true")
 	@Join	
 	List<Rent> rents = new ArrayList<Rent>();

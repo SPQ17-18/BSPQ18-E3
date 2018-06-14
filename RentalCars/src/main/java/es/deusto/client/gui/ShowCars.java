@@ -263,15 +263,12 @@ public class ShowCars {
 				String type = (String) cmbSearch.getSelectedItem();
 				if (searchText.length() != 0){
 					if(type == "Brand"){
-						@SuppressWarnings("rawtypes")
 						RowFilter rowFilter = RowFilter.regexFilter(searchText, 0);
 						((DefaultRowSorter<TableModel, Integer>) listOfCars.getRowSorter()).setRowFilter(rowFilter);
 					}else if (type == "Type"){
-						@SuppressWarnings("rawtypes")
 						RowFilter rowFilter = RowFilter.regexFilter(searchText, 1);
 						((DefaultRowSorter<TableModel, Integer>) listOfCars.getRowSorter()).setRowFilter(rowFilter);
 					}else if(type == "Matricula"){
-						@SuppressWarnings("rawtypes")
 						RowFilter rowFilter = RowFilter.regexFilter(searchText, 2);
 						((DefaultRowSorter<TableModel, Integer>) listOfCars.getRowSorter()).setRowFilter(rowFilter);	
 					}
@@ -326,10 +323,10 @@ public class ShowCars {
 	}
 	
 
-	public void setVisible(boolean b) {
+	/*public void setVisible(boolean b) {
 		// TODO Auto-generated method stub
 		
-	}
+	}*/
 }
 
 class CarTableModel  extends AbstractTableModel {
@@ -338,9 +335,8 @@ class CarTableModel  extends AbstractTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String[] columnNames = { "Mat", "Colour", "Model", "Type","Brand", "Accesories", "Price" };
-	List<Car> data;
-
+	String[] columnNames = { "Brand", "Colour", "Mat", "Type","Model", "Accesories", "Price" };
+	String[][] data;
 	@Override
 	public int getColumnCount() {
 		return columnNames.length;
@@ -353,12 +349,14 @@ class CarTableModel  extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		 return data.size();
+		//return data.size();
+		return data.length;
 	}
 
 	@Override
 	public Object getValueAt(int row, int col) {
-		return data.get(row);
+		//return data.get(row);
+		return data[row][col];
 	}
 
 	@Override
@@ -369,24 +367,37 @@ class CarTableModel  extends AbstractTableModel {
 	@Override
 	public void setValueAt(Object value, int row, int col) {
 //		data.get(row) = value;
+		data[row][col]=(String) value;
         fireTableCellUpdated(row, col);
 	}
 	
 	public void setValues(IRemote server) {
 		try {
-			data = new ArrayList<>();
 			if(server.showCarsInStore().size()!= 0){
+				//data = new ArrayList<>();
+				data=new String[server.showCarsInStore().size()][7];
+			}else{
+					data = new String[0][5];
+				}
 				for(int i = 0 ; i < server.showCarsInStore().size() ; i++)
 				{
-					data.add(new 
+					data[i][0] = server.showCarsInStore().get(i).getBrand();
+					data[i][1] = server.showCarsInStore().get(i).getColour();
+					data[i][2] = "" + server.showCarsInStore().get(i).getMat();
+					data[i][3] = "" + server.showCarsInStore().get(i).getType();
+					data[i][4] = " "+server.showCarsInStore().get(i).getModel();
+					data[i][5] = " "+server.showCarsInStore().get(i).getAccesories();
+					data[i][6] = "" + server.showCarsInStore().get(i).getPrice() + " €";
+					/*data.add(new 
 							Car(server.showCarsInStore().get(i).getMat(),
+							server.showCarsInStore().get(i).getColour(),
 							server.showCarsInStore().get(i).getBrand(),
 							server.showCarsInStore().get(i).getModel(),
-							server.showCarsInStore().get(i).getPrice()));
+							server.showCarsInStore().get(i).getType(),
+							server.showCarsInStore().get(i).getAccesories(),							
+							server.showCarsInStore().get(i).getPrice()));*/
 				}
-			}
-			else{
-			}
+			
 			// TODO: for que llame a setvalueat con los datos de cada columna
 //			
 		} catch (RemoteException e) {
