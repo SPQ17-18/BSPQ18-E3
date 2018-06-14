@@ -54,11 +54,11 @@ public interface IDAO {
 	boolean storeRent(Rent r);
 	
 	/**
-	 * Get a Car from the database by its ISBN
-	 * @param ISBN
+	 * Get a Car from the database by its mat
+	 * @param mat
 	 * @return The Car
 	 */
-	Car retrieveCar(int ISBN );
+	Car retrieveCar(int mat );
 	
 	/**
 	 * Updates the row in the database of a given Car

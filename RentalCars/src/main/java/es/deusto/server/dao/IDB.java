@@ -136,6 +136,8 @@ import es.deusto.server.data.Rent;
 		 * @return true or false to tell if it worked
 		 */
 		boolean deleteCar(int mat);
+
+		boolean addRentToDb(Rent rent);
 		
 
 		
