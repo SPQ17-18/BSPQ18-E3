@@ -114,7 +114,6 @@ public class DB implements IDB{
 
 		if (car == null  || client == null ||rent !=null ) {
 
-			logger.info("he llegado aqui");
 
 		}else if (car !=null  && client !=null && rent == null  ){
 			int a= getAllRents().size()+1;
@@ -129,7 +128,6 @@ public class DB implements IDB{
 			dao.updateCar(car);
 			dao.updateClient(client);
 			//TODO:: llamar a registerRent
-			
 			dao.retrieveRent(r.getId_rent());
 		}
 

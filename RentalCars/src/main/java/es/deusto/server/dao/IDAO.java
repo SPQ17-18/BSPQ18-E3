@@ -68,11 +68,11 @@ public interface IDAO {
 	boolean updateCar(Car b);
 
 	/**
-	 * Get a Car from the database by its title
-	 * @param title of the car
+	 * Get a Car from the database by its brand
+	 * @param brand of the car
 	 * @return The car
 	 */
-	Car retrieveCarByParameter(String title);
+	Car retrieveCarByParameter(String brand);
 	
 	// boolean deleteDatabase();
 
