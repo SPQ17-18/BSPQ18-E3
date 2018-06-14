@@ -129,6 +129,7 @@ public class DB implements IDB{
 			dao.updateCar(car);
 			dao.updateClient(client);
 			//TODO:: llamar a registerRent
+			
 			dao.retrieveRent(r.getId_rent());
 		}
 
@@ -372,5 +373,37 @@ public class DB implements IDB{
 			}
 			return ret;
 		}
+
+	@Override
+	public boolean addRentToDb(Rent rent) {
+		// TODO Auto-generated method stub
+		Rent ren = null;
+
+		boolean ret=true;
+
+		try {
+
+			ren=dao.retrieveRent(rent.getId_rent());
+
+		} catch (Exception  e) {
+			logger.error("Exception launched in checking if the data already exist: ");
+			logger.trace(e.getMessage());
+			e.getStackTrace();
+			ret = false;
+		}
+
+		if (ren != null ) {
+
+		}else{
+
+
+
+			dao.storeRent(rent);
+
+
+		}
+
+		return ret;
+	}
 
 }
