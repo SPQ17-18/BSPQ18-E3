@@ -17,6 +17,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultRowSorter;
 import javax.swing.JButton;
@@ -34,6 +36,7 @@ import javax.swing.UIManager;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import es.deusto.server.data.Car;
 
 import es.deusto.server.remote.IRemote;
 //import es.deusto.server.remote.Remote;
@@ -119,7 +122,7 @@ public class ShowCars {
 		frame.getContentPane().add(carSearch, BorderLayout.CENTER);
 		//Search.setVisible(false);
 		
-		btnSearch = new JButton("Search");
+		/*btnSearch = new JButton("Searaaaach");
 		btnSearch.setVerticalAlignment(SwingConstants.TOP);
 		btnSearch.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
 		btnSearch.setBackground(SystemColor.controlHighlight);
@@ -143,7 +146,7 @@ public class ShowCars {
 				frame.revalidate();
 				frame.repaint();
 			}
-		});
+		});*/
 		
 		
 		
@@ -336,7 +339,7 @@ class CarTableModel  extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 1L;
 	String[] columnNames = { "Mat", "Colour", "Model", "Type","Brand", "Accesories", "Price" };
-	Object[][] data = null;
+	List<Car> data;
 
 	@Override
 	public int getColumnCount() {
@@ -350,12 +353,12 @@ class CarTableModel  extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		 return data.length;
+		 return data.size();
 	}
 
 	@Override
 	public Object getValueAt(int row, int col) {
-		return data[row][col];
+		return data.get(row);
 	}
 
 	@Override
@@ -365,28 +368,27 @@ class CarTableModel  extends AbstractTableModel {
 
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-		data[row][col] = value;
+//		data.get(row) = value;
         fireTableCellUpdated(row, col);
 	}
 	
 	public void setValues(IRemote server) {
 		try {
+			data = new ArrayList<>();
 			if(server.showCarsInStore().size()!= 0){
-				data = new String[server.showCarsInStore().size()][5];
+				for(int i = 0 ; i < server.showCarsInStore().size() ; i++)
+				{
+					data.add(new 
+							Car(server.showCarsInStore().get(i).getMat(),
+							server.showCarsInStore().get(i).getBrand(),
+							server.showCarsInStore().get(i).getModel(),
+							server.showCarsInStore().get(i).getPrice()));
+				}
 			}
 			else{
-				data = new String[0][5];
 			}
-			for (int i = 0; i < server.showCarsInStore().size(); i++)
-			{
-				data[i][0] = server.showCarsInStore().get(i).getMat();
-				data[i][1] = server.showCarsInStore().get(i).getColour();
-				data[i][2] = server.showCarsInStore().get(i).getModel();
-				data[i][3] = server.showCarsInStore().get(i).getType();
-				data[i][4] = server.showCarsInStore().get(i).getBrand();
-				data[i][5] = server.showCarsInStore().get(i).getAccesories();
-				data[i][6] =server.showCarsInStore().get(i).getPrice() + " €";
-			}
+			// TODO: for que llame a setvalueat con los datos de cada columna
+//			
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}

@@ -274,6 +274,17 @@ public class Remote extends UnicastRemoteObject implements IRemote {
 		return false;
 	}
 
+@Override
+public boolean addRent(Rent rent) throws RemoteException {
+	// TODO Auto-generated method stub
+	if(rent!=null){
+		IDB db = new DB();
+		return db.addRentToDb(rent);
+	}else{
+		throw new RemoteException("Invalid rent");
+	}
+}
+
 
 
 

@@ -30,7 +30,7 @@ public interface IRemote extends Remote{
 	 * @throws RemoteException
 	 */
 	boolean addCar(Car car) throws RemoteException;
-	
+	boolean addRent(Rent rent)throws RemoteException;
 
 	/**
 	 * gives you a all the cars in the database

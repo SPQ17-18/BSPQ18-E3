@@ -45,7 +45,7 @@ public class ContiPerfTest {
 	public void storeCar() {
 		logger.info("ContiPerf storeCar");
 		
-		Car b =new Car(count,"Conti", "pruaba",10.3);
+		Car b =new Car(count,"Conti", "prueba",10.3);
 		
 		db.addCarToDb(b);
 		count++;
@@ -53,8 +53,8 @@ public class ContiPerfTest {
 
 	
 	@Test
-	@PerfTest(invocations = 50)
-	@Required(average = 100, throughput =10, max =2)
+	@PerfTest(invocations = 100)
+	//@Required(average = 50, throughput =10, max =100)
 	public void registerNewClientTest() {
 		
 		String idEmail ="" + count3 ;

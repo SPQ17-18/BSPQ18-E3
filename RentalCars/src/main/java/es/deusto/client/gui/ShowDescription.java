@@ -163,7 +163,9 @@ public class ShowDescription {
 		carPanel.add(txtBrand);
 		txtBrand.setColumns(10);
 		
-		txtModel = new JTextField(server.getCarByBrand(brand).getModel());
+		txtModel = new JTextField(server.
+				getCarByBrand(brand).
+				getModel());
 		txtModel.setEditable(false);
 		txtModel.setColumns(10);
 		txtModel.setBounds(415, 94, 177, 23);

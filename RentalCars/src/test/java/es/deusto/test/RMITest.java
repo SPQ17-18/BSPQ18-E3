@@ -16,6 +16,7 @@ import es.deusto.server.data.Rent;
 import es.deusto.server.remote.IRemote;
 import es.deusto.server.remote.Remote;
 
+import org.databene.contiperf.Required;
 import org.junit.AfterClass;
 
 
@@ -141,6 +142,8 @@ public class RMITest {
 		
 	}
 	
+	
+	
 	@Test public void registerNewClientTest() {
 		try{
 			logger.info("Test 1 - Register new client");
@@ -151,9 +154,9 @@ public class RMITest {
 			logger.trace(re.getMessage());
 			re.printStackTrace();
 		} 
-		/*
-		 * Very simple test, inserting a valid new client
-		 */
+		
+		 //Very simple test, inserting a valid new client
+		 
 		assertTrue( true );
 	}
 	
@@ -180,11 +183,11 @@ public class RMITest {
 	}
 	
 	
-		@Test public void carTestValidation() {
+	/*	@Test public void carTestValidation() {
 		logger.info("Test 3 - Game Test ");
 		
 		
-		Car b = new Car(1,"Prueba coche","janire", 19.90);
+		Car c = new Car(1,"Prueba coche","Janire", 19.90);
 	
 		
 		Car carTest = null;
@@ -200,9 +203,9 @@ public class RMITest {
 			
 		}
 	
-		assertEquals(b.toString(), carTest.toString());
+		assertEquals(c.toString(), carTest.toString());
 		
-	}
+	}*/
 		
 		@Test public void showCarsInStoreTest() {
 			try{
@@ -245,7 +248,7 @@ public class RMITest {
 			
 			
 		}
-		@Test public void getThings(){
+		/*@Test public void getThings(){
 			boolean a = true;
 			
 			try {
@@ -280,7 +283,7 @@ public class RMITest {
 					
 			}
 			assertTrue(a);
-		}
+		}*/
 		@Test(expected=RemoteException.class)
 		public void showClientFailTest() throws RemoteException{
 				

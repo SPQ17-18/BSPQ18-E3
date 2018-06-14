@@ -42,7 +42,7 @@ public class Server{
 			Naming.rebind(name, objServer);
 
 	
-
+			
 			Rent r1 = new Rent("Rent 1", 6.6);
 			Rent r2 = new Rent("Rent 2",8.6);
 			Rent r3 = new Rent("Rent 3",7.6);
@@ -77,7 +77,6 @@ public class Server{
 			Client a4 =db.showClient("nacho");
 			Client a5=db.showClient("javier");
 			Client ad=db.showClient("admin");
-			
 			
 			
 			db.addRent(c1, r1, a1);	
