@@ -93,7 +93,7 @@ public class Remote extends UnicastRemoteObject implements IRemote {
 	@Override
 	public Car carTest() {
 
-		Car b = new Car(1,"Prueba coche","Janire", 19.90);
+		Car b = new Car(1,"Red", "Seat","Altea", "turismo", "gps", 19.90);
 
 		IDB db = new DB();
 
@@ -263,7 +263,7 @@ public class Remote extends UnicastRemoteObject implements IRemote {
 			String accesories, String img) {
 		// TODO Auto-generated method stub
 		IDB db = new DB();
-		Car b=new Car(mat,  colour,  brand,  price);
+		Car b=new Car(mat,  colour,  brand, model, type, accesories, price);
 		try{
 			db.addCarToDb(b);
 		}catch(Exception e){
