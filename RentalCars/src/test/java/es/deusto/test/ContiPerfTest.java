@@ -41,7 +41,7 @@ public class ContiPerfTest {
 	
 	
 	@Test
-	@PerfTest(invocations = 250)
+	@PerfTest(invocations = 50)
 	public void storeCar() {
 		logger.info("ContiPerf storeCar");
 		
@@ -53,7 +53,7 @@ public class ContiPerfTest {
 
 	
 	@Test
-	@PerfTest(invocations = 100)
+	@PerfTest(invocations = 10)
 	//@Required(average = 50, throughput =10, max =100)
 	public void registerNewClientTest() {
 		
@@ -72,7 +72,7 @@ public class ContiPerfTest {
 		assertTrue( true );
 	}
 	@Test
-	@PerfTest(duration = 5000)
+	@PerfTest(duration = 1000)
 	@Required(average = 100, throughput =10)
 	public void storeCarDuration() {
 		logger.info("ContiPerf  storeCarDuration");
@@ -84,7 +84,7 @@ public class ContiPerfTest {
 	}
 	
 	@Test
-	@PerfTest(threads = 40, duration = 1000)
+	@PerfTest(threads = 40, duration = 100)
 	public void showCarThreads() {
 		logger.info("ContiPerf showCarThreads");
 		
@@ -98,7 +98,7 @@ public class ContiPerfTest {
 	
 	
 	@Test
-	@PerfTest(threads = 10, duration = 5000)
+	@PerfTest(threads = 10, duration = 100)
 	public void showCarThreads2() {
 		logger.info("ContiPerf store Car");
 		
