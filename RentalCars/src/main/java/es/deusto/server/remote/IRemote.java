@@ -79,7 +79,7 @@ public interface IRemote extends Remote{
 	 * @throws RemoteException
 	 */
 	Car getCarByBrand	(String brand)throws RemoteException;
-	
+	Car getCarByModel(String model) throws RemoteException;
 	
 	/**
 	 * Get a Rent by its ID
@@ -131,7 +131,7 @@ public interface IRemote extends Remote{
 	 * @return List<Rent>
 	 * @throws RemoteException
 	 */
-	List<Rent> getCarRents(String colour)  throws RemoteException;
+	List<Rent> getCarRents(String brand)  throws RemoteException;
 	
 	 /**
 	  * Get the average Rating of a car

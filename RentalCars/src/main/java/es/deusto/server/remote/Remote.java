@@ -197,11 +197,11 @@ public class Remote extends UnicastRemoteObject implements IRemote {
 		return userRents;
 	}
 
-	public List<Rent> getCarRents(String colour) {
+	public List<Rent> getCarRents(String brand) {
 		IDB db =new DB();
 		List<Rent> carRents=null;
 		try{
-			carRents= db.getCarRents(colour);
+			carRents= db.getCarRents(brand);
 		}catch(Exception e){
 
 		}
@@ -284,6 +284,19 @@ public boolean addRent(Rent rent) throws RemoteException {
 		throw new RemoteException("Invalid rent");
 	}
 }
+
+@Override
+public Car getCarByModel(String model) throws RemoteException {
+	// TODO Auto-generated method stub
+				IDB db =new DB();
+			Car b = null;
+			try{
+				b = db.showCarByModel(model);
+			}catch (Exception e){
+
+			}
+			return b;
+		}
 
 
 
