@@ -17,7 +17,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultRowSorter;
@@ -36,8 +35,8 @@ import javax.swing.UIManager;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import es.deusto.server.data.Car;
 
+import es.deusto.server.data.Car;
 import es.deusto.server.remote.IRemote;
 //import es.deusto.server.remote.Remote;
 import es.deusto.server.remote.Remote;
@@ -122,7 +121,7 @@ public class ShowCars {
 		frame.getContentPane().add(carSearch, BorderLayout.CENTER);
 		//Search.setVisible(false);
 		
-		/*btnSearch = new JButton("Searaaaach");
+	/*	btnSearch = new JButton("Searaaaach");
 		btnSearch.setVerticalAlignment(SwingConstants.TOP);
 		btnSearch.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
 		btnSearch.setBackground(SystemColor.controlHighlight);
@@ -146,9 +145,9 @@ public class ShowCars {
 				frame.revalidate();
 				frame.repaint();
 			}
-		});*/
+		});
 		
-		
+	*/	
 		
 		// JLabel component about search message
 		lblSearch = new JLabel("Car Search");
@@ -210,10 +209,14 @@ public class ShowCars {
 		 final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(CarTableModel);
 		listOfCars = new JTable(CarTableModel);
 		listOfCars.setRowHeight(40);
+	    listOfCars.setSize(500,500 );
 		listOfCars.setRowSorter(sorter);
+		//listOfCars.set
 		listOfCars.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listOfCars.setBackground(SystemColor.window);
 		listOfCars.setFont(new Font("Yu Gothic", Font.PLAIN, 20));
+    	//setViewportView(CarTableModel); //La tabla se verá dentro del panel de barras de desplazamiento   	
+		//listOfCars.setVisible(true);
 		
 		//Create the scroll pane and add the table to it
 		scrollListCars = new JScrollPane(listOfCars);
@@ -260,15 +263,15 @@ public class ShowCars {
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
 				String searchText = textSearchUser.getText();
-				String type = (String) cmbSearch.getSelectedItem();
+				String types = (String) cmbSearch.getSelectedItem();
 				if (searchText.length() != 0){
-					if(type == "Brand"){
+					if(types == "Brand"){
 						RowFilter rowFilter = RowFilter.regexFilter(searchText, 0);
 						((DefaultRowSorter<TableModel, Integer>) listOfCars.getRowSorter()).setRowFilter(rowFilter);
-					}else if (type == "Type"){
+					}else if (types == "Model"){
 						RowFilter rowFilter = RowFilter.regexFilter(searchText, 1);
 						((DefaultRowSorter<TableModel, Integer>) listOfCars.getRowSorter()).setRowFilter(rowFilter);
-					}else if(type == "Matricula"){
+					}else if(types == "Matricula"){
 						RowFilter rowFilter = RowFilter.regexFilter(searchText, 2);
 						((DefaultRowSorter<TableModel, Integer>) listOfCars.getRowSorter()).setRowFilter(rowFilter);	
 					}
@@ -323,25 +326,27 @@ public class ShowCars {
 	}
 	
 
-	/*public void setVisible(boolean b) {
+	
+	public void setVisible(boolean b) {
 		// TODO Auto-generated method stub
 		
-	}*/
+	}
 }
 
-class CarTableModel  extends AbstractTableModel {
-
+final class CarTableModel  extends AbstractTableModel {
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	String[] columnNames = { "Brand", "Colour", "Mat", "Type","Model", "Accesories", "Price" };
 	String[][] data;
+	//Object[][]data=null;
 	@Override
 	public int getColumnCount() {
 		return columnNames.length;
 	}
-
+	
 	@Override
 	public String getColumnName(int col) {
 		 return columnNames[col];
@@ -372,22 +377,36 @@ class CarTableModel  extends AbstractTableModel {
 	}
 	
 	public void setValues(IRemote server) {
+		System.out.println("********rellenando tabla");
 		try {
 			if(server.showCarsInStore().size()!= 0){
 				//data = new ArrayList<>();
+				System.out.println("********111111rellenando tabla");
+
 				data=new String[server.showCarsInStore().size()][7];
+				System.out.println("********22222222222rellenando tabla");
+
 			}else{
-					data = new String[0][5];
+					data = new String[0][7];
 				}
-				for(int i = 0 ; i < server.showCarsInStore().size() ; i++)
+			
+			
+			
+			System.out.println("coches en tienda: " + server.showCarsInStore().size());
+			List<Car> listCars = server.showCarsInStore();	
+			for(int i = 0 ; i < listCars.size() ; i++)
 				{
-					data[i][0] = server.showCarsInStore().get(i).getBrand();
-					data[i][1] = server.showCarsInStore().get(i).getColour();
-					data[i][2] = "" + server.showCarsInStore().get(i).getMat();
-					data[i][3] = "" + server.showCarsInStore().get(i).getType();
-					data[i][4] = " "+server.showCarsInStore().get(i).getModel();
-					data[i][5] = " "+server.showCarsInStore().get(i).getAccesories();
-					data[i][6] = "" + server.showCarsInStore().get(i).getPrice() + " €";
+					System.out.println("********3333333333333rellenando tabla");
+					Car tempCar = listCars.get(i);
+					System.out.println("********+Coche: " + tempCar);
+
+					data[i][0] = tempCar.getBrand();
+					data[i][1] = tempCar.getColour();
+					data[i][2] = "" + tempCar.getMat();
+					data[i][3] = "" + tempCar.getType();
+					data[i][4] = " "+tempCar.getModel();
+					data[i][5] = " "+tempCar.getAccesories();
+					data[i][6] = "" + tempCar.getPrice() + " €";
 					/*data.add(new 
 							Car(server.showCarsInStore().get(i).getMat(),
 							server.showCarsInStore().get(i).getColour(),
@@ -396,6 +415,8 @@ class CarTableModel  extends AbstractTableModel {
 							server.showCarsInStore().get(i).getType(),
 							server.showCarsInStore().get(i).getAccesories(),							
 							server.showCarsInStore().get(i).getPrice()));*/
+					System.out.println("********4444444444444444rellenando tabla");
+
 				}
 			
 			// TODO: for que llame a setvalueat con los datos de cada columna

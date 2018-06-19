@@ -181,21 +181,28 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 				try {
 					System.out.println("Server: " + server);
 					role =server.getClient(accessEmail).getRole();
+					System.out.println("*****role" + role);
 					server.registerClient(accessEmail, accessPassword, role);
+					System.out.println("ha vuelto de registrar el cliente");
+
 					clientEmail = accessEmail;
 				} catch (RemoteException e) {
 					logger.info(e.getMessage());
+					e.printStackTrace();
 				}
 				
 				//client and admin
 				
 				if(role == false){
+					logger.info("*************show cars for client");
 					ShowCars = new ShowCars(clientEmail);
 					frame.setVisible(false);
 					frame.dispose();
 					frame.revalidate();
 					frame.repaint();
 				}else{
+					logger.info("*************show cars for admin");
+
 					ShowCarsAdmin = new ShowCarsAdmin(clientEmail);
 					frame.setVisible(false);
 					frame.dispose();
@@ -371,6 +378,8 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 		logIn.revalidate();
 		logIn.repaint();
 	}
+	
+	
 	
 
 }

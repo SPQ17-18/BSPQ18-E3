@@ -404,4 +404,11 @@ public class DB implements IDB{
 		return ret;
 	}
 
+	@Override
+	public Car showCarByModel(String model) {
+		Car b=dao.retrieveCarByParameter(model);
+		// ao.retrieveLicenseByName(name);
+		return b;
+	}
+
 }

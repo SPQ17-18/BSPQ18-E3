@@ -38,8 +38,8 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import es.deusto.server.data.Rent;
-import es.deusto.server.remote.IRemote;
-import es.deusto.server.remote.Remote;
+
+import es.deusto.server.remote.*;
 
 
 public class ShowDescription {
@@ -130,7 +130,7 @@ public class ShowDescription {
 		carPanel.add(lblImage);*/
 		
 		lblBrand = new JLabel("Brand:");
-		lblBrand.setBounds(357, 60, 32, 23);
+		lblBrand.setBounds(357, 60, 42, 23);
 		carPanel.add(lblBrand);
 		
 		lblModel = new JLabel("Model:");
@@ -340,7 +340,7 @@ public Object getValueAt(int row, int col) {
 
 @Override
 public boolean isCellEditable(int row, int col) {
-	return false;
+	return true;
 }
 
 @Override

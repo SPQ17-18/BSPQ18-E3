@@ -135,6 +135,8 @@
 					 <!-- This line is for skipping set/get and constructor trivial methods. The coverage is higher-->
 					  <ignoreTrivial>true</ignoreTrivial>  
 						<excludes>
+							<exclude>es/deusto/client/gui/*.class</exclude>	
+							<exclude>es/deusto/server/data/*.class</exclude>												
 							<exclude>es/deusto/client/*.class</exclude>
 							<exclude>es/deusto/server/Server.class</exclude>
 							<exclude>es/deusto/server/**/I*.*</exclude>

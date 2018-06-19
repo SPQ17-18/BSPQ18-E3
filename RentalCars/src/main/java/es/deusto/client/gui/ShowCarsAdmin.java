@@ -1,8 +1,5 @@
 package es.deusto.client.gui;
 
-/*sorter???
- * 
- * */
 
 
 import java.awt.BorderLayout;
@@ -56,7 +53,7 @@ public class ShowCarsAdmin {
 	private JTextField textSearchUser;
 	private JButton btnSearch;
 	private JTable listOfCars;
-	TableModel carTableModel;
+//	TableModel carTableModel;
 	private JScrollPane scrollListCars;
 	private JButton btnRefresh;
 	private JButton btnAddCar;
@@ -76,7 +73,7 @@ public class ShowCarsAdmin {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ShowCarsAdmin window = new ShowCarsAdmin(email);
+					new ShowCarsAdmin(email);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -99,17 +96,21 @@ public class ShowCarsAdmin {
 		frame.setBackground(SystemColor.window);
 		
 		// Initialize the contents of the frame.
+		System.out.println("********inicializando remote");
 		try {
 			server = new Remote();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 		this.email = email;
+		System.out.println("llamando a initialize");
+		initializecarSearchAdmin();		
+		System.out.println("ha vuelto initialize");
+
 		
-		initializecarSearchAdmin();
 	}
 	
-	/*public ShowcarsAdmin() {
+	public ShowCarsAdmin() {
 		
 		// Create and set up the window.
 		frame = new JFrame("Car Rent");
@@ -127,7 +128,7 @@ public class ShowCarsAdmin {
 			e.printStackTrace();
 		}
 		initializecarSearchAdmin();
-	}*/
+	}
 	
 	/**
 	 * Initialize the contents of the carSearch JPanel 
@@ -165,7 +166,7 @@ public class ShowCarsAdmin {
 		});
 		
 		// JLabel component about search message
-		lblSearch = new JLabel("Add cars");
+		lblSearch = new JLabel("Car search");
 		lblSearch.setBackground(SystemColor.window);
 		lblSearch.setForeground(new Color(0, 0, 0));
 		lblSearch.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
@@ -189,7 +190,7 @@ public class ShowCarsAdmin {
 		carSearch.add(cmbSearch, gbc_cmbSearch);
 		
 		// JTextField component about the text that is going to be searched
-		textSearchUser = new JTextField("Enter text here!");
+		textSearchUser = new JTextField("");
 		textSearchUser.setBackground(SystemColor.window);
 		textSearchUser.addMouseListener(new MouseAdapter() {
 			@Override
@@ -219,38 +220,45 @@ public class ShowCarsAdmin {
 		// JTable with all the available cars
 		
 		// Create the JTable and the table model 
-		carTableModel = new CarTableModel();
-		((es.deusto.client.gui.CarTableModel) carTableModel).setValues(server);
-		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(carTableModel);
-		listOfCars = new JTable(carTableModel);
-		listOfCars.setRowHeight(40);
+		final TableModel CarTableModel = new CarTableModel();
+		((es.deusto.client.gui.CarTableModel) CarTableModel).setValues(server);
+		 final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(CarTableModel);
+
+		listOfCars = new JTable(CarTableModel);
+		listOfCars.setRowHeight(100);
 		listOfCars.setRowSorter(sorter);
 		listOfCars.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listOfCars.setBackground(SystemColor.window);
 		listOfCars.setFont(new Font("Yu Gothic", Font.PLAIN, 20));
-		
+
 		//Create the scroll pane and add the table to it
 		scrollListCars = new JScrollPane(listOfCars);
-		scrollListCars.setEnabled(false);
+		scrollListCars.setEnabled(true);
 		scrollListCars.getViewport().setBackground(Color.white);
 		Dimension d = listOfCars.getPreferredSize();
-		scrollListCars.setPreferredSize(
-		    new Dimension(d.width,listOfCars.getRowHeight()*listOfCars.getRowCount()+25));
+		//scrollListCars.setPreferredSize(
+		    //new Dimension(d.width,listOfCars.getRowHeight()*listOfCars.getRowCount()+25));
 		// Mouse Listener -> go to a specific car
 		listOfCars.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
+				//if (e.getClickCount() == 2) {
 					//Select a row to see the description window
 					listOfCars.getSelectedRow();
-					String title = (String) carTableModel.getValueAt(listOfCars.getSelectedRow(), 0);
-					showDescriptionAdmin = new ShowDescriptionAdmin(title, email);
+					String brand = (String) CarTableModel.getValueAt(listOfCars.getSelectedRow(), 0);
+					showDescriptionAdmin = new ShowDescriptionAdmin(brand, email);
 					frame.dispose();
 					frame.revalidate();
-					frame.repaint();	
+					frame.repaint();
+
 				}
+			});
+				/*showDescriptionAdmin = new ShowDescriptionAdmin(brand, email);
+				frame.dispose();
+				frame.revalidate();
+				frame.repaint();
 			}
-		});
+		});*/
 		
 		//Add the scroll pane to this panel.
 		GridBagConstraints gbc_scrollListCars = new GridBagConstraints();
@@ -270,13 +278,13 @@ public class ShowCarsAdmin {
 				String searchText = textSearchUser.getText();
 				String type = (String) cmbSearch.getSelectedItem();
 				if (searchText.length() != 0){
-					if(type == "Title"){
+					if(type == "Brand"){
 						RowFilter rowFilter = RowFilter.regexFilter(searchText, 0);
 						((DefaultRowSorter<TableModel, Integer>) listOfCars.getRowSorter()).setRowFilter(rowFilter);
-					}else if (type == "Author"){
+					}else if (type == "Model"){
 						RowFilter rowFilter = RowFilter.regexFilter(searchText, 1);
 						((DefaultRowSorter<TableModel, Integer>) listOfCars.getRowSorter()).setRowFilter(rowFilter);
-					}else if(type == "ISBN"){
+					}else if(type == "Matricula"){
 						RowFilter rowFilter = RowFilter.regexFilter(searchText, 2);
 						((DefaultRowSorter<TableModel, Integer>) listOfCars.getRowSorter()).setRowFilter(rowFilter);	
 					}
@@ -324,7 +332,7 @@ public class ShowCarsAdmin {
 			}
 		});
 		
-		btnDeleteCar = new JButton("Delete car");
+		btnDeleteCar = new JButton("Delete");
 		btnDeleteCar.setVerticalAlignment(SwingConstants.TOP);
 		btnDeleteCar.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
 		btnDeleteCar.setBackground(SystemColor.controlHighlight);
@@ -340,7 +348,7 @@ public class ShowCarsAdmin {
 				
 				int selectedRow = listOfCars.getSelectedRow();
 				try {
-					server.deleteCar(Integer.parseInt((String) carTableModel.getValueAt(selectedRow, 2)));
+					server.deleteCar(Integer.parseInt((String) CarTableModel.getValueAt(selectedRow, 2)));
 				} catch (NumberFormatException e1) {
 					e1.printStackTrace();
 				} catch (RemoteException e1) {
@@ -359,4 +367,12 @@ public class ShowCarsAdmin {
 		carSearch.add(btnLogOut, gbc_btnLogOut);
 		
 	}
+
+
+
+
 }
+
+	
+	
+	

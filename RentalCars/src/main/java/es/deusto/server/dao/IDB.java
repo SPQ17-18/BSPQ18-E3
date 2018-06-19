@@ -138,6 +138,8 @@ import es.deusto.server.data.Rent;
 		boolean deleteCar(int mat);
 
 		boolean addRentToDb(Rent rent);
+
+		Car showCarByModel(String model);
 		
 
 		

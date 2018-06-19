@@ -92,7 +92,7 @@ public class ShowDescriptionAdmin implements ActionListener {
 	/**
 	 * Create the application.
 	 */
-	public ShowDescriptionAdmin(String title, String email) {
+	public ShowDescriptionAdmin(String brand, String email) {
 		
 		// Create and set up the window.
 		frame = new JFrame("Cars Rent");
@@ -110,7 +110,7 @@ public class ShowDescriptionAdmin implements ActionListener {
 			e.printStackTrace();
 		}
 		this.email = email;
-		this.brand = title;
+		this.brand = brand;
 		initializeShowAccesories();
 	}
 	
