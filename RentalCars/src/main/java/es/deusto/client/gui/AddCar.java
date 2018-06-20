@@ -2,9 +2,7 @@ package es.deusto.client.gui;
 
 
 import javax.swing.*;
-import es.deusto.server.remote.IRemote;
-import es.deusto.server.remote.Remote;
-
+import es.deusto.server.remote.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.rmi.RemoteException;

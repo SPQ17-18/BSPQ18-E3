@@ -7,9 +7,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -19,6 +21,7 @@ import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultRowSorter;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -48,8 +51,10 @@ public class ShowCars {
 
 	private JPanel carSearch;
 	private JLabel lblSearch;
+	private JPanel panel;
+	private JPanel btnPanel;
 	private String textuser;
-	private JComboBox cmbSearch;
+	private JComboBox/*<Object>*/ cmbSearch;
 	private String cmbSearchSelection;
 	private JTextField textSearchUser;
 	private JButton btnSearch;
@@ -57,6 +62,7 @@ public class ShowCars {
 	private JScrollPane scrollListCars;
 	private JButton btnRefresh;
 	private JButton btnLogOut;
+	//private JPanel pcar;
 
 	private static String email;
 	private static String brand;
@@ -95,6 +101,7 @@ public class ShowCars {
 		frame.setBackground(SystemColor.window);
 		 frame.setLocationRelativeTo(null);
 		frame.setSize(750, 600);
+		frame.setLayout(new BorderLayout());
 		
 		// Initialize the contents of the frame.
 		try {
@@ -117,10 +124,20 @@ public class ShowCars {
 		// Beginning of car Search JPanel
 		carSearch = new JPanel();
 		carSearch.setBackground(SystemColor.window);
-		carSearch.setLayout(new GridBagLayout());
-		frame.getContentPane().add(carSearch, BorderLayout.CENTER);
-		//Search.setVisible(false);
+		carSearch.setLayout(new BorderLayout());
 		
+		frame.getContentPane().add(carSearch, BorderLayout.CENTER);
+
+		panel = new JPanel();
+		panel.setBackground(SystemColor.window);
+		panel.setLayout(new FlowLayout());
+		frame.getContentPane().add(panel, BorderLayout.NORTH);
+
+		btnPanel = new JPanel();
+		btnPanel.setBackground(SystemColor.window);
+		btnPanel.setLayout(new FlowLayout());
+		frame.getContentPane().add(btnPanel, BorderLayout.SOUTH);
+
 	/*	btnSearch = new JButton("Searaaaach");
 		btnSearch.setVerticalAlignment(SwingConstants.TOP);
 		btnSearch.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
@@ -151,27 +168,19 @@ public class ShowCars {
 		
 		// JLabel component about search message
 		lblSearch = new JLabel("Car Search");
+		lblSearch.setSize(100, 100);
 		lblSearch.setBackground(SystemColor.window);
 		lblSearch.setForeground(new Color(0, 0, 0));
 		lblSearch.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
-		GridBagConstraints gbc_lblSearch = new GridBagConstraints();
-		gbc_lblSearch.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSearch.fill= GridBagConstraints.BOTH;
-		gbc_lblSearch.gridx = 1;
-		gbc_lblSearch.gridy = 1;
-		carSearch.add(lblSearch, gbc_lblSearch);
+		//panel.add(lblSearch);
 				
 		// JComboBox component about choosing according what is the search
 		cmbSearch = new JComboBox<Object>(Menu);
+		cmbSearch.setSize(100, 100);
 		cmbSearch.setBackground(SystemColor.window);
 		cmbSearch.setForeground(new Color(0, 0, 0));
 		cmbSearch.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
-		GridBagConstraints gbc_cmbSearch = new GridBagConstraints();
-		gbc_cmbSearch.insets = new Insets(15, 0, 5, 5);
-		gbc_cmbSearch.gridx = 1;
-		gbc_cmbSearch.gridy = 2;
-		gbc_cmbSearch.fill= GridBagConstraints.BOTH;
-		carSearch.add(cmbSearch, gbc_cmbSearch);
+		panel.add(cmbSearch);
 		
 		// JTextField component about the text that is going to be searched
 		textSearchUser = new JTextField("");
@@ -194,29 +203,28 @@ public class ShowCars {
 		textSearchUser.setForeground(SystemColor.textInactiveText);
 		textSearchUser.setColumns(20);
 		textSearchUser.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
-		GridBagConstraints gbc_textSearchUser = new GridBagConstraints();
-		gbc_textSearchUser.insets = new Insets(15, 0, 5, 5);
-		gbc_textSearchUser.gridx = 2;
-		gbc_textSearchUser.gridy = 2;
-		gbc_textSearchUser.fill= GridBagConstraints.BOTH;
-		carSearch.add(textSearchUser, gbc_textSearchUser);
+		panel.add(textSearchUser);
 
 		// JTable with all the available s
 		
 		// Create the JTable and the table model 
 		final TableModel CarTableModel = new CarTableModel();
+		JPanel panel = new JPanel(new BorderLayout());
+		
 		((es.deusto.client.gui.CarTableModel) CarTableModel).setValues(server);
 		 final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(CarTableModel);
 		listOfCars = new JTable(CarTableModel);
 		listOfCars.setRowHeight(40);
-	    listOfCars.setSize(500,500 );
+		// listOfCars.setSize(500,500 );
 		listOfCars.setRowSorter(sorter);
 		//listOfCars.set
 		listOfCars.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listOfCars.setBackground(SystemColor.window);
 		listOfCars.setFont(new Font("Yu Gothic", Font.PLAIN, 20));
+		listOfCars.setVisible(true);
     	//setViewportView(CarTableModel); //La tabla se verá dentro del panel de barras de desplazamiento   	
 		//listOfCars.setVisible(true);
+		
 		
 		//Create the scroll pane and add the table to it
 		scrollListCars = new JScrollPane(listOfCars);
@@ -247,13 +255,7 @@ public class ShowCars {
 		});
 		
 		//Add the scroll pane to this panel.
-		GridBagConstraints gbc_scrollListCars = new GridBagConstraints();
-		gbc_scrollListCars.gridwidth = 2;
-		gbc_scrollListCars.insets = new Insets(15, 0, 5, 5);
-		gbc_scrollListCars.gridx = 1;
-		gbc_scrollListCars.gridy = 3;
-		gbc_scrollListCars.fill = GridBagConstraints.HORIZONTAL;
-		carSearch.add(scrollListCars, gbc_scrollListCars);
+		carSearch.add(scrollListCars, BorderLayout.CENTER);
 		
 		// Create JButton for search
 		btnSearch = new JButton("Search");
@@ -263,15 +265,17 @@ public class ShowCars {
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
 				String searchText = textSearchUser.getText();
-				String types = (String) cmbSearch.getSelectedItem();
+				String type = (String) cmbSearch.getSelectedItem();
 				if (searchText.length() != 0){
-					if(types == "Brand"){
+					if(type == "Brand"){
+						@SuppressWarnings("rawtypes")
 						RowFilter rowFilter = RowFilter.regexFilter(searchText, 0);
 						((DefaultRowSorter<TableModel, Integer>) listOfCars.getRowSorter()).setRowFilter(rowFilter);
-					}else if (types == "Model"){
+					}else if (type == "Model"){
 						RowFilter rowFilter = RowFilter.regexFilter(searchText, 1);
 						((DefaultRowSorter<TableModel, Integer>) listOfCars.getRowSorter()).setRowFilter(rowFilter);
-					}else if(types == "Matricula"){
+					}else if(type == "Matricula"){
+						@SuppressWarnings("rawtypes")
 						RowFilter rowFilter = RowFilter.regexFilter(searchText, 2);
 						((DefaultRowSorter<TableModel, Integer>) listOfCars.getRowSorter()).setRowFilter(rowFilter);	
 					}
@@ -280,16 +284,11 @@ public class ShowCars {
 				}			
 			}
 		});
-		GridBagConstraints gbc_btnSearch = new GridBagConstraints();
-		gbc_btnSearch.insets = new Insets(15, 0, 5, 0);
-		gbc_btnSearch.gridx = 3;
-		gbc_btnSearch.gridy = 2;
-		gbc_btnSearch.fill= GridBagConstraints.BOTH;
-		carSearch.add(btnSearch, gbc_btnSearch);		
+		
+		btnPanel.add(btnSearch);
 		
 		// Create JButton for refreshing data of JTable
 		btnRefresh = new JButton("Refresh");
-		btnRefresh.setVerticalAlignment(SwingConstants.TOP);
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				sorter.setRowFilter(null);
@@ -298,15 +297,10 @@ public class ShowCars {
 		});
 		btnRefresh.setBackground(UIManager.getColor("Button.light"));
 		btnRefresh.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
-		GridBagConstraints gbc_btnRefresh = new GridBagConstraints();
-		gbc_btnRefresh.insets = new Insets(0, 0, 5, 0);
-		gbc_btnRefresh.gridx = 3;
-		gbc_btnRefresh.gridy = 3;
-		gbc_btnRefresh.fill= GridBagConstraints.HORIZONTAL;
-		carSearch.add(btnRefresh, gbc_btnRefresh);
+		
+		btnPanel.add(btnRefresh);
 		
 		btnLogOut = new JButton("Log out");
-		btnLogOut.setVerticalAlignment(SwingConstants.TOP);
 		btnLogOut.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -318,19 +312,23 @@ public class ShowCars {
 		});
 		btnLogOut.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
 		btnLogOut.setBackground(SystemColor.controlHighlight);
-		GridBagConstraints gbc_btnLogOut = new GridBagConstraints();
-		gbc_btnLogOut.gridx = 3;
-		gbc_btnLogOut.gridy = 5;
-		carSearch.add(btnLogOut, gbc_btnLogOut);
+		
+		btnPanel.add(btnLogOut);
+		
+		//carSearch.add(btnLogOut, BorderLayout.NORTH);
+		//carSearch.add(panel, BorderLayout.CENTER);
+		
+		frame.revalidate();
+		frame.repaint();
 		
 	}
 	
 
 	
-	public void setVisible(boolean b) {
+	/*public void setVisible(boolean b) {
 		// TODO Auto-generated method stub
 		
-	}
+	}*/
 }
 
 final class CarTableModel  extends AbstractTableModel {
@@ -338,7 +336,7 @@ final class CarTableModel  extends AbstractTableModel {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3L;
 	String[] columnNames = { "Brand", "Colour", "Mat", "Type","Model", "Accesories", "Price" };
 	String[][] data;
 	//Object[][]data=null;
@@ -387,7 +385,7 @@ final class CarTableModel  extends AbstractTableModel {
 				System.out.println("********22222222222rellenando tabla");
 
 			}else{
-					data = new String[0][7];
+					data = new String[7][7];
 				}
 			
 			

@@ -21,8 +21,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableModel;
-import es.deusto.server.remote.IRemote;
-import es.deusto.server.remote.Remote;
+import es.deusto.server.remote.*;
 
 import javax.swing.JTextPane;
 
@@ -127,7 +126,7 @@ public class ShowDescriptionAdmin implements ActionListener {
 		
 		
 		lblBrand = new JLabel("Brand:");
-		lblBrand.setBounds(357, 60, 32, 23);
+		lblBrand.setBounds(357, 60, 52, 23);
 		carPanel.add(lblBrand);
 		
 		lblModel = new JLabel("Model:");
@@ -238,7 +237,7 @@ public class ShowDescriptionAdmin implements ActionListener {
 		carPanel.add(txtPrice);
 		
 		lblMat = new JLabel("Matricula: ");
-		lblMat.setBounds(357, 196, 45, 23);
+		lblMat.setBounds(357, 196, 65, 23);
 		carPanel.add(lblMat);
 		
 		try {
@@ -309,7 +308,7 @@ public class ShowDescriptionAdmin implements ActionListener {
 		carPanel.add(rentPanel);
 		rentPanel.setLayout(null);
 		
-		label = new JLabel("REVIEWS");
+		label = new JLabel("RENTS");
 		label.setFont(new Font("Tahoma", Font.BOLD, 14));
 		label.setBounds(10, 5, 68, 17);
 		rentPanel.add(label);

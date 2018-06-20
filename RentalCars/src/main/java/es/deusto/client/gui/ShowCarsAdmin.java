@@ -34,8 +34,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import es.deusto.server.remote.IRemote;
-import es.deusto.server.remote.Remote;
+import es.deusto.server.remote.*;
 
 
 public class ShowCarsAdmin {
