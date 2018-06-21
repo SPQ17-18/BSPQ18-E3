@@ -136,9 +136,9 @@
 					  <ignoreTrivial>true</ignoreTrivial>  
 						<excludes>
 							<exclude>es/deusto/client/gui/*.class</exclude>	
-							<exclude>es/deusto/server/data/*.class</exclude>												
-							<exclude>es/deusto/client/*.class</exclude>
-							<exclude>es/deusto/server/Server.class</exclude>
+							<!--<exclude>es/deusto/server/data/*.class</exclude>-->												
+							<!--  <exclude>es/deusto/client/*.class</exclude>-->
+							<!--  --><exclude>es/deusto/server/Server.class</exclude>-->
 							<exclude>es/deusto/server/**/I*.*</exclude>
 							
 							<!-- This lines is for excluding from the instrumentation and the coverage calculations all the classes from server down							
