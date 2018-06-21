@@ -164,7 +164,7 @@ public class Car implements Serializable{
 	
 	@Override
 	public String toString() {
-		 return "Car: mat --> " + this.mat + ", brand -->  " + this.brand + ",  model -->  " + this.model + ", type --> "+ this.type + " colour -->  " + this.colour + ", accesories --> "+ this.accesories;
+		 return "Car: mat --> " + this.mat + ", brand -->  " + this.brand + ",  model -->  " + this.model + ", type --> "+ this.type + ", colour -->  " + this.colour + ", accesories --> "+ this.accesories;
 	}
 	
 	

@@ -74,6 +74,7 @@ public interface IDAO {
 	 */
 	Car retrieveCarByParameter(String brand);
 	
+	Car retrieveCarMod(String model);
 	// boolean deleteDatabase();
 
 	//Get all entities

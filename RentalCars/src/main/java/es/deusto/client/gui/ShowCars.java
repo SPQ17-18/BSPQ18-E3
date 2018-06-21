@@ -2,7 +2,6 @@ package es.deusto.client.gui;
 
 
 
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -272,8 +271,10 @@ public class ShowCars {
 						RowFilter rowFilter = RowFilter.regexFilter(searchText, 0);
 						((DefaultRowSorter<TableModel, Integer>) listOfCars.getRowSorter()).setRowFilter(rowFilter);
 					}else if (type == "Model"){
+						@SuppressWarnings("rawtypes")
 						RowFilter rowFilter = RowFilter.regexFilter(searchText, 1);
 						((DefaultRowSorter<TableModel, Integer>) listOfCars.getRowSorter()).setRowFilter(rowFilter);
+						System.out.println("seleccionado MODEL");
 					}else if(type == "Matricula"){
 						@SuppressWarnings("rawtypes")
 						RowFilter rowFilter = RowFilter.regexFilter(searchText, 2);

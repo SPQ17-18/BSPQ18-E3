@@ -400,6 +400,38 @@ public class DAO implements IDAO {
 		}
 		return ret;
 	}
+	@Override
+	public Car retrieveCarMod(String model) {
+		// TODO Auto-generated method stub
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		pm.getFetchPlan().setMaxFetchDepth(3);
+		Car car = null;
+
+		try {
+			tx.begin();
+			Extent<Car> extentP = pm.getExtent(Car.class);
+
+			for (Car p : extentP) {
+				if (p.getBrand().equals(model)) {
+					car = new Car(p.getMat(), p.getColour(),p.getBrand(),p.getModel(),p.getType(),p.getAccesories(),p.getPrice());
+				}
+			}
+			tx.commit();
+		} catch (Exception ex) {
+
+
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+
+		logger.info(car.toString());
+		return car;
+	}
+
 
 	/*
 	public  boolean deleteDatabase() {

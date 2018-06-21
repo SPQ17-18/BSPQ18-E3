@@ -1,6 +1,8 @@
 package es.deusto.client.gui;
 
 
+
+
 import javax.swing.*;
 import es.deusto.server.remote.*;
 import java.awt.*;
@@ -91,14 +93,15 @@ public class AddCar {
 		frame.getContentPane().add(carPanel, BorderLayout.CENTER);
 		carPanel.setLayout(null);
 
-		lblBrand = new JLabel("BRAND:");
-		lblBrand.setBounds(25, 30, 52, 23);
-		carPanel.add(lblBrand);
+		
+		lblMat = new JLabel("MATRICULA: ");
+		lblMat.setBounds(25, 330, 152, 23);
+		carPanel.add(lblMat);
 
-		txtBrand = new JTextField();
-		txtBrand.setBounds(100, 30, 150, 23);
-		carPanel.add(txtBrand);
-		txtBrand.setColumns(10);
+		txtMat = new JTextField();
+		txtMat.setColumns(10);
+		txtMat.setBounds(100, 330, 150, 23);
+		carPanel.add(txtMat);
 		
 		lblColour = new JLabel("COLOUR:");
 		lblColour.setBounds(25, 80, 52, 23);
@@ -108,6 +111,17 @@ public class AddCar {
 		txtColour.setColumns(10);
 		txtColour.setBounds(100, 80, 150, 23);
 		carPanel.add(txtColour);
+		
+		
+		lblBrand = new JLabel("BRAND:");
+		lblBrand.setBounds(25, 30, 52, 23);
+		carPanel.add(lblBrand);
+
+		txtBrand = new JTextField();
+		txtBrand.setBounds(100, 30, 150, 23);
+		carPanel.add(txtBrand);
+		txtBrand.setColumns(10);
+		
 
 		lblModel = new JLabel("MODEL: ");
 		lblModel.setBounds(25, 130, 72, 23);
@@ -144,14 +158,7 @@ public class AddCar {
 		txtPrice.setBounds(100, 280, 150, 23);
 		carPanel.add(txtPrice);
 
-		lblMat = new JLabel("MATRICULA: ");
-		lblMat.setBounds(25, 330, 152, 23);
-		carPanel.add(lblMat);
-
-		txtMat = new JTextField();
-		txtMat.setColumns(10);
-		txtMat.setBounds(100, 330, 150, 23);
-		carPanel.add(txtMat);
+		
 
 		img = null;
 		
@@ -162,14 +169,14 @@ public class AddCar {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				brand = txtBrand.getText();
+				mat = Integer.parseInt(txtMat.getText());
 				colour = lblColour.getText();
+				brand = txtBrand.getText();
 				model = txtModel.getText();
 				type = txtType.getText();
 				accesories = txtAccesories.getText();
 				price = Double.valueOf(txtPrice.getText());
-				mat = Integer.parseInt(txtMat.getText());
-				//img
+				
 				
 				try {
 					server.addCar(mat, brand, model, type, colour, price, accesories, img);
