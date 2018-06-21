@@ -305,7 +305,7 @@ public class ShowCars {
 		btnLogOut.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				logIn = new LogIn(null);
+				//logIn = new LogIn(null);
 				frame.dispose();
 				frame.revalidate();
 				frame.repaint();

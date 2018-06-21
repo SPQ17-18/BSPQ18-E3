@@ -72,7 +72,7 @@ public class ContiPerfTest {
 		assertTrue( true );
 	}
 	@Test
-	@PerfTest(duration = 1000)
+	@PerfTest(duration = 10000)
 	@Required(average = 100, throughput =10)
 	public void storeCarDuration() {
 		logger.info("ContiPerf  storeCarDuration");

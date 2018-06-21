@@ -375,9 +375,11 @@ public class ShowDescriptionAdmin implements ActionListener {
 				txtMat.setEditable(false);
 				txtRentR.setEditable(false);
 				}
+			
 		});
 		btnsaveChanges.setBounds(700, 251, 120, 23);
 		rentPanel.add(btnsaveChanges);
+
 		
 	}
 		
