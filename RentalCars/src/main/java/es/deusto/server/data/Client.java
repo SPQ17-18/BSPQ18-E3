@@ -16,6 +16,11 @@ import javax.jdo.annotations.PrimaryKey;
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Client implements Serializable{
 
+	// Añadir cars para que salga en la tabla de rents
+	//@Persistent(mappedBy="clients")
+	@Persistent(mappedBy="clients", defaultFetchGroup="true", dependentElement="true")
+	@Join
+	List<Car> cars = new ArrayList<Car>();
 	private static final long serialVersionUID = 2L;
 	//private String user;
 	@PrimaryKey
@@ -26,6 +31,7 @@ public class Client implements Serializable{
 	//private String age;
 	private boolean role;//true:admin ; false:client
 	private double money;
+	List<Rent> rents;
 	
 	public double getMoney() {
 		return money;
@@ -41,6 +47,7 @@ public class Client implements Serializable{
 		this.address = address;
 		this.role = role;
 		this.money=1000;
+		this.cars= new ArrayList<Car>();
 	}
 	public Client(String email, String password, boolean role) {
 		// TODO Auto-generated constructor stub
@@ -48,21 +55,22 @@ public class Client implements Serializable{
 		this.password = password;
 		this.role = role;
 		this.money=1000;
+		this.cars= new ArrayList<Car>();
+
 	}
+//	
+//	@Persistent(defaultFetchGroup="true", mappedBy="client", dependentElement="true")
+//	@Join
+//	List<Rent> rents = new ArrayList<Rent>();
 	
-	@Persistent(defaultFetchGroup="true", mappedBy="client", dependentElement="true")
-	@Join
-	List<Rent> rents = new ArrayList<Rent>();
-	
-	@Persistent(defaultFetchGroup="true", dependentElement="true")
-	@Join	
-	List<Car> cars = new ArrayList<Car>();
+//	@Persistent(defaultFetchGroup="true", mappedBy="mat", dependentElement="true")
+
 	
 	public void addRent(Rent rent){
-		rents.add(rent);
+//		rents.add(rent);
 	}
 	public void removeRent(Rent rent){
-		rents.remove(rent);
+//		rents.remove(rent);
 	}
 	public List<Rent> getRents(){
 		return this.rents;
@@ -71,6 +79,8 @@ public class Client implements Serializable{
 	public void addCar(Car car){
 		cars.add(car);
 	}
+	
+	
 	public void removeCar(Car car){
 		cars.remove(car);
 	}

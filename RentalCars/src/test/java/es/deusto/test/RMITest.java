@@ -14,7 +14,7 @@ import es.deusto.server.data.Car;
 import es.deusto.server.data.Client;
 import es.deusto.server.data.Rent;
 import es.deusto.server.remote.IRemote;
-import es.deusto.server.remote.Remote;
+import es.deusto.server.remote.CarsRemote;
 
 import org.databene.contiperf.Required;
 import org.junit.AfterClass;
@@ -92,7 +92,7 @@ public class RMITest {
 
 				try {
 					
-					IRemote remote = new Remote();
+					IRemote remote = new CarsRemote();
 					Naming.rebind(name, remote);
 				} catch (RemoteException re) {
 					logger.error(" # RentalCarServer RemoteException: ");

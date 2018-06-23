@@ -37,6 +37,8 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import es.deusto.server.data.Car;
+import es.deusto.server.data.Client;
 import es.deusto.server.data.Rent;
 
 import es.deusto.server.remote.*;
@@ -78,6 +80,12 @@ public class ShowDescription {
 	
 	private String email;
 	private static String brand;
+	private static int mat;
+	private Car car;
+
+	private Client client;
+
+	protected Rent rent;
 	private static IRemote server;
 
 	/**
@@ -105,7 +113,7 @@ public class ShowDescription {
 		
 		// Initialize the contents of the frame.
 		try {
-			server = new Remote();
+			server = new CarsRemote();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -215,7 +223,34 @@ public class ShowDescription {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					server.rentCar(email, brand);
+					// Buscar el car al que se le va a añadir la rent
+					// server.getCarBymat - > Car 
+					// car.addClient()
+					// server.updateCar(car)
+					
+					server.getCarBymat(mat);
+					System.out.println("coche por matricula");
+					car.addClient(client);
+					System.out.println("Añado el client al coche");
+					//server.addRent(car, rent, client);
+					System.out.println("Añado la rent con todos los datos");
+					
+					server.getClient(email);
+					System.out.println("client por email");
+
+					client.addCar(car);
+					System.out.println("Añado el coche al client");
+
+					server.addRent(car, rent, client);
+					System.out.println("Añado la rent con todos los datos");
+					// Buscar el car al que se le va a añadir la rent
+					// server.getClientByEmail - > Client 
+					// client.addCar()
+					// server.updateClient(client)
+					
+					// Commit de la transaction
+					 
+					//server.rentCar(email, brand);
 				} catch (RemoteException e1) {
 					e1.printStackTrace();
 				}
@@ -227,7 +262,7 @@ public class ShowDescription {
 		rentPanel.setBounds(0, 337, 975, 285);
 		carPanel.add(rentPanel);
 		rentPanel.setLayout(null);
-		
+		/*
 		label = new JLabel("Rents");
 		label.setFont(new Font("Tahoma", Font.BOLD, 14));
 		label.setBounds(10, 5, 68, 17);
@@ -284,7 +319,7 @@ public class ShowDescription {
 		//Add the scroll pane to this panel.
 		scrollRents.setBounds(106, 100, 682, 80);
 		rentPanel.add(scrollRents);
-		
+		*/
 		btnGoBack = new JButton("Go Back");
 		btnGoBack.setBounds(10, 251, 89, 23);
 		rentPanel.add(btnGoBack);
@@ -302,12 +337,12 @@ public class ShowDescription {
 	}
 }
 
-class RentTableModel extends AbstractTableModel {
+//class RentTableModel extends AbstractTableModel {
 
 /**
  * 
  */
-private static final long serialVersionUID = 1L;
+/*private static final long serialVersionUID = 1L;
 
 String[] columnNames = {"CLIENT", "COMMENT"};
 Object[][] data = null;
@@ -351,12 +386,12 @@ public void setValueAt(Object value, int row, int col) {
 
 public void setValues(IRemote server) {
 	try {
-		if(server.getCarRents(brand).size()!= 0){
-			data = new String[server.getCarRents(brand).size()][2];
-		}
-		else{
-			data = new String[0][2];
-		}
+		//if(server.getCarRents(brand).size()!= 0){
+		//	data = new String[server.getCarRents(brand).size()][2];
+		//}
+		//else{
+			//data = new String[0][2];
+		//}
 		for (int i = 0; i < server.getCarRents(brand).size(); i++)
 		{
 			data[i][0] = server.getCarRents(brand).get(i).getClient().getEmail();
@@ -367,5 +402,5 @@ public void setValues(IRemote server) {
 	}
 }
 
-}
+}*/
 

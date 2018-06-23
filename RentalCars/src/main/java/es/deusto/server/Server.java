@@ -14,8 +14,7 @@ import es.deusto.server.dao.DB;
 import es.deusto.server.dao.IDB;
 import es.deusto.server.data.Car;
 import es.deusto.server.data.Rent;
-import es.deusto.server.remote.IRemote;
-import es.deusto.server.remote.Remote;
+import es.deusto.server.remote.*;
 
 
 
@@ -38,17 +37,17 @@ public class Server{
 		String name = "//" + args[0] + ":" + args[1] + "/" + args[2];
 
 		try {
-			IRemote objServer = new Remote();
+			IRemote objServer = new CarsRemote();
 			Naming.rebind(name, objServer);
 
 	
 			
-			Rent r1 = new Rent("Rent 1", 6.6);
-			Rent r2 = new Rent("Rent 2",8.6);
-			Rent r3 = new Rent("Rent 3",7.6);
-			Rent r4 = new Rent("Rent 4",3.6);
-			Rent r5 = new Rent("Rent 5",5.6);
-			
+//			Rent r1 = new Rent("Rent 1", 6.6);
+//			Rent r2 = new Rent("Rent 2",8.6);
+//			Rent r3 = new Rent("Rent 3",7.6);
+//			Rent r4 = new Rent("Rent 4",3.6);
+//			Rent r5 = new Rent("Rent 5",5.6);
+//			
 			Car c1=new Car(123, "Red", "Brand1", "Model1", "Type1", "Accesories1", 45.62);
 			Car c2=new Car(124, "Blue", "Brand2", "Model2", "Type2", "Accesories2", 75.42);
 			Car c3=new Car(125, "White", "Brand1", "Model2", "Type3", "Accesories3", 25.62);
@@ -79,27 +78,27 @@ public class Server{
 			Client ad=db.showClient("admin");
 			
 			
-			db.addRent(c1, r1, a1);	
-			db.addRent(c2, r2, a2);
-			db.addRent(c5, r5, ad);
-			
-			db.addRent(c3, r3, a2);
-			db.addRent(c3, r4, a3);
-			db.addRent(c2, r5, a4);
-			
-			db.registerRent(r1);
+//			db.addRent(c1, r1, a1);	
+//			db.addRent(c2, r2, a2);
+//			db.addRent(c5, r5, ad);
+//			
+//			db.addRent(c3, r3, a2);
+//			db.addRent(c3, r4, a3);
+//			db.addRent(c2, r5, a4);
+//			
+//			db.registerRent(r1);
 			
 			
 			
 	
 			db.rentCar("jon", "Brand1");
-			double carAverage=db.averageRatingByCar(c2.getBrand());
+			//double carAverage=db.averageRatingByCar(c2.getBrand());
 			
-			logger.info("car average: "+carAverage);
+			//logger.info("car average: "+carAverage);
 			
-			double clientAverage=db.averageRatingByClient(a2.getEmail());
+			//double clientAverage=db.averageRatingByClient(a2.getEmail());
 
-			logger.info("client average: "+clientAverage);
+			//logger.info("client average: "+clientAverage);
 
 		
 			

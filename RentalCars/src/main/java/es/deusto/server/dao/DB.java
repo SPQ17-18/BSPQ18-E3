@@ -55,13 +55,17 @@ public class DB implements IDB{
 		Client client =null;
 		boolean ret=true;
 		double price;
+	System.out.println("****************retrievingcarbyparameter");
 		try {
-			car= dao.retrieveCarByParameter(car_brand);									
-			client = dao.retrieveClient(email);					
+			car= dao.retrieveCarByParameter(car_brand);		
+			System.out.println("****************client = dao.retrieveClient(email)");
+
+			client = dao.retrieveClient(email);	
+			System.out.println("finsihed...............");
 		} catch (Exception  e) {
+			e.printStackTrace();
 			logger.error("Exception launched in checking if the data already exist: ");
 			logger.trace(e.getMessage());
-			e.printStackTrace();
 			ret=false;
 		}
 		if(client.getMoney()>=car.getPrice()){
@@ -69,16 +73,9 @@ public class DB implements IDB{
 			if (car == null  || client ==null ) {
 
 			}else if (car !=null  &&  client != null  ){
-				car.addClient(client);										
-				client.addCar(car);	
-
-				price=car.getPrice();
-
-				client.setMoney(client.getMoney()-price);
-
-				dao.updateCar(car);
-				dao.updateClient(client);
-
+				dao.performRent(client, car);
+				
+				
 			}	
 
 		}
@@ -128,6 +125,7 @@ public class DB implements IDB{
 			dao.updateCar(car);
 			dao.updateClient(client);
 			//TODO:: llamar a registerRent
+			dao.updateRent(rent);
 			dao.retrieveRent(r.getId_rent());
 		}
 
@@ -274,7 +272,7 @@ public class DB implements IDB{
 		List<Rent> carRents=b.getRents();
 		return carRents;
 	}
-	public double averageRatingByCar(String brand){
+	/*public double averageRatingByCar(String brand){
 		List<Rent> carRents=null;
 		carRents=getCarRents(brand);
 		double total=0;
@@ -297,7 +295,7 @@ public class DB implements IDB{
 
 		}
 		return total/clientRents.size();
-	}
+	}*/
 	public boolean deleteRent(int id_rent){
 		boolean ret=false;
 		Rent r;

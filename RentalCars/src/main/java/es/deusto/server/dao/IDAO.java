@@ -107,6 +107,8 @@ public interface IDAO {
 	 * @param b the car to eliminate
 	 */
 	void deleteCar(Car b);
+	
+	public boolean performRent(Client client, Car car);
 
 
 }

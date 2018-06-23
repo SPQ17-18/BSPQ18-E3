@@ -41,7 +41,7 @@ import javax.swing.table.TableRowSorter;
 import es.deusto.server.data.Car;
 import es.deusto.server.remote.IRemote;
 //import es.deusto.server.remote.Remote;
-import es.deusto.server.remote.Remote;
+import es.deusto.server.remote.CarsRemote;
 
 
 public class ShowCars {
@@ -104,7 +104,7 @@ public class ShowCars {
 		
 		// Initialize the contents of the frame.
 		try {
-			server = new Remote();
+			server = new CarsRemote();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -365,7 +365,7 @@ final class CarTableModel  extends AbstractTableModel {
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return false;
+		return true;
 	}
 
 	@Override

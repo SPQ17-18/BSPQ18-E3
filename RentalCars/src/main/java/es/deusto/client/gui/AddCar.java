@@ -77,7 +77,7 @@ public class AddCar {
 
 		// Initialize the contents of the frame.
 		try {
-			server = new Remote();
+			server = new CarsRemote();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -103,7 +103,7 @@ public class AddCar {
 		txtMat.setBounds(100, 330, 150, 23);
 		carPanel.add(txtMat);
 		
-		lblColour = new JLabel("COLOUR:");
+		lblColour = new JLabel("TYPE:");
 		lblColour.setBounds(25, 80, 52, 23);
 		carPanel.add(lblColour);
 
@@ -113,7 +113,7 @@ public class AddCar {
 		carPanel.add(txtColour);
 		
 		
-		lblBrand = new JLabel("BRAND:");
+		lblBrand = new JLabel("COLOUR:");
 		lblBrand.setBounds(25, 30, 52, 23);
 		carPanel.add(lblBrand);
 
@@ -123,7 +123,7 @@ public class AddCar {
 		txtBrand.setColumns(10);
 		
 
-		lblModel = new JLabel("MODEL: ");
+		lblModel = new JLabel("BRAND: ");
 		lblModel.setBounds(25, 130, 72, 23);
 		carPanel.add(lblModel);
 
@@ -132,7 +132,7 @@ public class AddCar {
 		txtModel.setBounds(100, 130, 150, 23);
 		carPanel.add(txtModel);
 
-		lblType = new JLabel("TYPE: ");
+		lblType = new JLabel("MODEL: ");
 		lblType.setBounds(25, 180, 92, 23);
 		carPanel.add(lblType);
 

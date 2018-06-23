@@ -23,7 +23,7 @@ import org.junit.Test;
 import es.deusto.server.dao.*;
 import es.deusto.server.data.*;
 import es.deusto.server.remote.IRemote;
-import es.deusto.server.remote.Remote;
+import es.deusto.server.remote.CarsRemote;
 
 import org.junit.Rule;
 import org.slf4j.Logger;
@@ -123,7 +123,7 @@ public class DAOMockTest {
 		//when( dao.retrieveCar (a) ).thenReturn(null);
 		
 		logger.error("Invalid Car remote, testing exception");
-		IRemote remote = new Remote();
+		IRemote remote = new CarsRemote();
 		
 		//Calling the method under test
 		remote.addCar(c);

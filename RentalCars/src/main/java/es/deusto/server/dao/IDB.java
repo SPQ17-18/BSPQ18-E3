@@ -114,14 +114,14 @@ import es.deusto.server.data.Rent;
 		 * @param brand of the car
 		 * @return a double the average rating
 		 */
-		double averageRatingByCar(String brand);
+		//double averageRatingByCar(String brand);
 		
 		/**
 		 * Gets the average rating given by a client
 		 * @param email of the client
 		 * @return a double the average rating
 		 */
-		double averageRatingByClient(String email);
+		//double averageRatingByClient(String email);
 		
 		/**
 		 * Eliminates a Rent from the database

@@ -139,7 +139,7 @@ public interface IRemote extends Remote{
 	 * @return a double 
 	 * @throws RemoteException
 	 */
-	double averageRatingByCar(String colour)  throws RemoteException;
+	//double averageRatingByCar(String colour)  throws RemoteException;
 	
 	 /**
 	  * Get the average Rating given by a Client
@@ -147,7 +147,7 @@ public interface IRemote extends Remote{
 	 * @return a double 
 	 * @throws RemoteException
 	 */
-	double averageRatingByClient(String email)  throws RemoteException;
+	//double averageRatingByClient(String email)  throws RemoteException;
 	
 	 /**
 	  * Eliminates a Rent

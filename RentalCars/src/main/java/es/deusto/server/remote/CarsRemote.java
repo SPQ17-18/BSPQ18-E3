@@ -19,12 +19,12 @@ import es.deusto.server.data.Rent;
 
 
 
-public class Remote extends UnicastRemoteObject implements IRemote {
+public class CarsRemote extends UnicastRemoteObject implements IRemote {
 
 	private static final long serialVersionUID = 1L;
-	final static  Logger logger = LoggerFactory.getLogger(Remote.class);
+	final static  Logger logger = LoggerFactory.getLogger(CarsRemote.class);
 
-	public Remote() throws RemoteException {
+	public CarsRemote() throws RemoteException {
 		super();
 
 	}
@@ -207,7 +207,7 @@ public class Remote extends UnicastRemoteObject implements IRemote {
 		}
 		return carRents;
 	}
-	public  double averageRatingByCar(String colour){
+	/*public  double averageRatingByCar(String colour){
 		IDB db =new DB();
 		double average=0;
 		try{
@@ -228,7 +228,7 @@ public class Remote extends UnicastRemoteObject implements IRemote {
 		}
 		return average;
 
-	}
+	}*/
 
 	
 	@Override

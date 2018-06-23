@@ -88,7 +88,7 @@ public class DAO implements IDAO {
 			pm.makePersistent(u);
 			tx.commit();
 		} catch (Exception ex) {
-
+			ex.printStackTrace();
 			r=false;
 		} finally {
 			if (tx != null && tx.isActive()) {
@@ -100,6 +100,47 @@ public class DAO implements IDAO {
 		return r;
 	}
 
+	
+	@Override
+	public boolean performRent(Client client, Car car) {
+		
+		// TODO Auto-generated method stub
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		boolean r =true;
+		try {
+			tx.begin();
+					
+			System.out.println("***************car.addClient(client)");
+			car.addClient(client);		
+			//System.out.println("***************client.addCar(car)");
+			client.addCar(car);
+			//client.addCar(car);
+
+			car.setBrand("TESLA");
+
+			double price=car.getPrice();
+
+			client.setMoney(client.getMoney()-price);
+			System.out.println("***************dao.updateCar(car)");
+			//dao.updateCar(car);
+			System.out.println("***************dao.updateCar(car);");
+			//dao.updateClient(client);
+			System.out.println("***************FINISHED dao.updateCar(car);");
+
+			tx.commit();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			r=false;
+		} finally {
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+		}
+		return r;
+	}
 
 
 
@@ -215,9 +256,11 @@ public class DAO implements IDAO {
 		boolean r =true;
 		try {
 			tx.begin();
+			
 			pm.makePersistent(b);
 			tx.commit();
 		} catch (Exception ex) {
+			ex.printStackTrace();
 
 			r=false;
 		} finally {
@@ -360,20 +403,36 @@ public class DAO implements IDAO {
 	@Override
 	public void deleteRent(Rent r) {
 		// TODO Auto-generated method stub
+	
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
-		tx.begin();
-		pm.deletePersistent(r);
-		tx.commit();
-	}
+		try {
+			tx.begin();
+			pm.deletePersistent(r);
+			tx.commit();
+			}catch(Exception e){
+			    if (tx.isActive())
+			    {
+			        tx.rollback();
+			    }
+			}
+
+		}
 	@Override
 	public void deleteCar(Car b) {
 		// TODO Auto-generated method stub
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
+		try {
 		tx.begin();
 		pm.deletePersistent(b);
 		tx.commit();
+		}catch(Exception e){
+		    if (tx.isActive())
+		    {
+		        tx.rollback();
+		    }
+		}
 
 	}
 	@Override
