@@ -230,15 +230,16 @@ public class ShowDescription {
 					
 					server.getCarBymat(mat);
 					System.out.println("coche por matricula");
-					car.addClient(client);
+					//car.addClient(client);
 					System.out.println("Añado el client al coche");
-					//server.addRent(car, rent, client);
+					server.addRent(car, rent, client);
+					server.rentCar(email, mat);
 					System.out.println("Añado la rent con todos los datos");
 					
-					server.getClient(email);
+					//server.getClient(email);
 					System.out.println("client por email");
 
-					client.addCar(car);
+					//client.addCar(car);
 					System.out.println("Añado el coche al client");
 
 					server.addRent(car, rent, client);
