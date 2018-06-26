@@ -30,7 +30,7 @@ public interface IRemote extends Remote{
 	 * @throws RemoteException
 	 */
 	boolean addCar(Car car) throws RemoteException;
-	boolean addRent(Rent rent)throws RemoteException;
+	//boolean addRent(Rent rent)throws RemoteException;
 
 	/**
 	 * gives you a all the cars in the database
@@ -105,7 +105,7 @@ public interface IRemote extends Remote{
 	 * @return true of false to tell if it worked
 	 * @throws RemoteException
 	 */
-	boolean rentCar(String email, String car_brand) throws RemoteException;
+	boolean rentCar(String email, String car_brand /* int mat*/) throws RemoteException;
 	
 	 /**
 	  * add a new rent to a car
@@ -115,7 +115,7 @@ public interface IRemote extends Remote{
 	 * @return true of false to tell if it worked
 	 * @throws RemoteException
 	 */
-	boolean addRent(Car b, Rent r, Client u) throws RemoteException;
+	boolean addRent(Client client,Car car) throws RemoteException;
 	
 	 /**
 	  * Get all the Rents a Client Made
@@ -177,4 +177,8 @@ public interface IRemote extends Remote{
 	 * @throws RemoteException
 	 */
 	boolean addCar(int mat, String colour, String brand, String model, String type, double price, String accesories, String img) throws RemoteException;
+
+	boolean performRent(Client client, Car car)throws RemoteException;
 }
+
+	

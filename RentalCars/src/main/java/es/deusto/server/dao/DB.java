@@ -49,7 +49,7 @@ public class DB implements IDB{
 	}
 
 	@Override
-	public boolean rentCar(String email, String car_brand) {
+	public boolean rentCar(String email, String brand /*int car_mat*/) {
 		// TODO Auto-generated method stub
 		Car car =null;		
 		Client client =null;
@@ -57,7 +57,8 @@ public class DB implements IDB{
 		double price;
 	System.out.println("****************retrievingcarbyparameter");
 		try {
-			car= dao.retrieveCarByParameter(car_brand);		
+			car= dao.retrieveCarByParameter(brand);		
+			//car=dao.retrieveCar(car_mat);
 			System.out.println("****************client = dao.retrieveClient(email)");
 
 			client = dao.retrieveClient(email);	
@@ -96,8 +97,8 @@ public class DB implements IDB{
 		boolean ret=true;
 
 		try {
-
-			car= dao.retrieveCarByParameter(b.getBrand());				
+//car= dao.retrieveCarByParameter(b.getBrand());
+			car=dao.retrieveCar(b.getMat());
 			rent = dao.retrieveRent(r.getId_rent());
 			client = dao.retrieveClient(u.getEmail());
 
@@ -371,15 +372,16 @@ public class DB implements IDB{
 		}
 
 	@Override
-	public boolean addRentToDb(Rent rent) {
+	public boolean addRentToDb(Client client,Car car) {
 		// TODO Auto-generated method stub
-		Rent ren = null;
+		//Rent ren = null;
 
 		boolean ret=true;
 
 		try {
-
-			ren=dao.retrieveRent(rent.getId_rent());
+			car=dao.retrieveCar(car.getMat());
+			client=dao.retrieveClient(client.getEmail());
+			//ren=dao.retrieveRent(rent.getId_rent());
 
 		} catch (Exception  e) {
 			logger.error("Exception launched in checking if the data already exist: ");
@@ -388,13 +390,13 @@ public class DB implements IDB{
 			ret = false;
 		}
 
-		if (ren != null ) {
+		if (car != null  && client !=null) {
 
 		}else{
 
 
-
-			dao.storeRent(rent);
+			dao.performRent(client, car);
+			//dao.storeRent(rent);
 
 
 		}
@@ -407,6 +409,12 @@ public class DB implements IDB{
 		Car b=dao.retrieveCarByParameter(model);
 		// ao.retrieveLicenseByName(name);
 		return b;
+	}
+
+	@Override
+	public boolean performRent(Client client, Car car) {
+		// TODO Auto-generated method stub
+		return dao.performRent(client, car);
 	}
 
 }

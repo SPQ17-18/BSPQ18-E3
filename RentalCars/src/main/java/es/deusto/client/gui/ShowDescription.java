@@ -78,9 +78,15 @@ public class ShowDescription {
 	private JLabel lCmbRate;
 	
 	
-	private String email;
+	private static String email;
 	private static String brand;
 	private static int mat;
+	private static String model;
+	private static String type;
+	private static String colour;
+	private static String accesories;
+	private static double price;
+	
 	private Car car;
 
 	private Client client;
@@ -99,8 +105,9 @@ public class ShowDescription {
 	 * @param user 
 	 * @throws RemoteException 
 	 */
-	public ShowDescription(String brand, String email) throws RemoteException {
-		
+	public ShowDescription(Client client, Car car) throws RemoteException {
+		this.client = client;
+		this.car = car;
 		
 		// Create and set up the window.
 		frame = new JFrame("Car Rent");
@@ -117,8 +124,15 @@ public class ShowDescription {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		this.email = email;
-		this.brand = brand;
+		this.email = client.getEmail();
+		this.brand = car.getBrand();
+		this.mat = car.getMat();
+		this.model = car.getModel();
+		this.type = car.getType();
+		this.colour = car.getColour();
+		this.accesories = car.getAccesories();
+		this.price = car.getPrice();
+		
 		initializeShowAccesories();
 	}
 	
@@ -165,43 +179,48 @@ public class ShowDescription {
 		lblRank.setBounds(674, 136, 45, 23);
 		carPanel.add(lblRank);
 		
-		txtBrand = new JTextField(brand);
+		txtBrand = new JTextField(colour);
 		txtBrand.setEditable(false);
 		txtBrand.setBounds(415, 59, 177, 23);
 		carPanel.add(txtBrand);
 		txtBrand.setColumns(10);
+
 		
-		txtModel = new JTextField(server.
-				getCarByBrand(brand).
-				getModel());
+		System.out.println("server.getCarByBrand(brand): -" + "brand: " + brand + " -" + server.getCarByBrand(brand));
+		
+		//server.getCarByBrand(brand).getModel()
+		txtModel = new JTextField(model);
 		txtModel.setEditable(false);
 		txtModel.setColumns(10);
 		txtModel.setBounds(415, 94, 177, 23);
 		carPanel.add(txtModel);
 		
-		txtType = new JTextField(server.getCarByBrand(brand).getType());
+		txtType = new JTextField(type);
 		txtType.setEditable(false);
 		txtType.setColumns(10);
 		txtType.setBounds(415, 128, 177, 23);
 		carPanel.add(txtType);
 		
-		txtColor = new JTextField(server.getCarByBrand(brand).getColour());
+		txtColor = new JTextField(brand);
 		txtColor.setEditable(false);
 		txtColor.setColumns(10);
 		txtColor.setBounds(415, 162, 177, 23);
 		carPanel.add(txtColor);
 		
-		txtPrice = new JTextField(""+server.getCarByBrand(brand).getPrice());
+		String precio =""+price;
+		txtPrice = new JTextField(precio);
 		txtPrice.setEditable(false);
 		txtPrice.setColumns(10);
 		txtPrice.setBounds(716, 80, 92, 23);
 		carPanel.add(txtPrice);
 		
+		
 		lblMat = new JLabel("Mat: ");
 		lblMat.setBounds(357, 196, 45, 23);
 		carPanel.add(lblMat);
 		
-		txtMat = new JTextField("" + server.getCarByBrand(brand).getMat());
+		String matricula =""+mat;
+		txtMat = new JTextField(matricula);
 		txtMat.setEditable(false);
 		txtMat.setColumns(10);
 		txtMat.setBounds(415, 196, 177, 23);
@@ -211,7 +230,7 @@ public class ShowDescription {
 		
 		txtAccesories = new JTextPane();
 		txtAccesories.setEditable(false);
-		txtAccesories.setText(server.getCarByBrand(brand).getAccesories());
+		txtAccesories.setText(accesories);
 		txtAccesories.setBounds(357, 251, 460, 58);
 		carPanel.add(txtAccesories);
 		
@@ -229,25 +248,31 @@ public class ShowDescription {
 					// server.updateCar(car)
 					
 					server.getCarBymat(mat);
-					System.out.println("coche por matricula");
-					//car.addClient(client);
-					System.out.println("Añado el client al coche");
-					server.addRent(car, rent, client);
-					server.rentCar(email, mat);
-					System.out.println("Añado la rent con todos los datos");
-					
+					//System.out.println("coche por matricula");
+					car.addClient(client);
+					//server.performRent(client, car);
+					//System.out.println("Añado el client al coche");
+					//server.addRent(car, rent, client);
+					//server.rentCar(email, mat);
+				//	System.out.println("Añado la rent con todos los datos");
+					//server.rentCar(email, brand);
 					//server.getClient(email);
-					System.out.println("client por email");
-
-					//client.addCar(car);
-					System.out.println("Añado el coche al client");
-
-					server.addRent(car, rent, client);
-					System.out.println("Añado la rent con todos los datos");
+					server.addRent(client, car);
+					
+					
+				//	System.out.println("Añado la rent con todos los datos");
 					// Buscar el car al que se le va a añadir la rent
+					System.out.println(".............."+email);
+					server.getClient(email);
+					System.out.println(".............."+car);
+					client.addCar(car);
+					//server.performRent(client, car);
+					//server.rentCar(email, brand);					
 					// server.getClientByEmail - > Client 
 					// client.addCar()
 					// server.updateClient(client)
+					
+					server.addRent(client, car);
 					
 					// Commit de la transaction
 					 
@@ -328,7 +353,7 @@ public class ShowDescription {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ShowCars showcars = new ShowCars(email);
+				ShowCars showcars = new ShowCars(client);
 				frame.dispose();
 				frame.revalidate();
 				frame.repaint();

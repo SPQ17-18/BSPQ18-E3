@@ -39,9 +39,10 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import es.deusto.server.data.Car;
-import es.deusto.server.remote.IRemote;
+import es.deusto.server.data.Client;
+//import es.deusto.server.remote.IRemote;
 //import es.deusto.server.remote.Remote;
-import es.deusto.server.remote.CarsRemote;
+import es.deusto.server.remote.*;
 
 
 public class ShowCars {
@@ -70,6 +71,8 @@ public class ShowCars {
 	private ShowDescription showDescrip;
 	//private String cl=null;
 	
+	private static Client client;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -77,7 +80,7 @@ public class ShowCars {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new ShowCars(email);
+					new ShowCars(client);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -88,9 +91,11 @@ public class ShowCars {
 	/**
 	 * Create the application.
 	 */
-	public ShowCars(String email) {
+	public ShowCars(Client client) {
 		
 		// Create and set up the window.
+		System.out.println("...................."+client);
+		this.client = client;
 		frame = new JFrame("Rental Car");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -98,7 +103,7 @@ public class ShowCars {
 		frame.setBounds(0, 0, 991, 661);
 		frame.setVisible(true);
 		frame.setBackground(SystemColor.window);
-		 frame.setLocationRelativeTo(null);
+		frame.setLocationRelativeTo(null);
 		frame.setSize(750, 600);
 		frame.setLayout(new BorderLayout());
 		
@@ -108,8 +113,9 @@ public class ShowCars {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		this.email = email;
+		//this.email = client.getEmail();
 		initializeShowCars();
+		System.out.println("...................."+client);
 	}
 	
 	/**
@@ -237,12 +243,35 @@ public class ShowCars {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				//Select a row to see the description window
-				listOfCars.getSelectedRow();
-				String brand = (String) CarTableModel.getValueAt(listOfCars.getSelectedRow(), 0);
+				int rowSelected = listOfCars.getSelectedRow();
+
 				
+				
+				
+				
+				
+				//String brand = (String) CarTableModel.getValueAt(rowSelected, 0);
+
+				
+				
+				
+				//double d=;
+				String s = (String) CarTableModel.getValueAt(rowSelected,6 );
+				System.out.println("..............."+s);
+				Car car =
+						new Car((/*(int)*/ Integer.parseInt((String) CarTableModel.getValueAt(rowSelected,2 ))),
+						((String) CarTableModel.getValueAt(rowSelected, 0)),
+						((String) CarTableModel.getValueAt(rowSelected, 1)),
+						((String) CarTableModel.getValueAt(rowSelected, 4)),
+						((String) CarTableModel.getValueAt(rowSelected,3)),
+						((String) CarTableModel.getValueAt(rowSelected,5)),
+						Double.parseDouble(s));
+						
+						//(Double.parseDouble((String) CarTableModel.getValueAt(rowSelected,6 ))));
 				
 				try {
-					showDescrip = new ShowDescription(brand, email);
+					System.out.println("............"+client+"..........." +car);
+					showDescrip = new ShowDescription(client, car);
 					frame.dispose();
 					frame.revalidate();
 					frame.repaint();
@@ -338,7 +367,7 @@ final class CarTableModel  extends AbstractTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 3L;
-	String[] columnNames = { "Brand", "Colour", "Mat", "Type","Model", "Accesories", "Price" };
+	String[] columnNames = { "Brand", "Colour", "Mat", "Type","Model", "Accesories", "Price (€)" };
 	String[][] data;
 	//Object[][]data=null;
 	@Override
@@ -405,7 +434,7 @@ final class CarTableModel  extends AbstractTableModel {
 					data[i][3] = "" + tempCar.getType();
 					data[i][4] = " "+tempCar.getModel();
 					data[i][5] = " "+tempCar.getAccesories();
-					data[i][6] = "" + tempCar.getPrice() + " €";
+					data[i][6] = "" + tempCar.getPrice();
 					/*data.add(new 
 							Car(server.showCarsInStore().get(i).getMat(),
 							server.showCarsInStore().get(i).getColour(),

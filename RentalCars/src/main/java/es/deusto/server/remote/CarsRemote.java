@@ -9,7 +9,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import es.deusto.server.dao.DAO;
 import es.deusto.server.dao.DB;
+import es.deusto.server.dao.IDAO;
 import es.deusto.server.dao.IDB;
 import es.deusto.server.data.Car;
 import es.deusto.server.data.Client;
@@ -163,12 +165,12 @@ public class CarsRemote extends UnicastRemoteObject implements IRemote {
 	}
 
 	@Override
-	public boolean rentCar(String email, String car_brand) throws RemoteException{
+	public boolean rentCar(String email, String car_brand/*int car_mat*/) throws RemoteException{
 		// TODO Auto-generated method stub
 		IDB db =new DB();
 		boolean a=false;
 		try{
-			a = db.rentCar(email, car_brand);
+			a = db.rentCar(email, car_brand/*car_mat*/);
 		}catch(Exception e){
 
 		}
@@ -275,11 +277,12 @@ public class CarsRemote extends UnicastRemoteObject implements IRemote {
 	}
 
 @Override
-public boolean addRent(Rent rent) throws RemoteException {
+public boolean addRent(Client client, Car car) throws RemoteException {
 	// TODO Auto-generated method stub
-	if(rent!=null){
+	if(car!=null && client !=null){
 		IDB db = new DB();
-		return db.addRentToDb(rent);
+		return db.addRentToDb(client, car);
+		//return db.addRentToDb(rent);
 	}else{
 		throw new RemoteException("Invalid rent");
 	}
@@ -297,6 +300,19 @@ public Car getCarByModel(String model) throws RemoteException {
 			}
 			return b;
 		}
+
+@Override
+public boolean performRent(Client client, Car car) {
+	// TODO Auto-generated method stub
+	IDB db = new DB();
+	return db.performRent(client, car);
+}
+
+/*@Override
+public boolean addRent(Rent rent) throws RemoteException {
+	// TODO Auto-generated method stub
+	return false;
+}*/
 
 
 

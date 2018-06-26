@@ -91,7 +91,8 @@ public class Server{
 			
 			
 	
-			db.rentCar("jon", "Brand1");
+			//db.rentCar("jon", "Brand1");
+			//db.addRent(c4, r, a5);
 			//double carAverage=db.averageRatingByCar(c2.getBrand());
 			
 			//logger.info("car average: "+carAverage);

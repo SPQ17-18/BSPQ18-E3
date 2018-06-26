@@ -51,6 +51,7 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 	private JLabel signUpMesage;
 	private JButton btnNewClient;
 	private String clientEmail;
+	private es.deusto.server.data.Client client;
 	ShowCarsAdmin ShowCarsAdmin;
 	ShowCars ShowCars;
 	private boolean role = false;   //true --> admin
@@ -94,7 +95,7 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 	 * Initialize the contents of the Log In JPanel 
 	 */
 	private void initializeLogIn(IRemote server){
-
+		
 		// Beginning of Log In JPanel~window 
 		logIn = new JPanel();
 		logIn.setBackground(SystemColor.window);
@@ -186,6 +187,7 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 					System.out.println("ha vuelto de registrar el cliente");
 
 					clientEmail = accessEmail;
+					client = new es.deusto.server.data.Client(accessEmail, accessPassword, role);
 				} catch (RemoteException e) {
 					logger.info(e.getMessage());
 					e.printStackTrace();
@@ -194,8 +196,9 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 				//client and admin
 				
 				if(role == false){
-					logger.info("*************show cars for client");
-					ShowCars = new ShowCars(clientEmail);
+					logger.info("*************show cars for client"+client);
+					ShowCars = new ShowCars(client);
+					//ShowCars = new ShowCars(new Client(clientEmail, new String(client.getPassword()), false));
 					frame.setVisible(false);
 					frame.dispose();
 					frame.revalidate();
@@ -358,7 +361,7 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 					} catch (RemoteException e) {
 						logger.info(e.getMessage());
 					}
-					ShowCars = new ShowCars(clientEmail);
+					ShowCars = new ShowCars(client);
 					frame.dispose();
 					frame.revalidate();
 					frame.repaint();

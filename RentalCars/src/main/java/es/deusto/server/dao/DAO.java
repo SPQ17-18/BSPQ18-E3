@@ -111,7 +111,7 @@ public class DAO implements IDAO {
 		try {
 			tx.begin();
 					
-			System.out.println("***************car.addClient(client)");
+			System.out.println("***************car.addClient(client): " + car + " - " + client);
 			car.addClient(client);		
 			//System.out.println("***************client.addCar(car)");
 			client.addCar(car);

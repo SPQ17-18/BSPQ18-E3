@@ -36,7 +36,7 @@ import es.deusto.server.data.Rent;
 		 * @param car_brand the brand of the car to rent
 		 * @return true or false to tell if it worked
 		 */
-		boolean rentCar(String email, String car_brand);
+		boolean rentCar(String email, String car_brand /*int car_mat*/);
 	
 		/**
 		  * creates a new client
@@ -137,9 +137,10 @@ import es.deusto.server.data.Rent;
 		 */
 		boolean deleteCar(int mat);
 
-		boolean addRentToDb(Rent rent);
+		boolean addRentToDb(Client client, Car car);
 
 		Car showCarByModel(String model);
+		boolean performRent(Client client, Car car);
 		
 
 		
