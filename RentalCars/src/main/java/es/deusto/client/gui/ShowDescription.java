@@ -87,11 +87,30 @@ public class ShowDescription {
 	private static String accesories;
 	private static double price;
 	
+	
+	
+	
+	
 	private Car car;
 
 	private Client client;
+	private Rent rent;
+	
+	private static int id_rent=0;
+	private static String emailR;
+	private static double moneyR;
+	private static String brandR;
+	private static int matR;
+	private static String modelR;
+	private static String typeR;
+	private static String colourR;
+	private static String accesoriesR;
+	private static double priceR;
+	
+	
+	
+	
 
-	protected Rent rent;
 	private static IRemote server;
 
 	/**
@@ -108,7 +127,7 @@ public class ShowDescription {
 	public ShowDescription(Client client, Car car) throws RemoteException {
 		this.client = client;
 		this.car = car;
-		
+		Rent rent =new Rent();
 		// Create and set up the window.
 		frame = new JFrame("Car Rent");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -132,6 +151,21 @@ public class ShowDescription {
 		this.colour = car.getColour();
 		this.accesories = car.getAccesories();
 		this.price = car.getPrice();
+		
+		/*Parte de RENT*/
+		/*this.id_rent=rent.getId_rent();
+		this.matR=rent.getMat();
+		this.accesoriesR=rent.getAccesories();
+		this.brandR=rent.getBrand();
+		this.colourR=rent.getColour();
+		this.modelR=rent.getModel();
+		this.typeR=rent.getType();
+		this.priceR=rent.getPrice();
+		
+		this.emailR=rent.getEmail();
+		this.moneyR=rent.getMoney();*/
+		
+	
 		
 		initializeShowAccesories();
 	}
@@ -186,7 +220,7 @@ public class ShowDescription {
 		txtBrand.setColumns(10);
 
 		
-		System.out.println("server.getCarByBrand(brand): -" + "brand: " + brand + " -" + server.getCarByBrand(brand));
+		System.out.println("server.getCarByMat(mat): -" + "MATRICULA: " + mat + " -" + server.getCarBymat(mat));
 		
 		//server.getCarByBrand(brand).getModel()
 		txtModel = new JTextField(model);
@@ -237,6 +271,10 @@ public class ShowDescription {
 		btnRent = new JButton("RENT");
 		btnRent.setBounds(818, 81, 89, 23);
 		carPanel.add(btnRent);
+		//for(int i=1;i<20;i++) {
+			id_rent=id_rent+1;
+		//}
+		
 		btnRent.addActionListener(new ActionListener() {
 			
 			@Override
@@ -246,10 +284,70 @@ public class ShowDescription {
 					// server.getCarBymat - > Car 
 					// car.addClient()
 					// server.updateCar(car)
+					//Rent rent= new Rent();
 					
-					server.getCarBymat(mat);
+					/*METODO PARA ID_RENT*/
+					
+					
+					//int id_rent=0;
+					
+					int matricula=Integer.parseInt(txtMat.getText());
+					String email=client.getEmail();
+					System.out.println("MATRICULAAAAA----------->"+matricula);
+					
+					System.out.println("ID_RENT----------->"+id_rent);
+					//server.getCarBymat(car.getMat());
+					//System.out.println("server.getCarBymat(mat) ---->COCHE POR MATRICULAAAAA!" + server.getCarBymat(car.getMat()));
 					//System.out.println("coche por matricula");
-					car.addClient(client);
+					
+					
+					System.out.println("EMAIL DEL CLIENTE-------------->" + client.getEmail());
+					
+					
+					//server.getClient(client.getEmail());
+				//	System.out.println("server.getClient(email)----->EMAIL DEL CLIENT" + server.getClient(client.getEmail()));
+					//rent.getId_rent();
+					//rent.setId_rent(001);
+			
+			
+					//System.out.println(rent.getId_rent());
+					
+					server.addRent1(id_rent, matricula, email);
+					//server.addRent(rent);
+					/*
+					rent.setEmail(client.getEmail());
+					rent.setMoney(client.getMoney());
+					
+					rent.setMat(car.getMat());
+					System.out.println(rent.getMat());
+					rent.setAccesories(car.getAccesories());
+					rent.setBrand(car.getBrand());
+					rent.setColour(car.getColour());
+					rent.setModel(car.getModel());
+					rent.setType(car.getType());
+					rent.setPrice(car.getPrice());
+					
+					*/
+					
+					
+					
+				/*	System.out.println("car.addClient(client) ---->EMAIL"+ rent.getEmail());
+					//System.out.println("car.addClient(client) ---->PASSWORD"+ rent.getPassword());
+					//System.out.println("car.addClient(client) ---->ROLE"+ rent.getRole());
+					System.out.println("car.addClient(client) ---->MONEY"+ rent.getMoney());
+					//car.addClient(client);
+					System.out.println("car.addClient(client) ---->MTRICULA"+ rent.getMat());
+					System.out.println("car.addClient(client) ---->MODEL"+ rent.getModel());
+					System.out.println("car.addClient(client) ---->BRAND"+ rent.getBrand());
+					System.out.println("car.addClient(client) ---->TYOPE"+ rent.getMat());
+					System.out.println("car.addClient(client) ---->COLOR"+ rent.getColour());
+					System.out.println("car.addClient(client) ---->ACCESORIES"+ rent.getAccesories());
+					System.out.println("car.addClient(client) ---->PRICE"+ rent.getPrice());
+			*/
+					
+					//server.addRentBuena(car);
+					
+					//System.out.println(" car.addClient(client)------->AÑADIR CLIENTE AL COCHE!!"  + car.addClient(client));
 					//server.performRent(client, car);
 					//System.out.println("Añado el client al coche");
 					//server.addRent(car, rent, client);
@@ -257,30 +355,31 @@ public class ShowDescription {
 				//	System.out.println("Añado la rent con todos los datos");
 					//server.rentCar(email, brand);
 					//server.getClient(email);
-					server.addRent(client, car);
+				//	server.addRent(client, car);
 					
 					
 				//	System.out.println("Añado la rent con todos los datos");
 					// Buscar el car al que se le va a añadir la rent
-					System.out.println(".............."+email);
-					server.getClient(email);
-					System.out.println(".............."+car);
-					client.addCar(car);
+					//System.out.println(".............."+/*email*/ server.getClient(email));
+				//	server.getClient(email);
+					//System.out.println(".............."+car);
+					//client.addCar(car);
 					//server.performRent(client, car);
 					//server.rentCar(email, brand);					
 					// server.getClientByEmail - > Client 
 					// client.addCar()
 					// server.updateClient(client)
 					
-					server.addRent(client, car);
+					//server.addRent(client, car);
 					
+					//server.
 					// Commit de la transaction
 					 
 					//server.rentCar(email, brand);
 				} catch (RemoteException e1) {
 					e1.printStackTrace();
 				}
-				JOptionPane.showMessageDialog (null, "You have rent "+brand, "InfoBox", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog (null, "You have rent "+mat, "InfoBox", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		

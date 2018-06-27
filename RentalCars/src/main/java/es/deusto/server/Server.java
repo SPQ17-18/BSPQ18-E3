@@ -77,6 +77,8 @@ public class Server{
 			Client a5=db.showClient("javier");
 			Client ad=db.showClient("admin");
 			
+			//Rent r1=new Rent(001);
+			//db.addRentToDb(r1);
 			
 //			db.addRent(c1, r1, a1);	
 //			db.addRent(c2, r2, a2);

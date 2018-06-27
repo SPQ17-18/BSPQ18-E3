@@ -145,7 +145,7 @@ public class DAO implements IDAO {
 
 
 	@Override
-	public Rent retrieveRent(int id_rent) {
+	public Rent retrieveRent(/*int mat*/ int id_rent) {
 		// TODO Auto-generated method stub
 		Rent rent = null;
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -153,7 +153,7 @@ public class DAO implements IDAO {
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-			rent = pm.getObjectById(Rent.class, id_rent);
+			rent = pm.getObjectById(Rent.class,/* mat*/ id_rent);
 			tx.commit();
 		} catch (javax.jdo.JDOObjectNotFoundException jonfe)
 		{

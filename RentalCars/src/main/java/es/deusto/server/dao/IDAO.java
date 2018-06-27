@@ -36,7 +36,7 @@ public interface IDAO {
 	 * @param id_rent
 	 * @return The Rent
 	 */
-	Rent retrieveRent(int id_rent );
+	Rent retrieveRent(/*int mat*/int id_rent );
 	
 	/**
 	 * Updates the row in the database of a given Rent

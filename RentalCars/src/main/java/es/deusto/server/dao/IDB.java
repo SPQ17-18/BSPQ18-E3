@@ -61,7 +61,7 @@ import es.deusto.server.data.Rent;
 		 * @param client the client that wrote it
 		 * @return true or false to tell if it worked
 		 */
-		boolean addRent(Car b, Rent r, Client client );
+		boolean addRent(Car b,Client client );
 
 		/**
 		 * Get a car from  the database by its mat
@@ -141,6 +141,12 @@ import es.deusto.server.data.Rent;
 
 		Car showCarByModel(String model);
 		boolean performRent(Client client, Car car);
+
+		boolean addRentToDBBuena(Car b);
+
+		boolean addRentToDb(Rent rent);
+
+		boolean addRentToDB1(Rent r);
 		
 
 		

@@ -90,17 +90,17 @@ public class DB implements IDB{
 	}
 
 
-	public boolean addRent(Car b, Rent r, Client u ) {
+	public boolean addRent(Car b, Client u) {
 		Car car =null;
-		Rent rent = null ;
-		Client client =null;
+		//Rent rent = null ;
+		//Client client =null;
 		boolean ret=true;
 
 		try {
 //car= dao.retrieveCarByParameter(b.getBrand());
 			car=dao.retrieveCar(b.getMat());
-			rent = dao.retrieveRent(r.getId_rent());
-			client = dao.retrieveClient(u.getEmail());
+			//rent = dao.retrieveRent(r.getId_rent());
+			//client = dao.retrieveClient(u.getEmail());
 
 
 		} catch (Exception  e) {
@@ -110,24 +110,24 @@ public class DB implements IDB{
 		}
 
 
-		if (car == null  || client == null ||rent !=null ) {
+		if (car == null  /*|| client == null ||rent !=null */) {
 
 
-		}else if (car !=null  && client !=null && rent == null  ){
+		}else if (car !=null /* && client !=null && rent == null*/  ){
 			int a= getAllRents().size()+1;
-			r.setCar(car);
-			r.setClient(client);
-			r.setId_rent(a);
+			//r.setCar(car);
+			//r.setClient(client);
+			//r.setId_rent(a);
 
-			car.addRent(r);										
-			client.addRent(r);
+			//car.addRent(r);										
+			//client.addRent(r);
 
 
 			dao.updateCar(car);
-			dao.updateClient(client);
+			//dao.updateClient(client);
 			//TODO:: llamar a registerRent
-			dao.updateRent(rent);
-			dao.retrieveRent(r.getId_rent());
+			//dao.updateRent(rent);
+			//dao.retrieveRent(r.getId_rent());
 		}
 
 		return ret;	
@@ -358,8 +358,8 @@ public class DB implements IDB{
 			if (rent != null) {
 
 				rent.setId_rent(r.getId_rent());
-				rent.setComment(r.getComment());
-				rent.setRating(r.getRating());
+				//rent.setComment(r.getComment());
+				//rent.setRating(r.getRating());
 
 				
 				dao.updateRent(rent);
@@ -380,7 +380,7 @@ public class DB implements IDB{
 
 		try {
 			car=dao.retrieveCar(car.getMat());
-			client=dao.retrieveClient(client.getEmail());
+		//	client=dao.retrieveClient(client.getEmail());
 			//ren=dao.retrieveRent(rent.getId_rent());
 
 		} catch (Exception  e) {
@@ -390,12 +390,12 @@ public class DB implements IDB{
 			ret = false;
 		}
 
-		if (car != null  && client !=null) {
+		if (car != null  /*&& client !=null*/) {
 
 		}else{
 
 
-			dao.performRent(client, car);
+			//dao.performRent(client, car);
 			//dao.storeRent(rent);
 
 
@@ -415,6 +415,104 @@ public class DB implements IDB{
 	public boolean performRent(Client client, Car car) {
 		// TODO Auto-generated method stub
 		return dao.performRent(client, car);
+	}
+
+	@Override
+	public boolean addRentToDBBuena(Car b) {
+		Car car = null;
+		Rent rent =null;
+		boolean ret=true;
+
+		try {
+
+			car  = dao.retrieveCar(b.getMat());
+			rent= dao.retrieveRent(b.getMat());
+
+		} catch (Exception  e) {
+			logger.error("Exception launched in checking if the data already exist: ");
+			logger.trace(e.getMessage());
+			e.getStackTrace();
+			ret = false;
+		}
+
+		if (car != null ) {
+
+		}else{
+
+
+
+			dao.storeCar(b);
+
+
+		}
+
+		return ret;
+	}
+
+	@Override
+	public boolean addRentToDb(Rent r) {
+		// TODO Auto-generated method stub
+		Rent rent = null;
+		Car car=null;
+		boolean ret=true;
+
+		try {
+			rent=dao.retrieveRent(car.getMat());
+			//rent  = dao.retrieveRent(r.getId_rent());
+
+
+		} catch (Exception  e) {
+			logger.error("Exception launched in checking if the data already exist: ");
+			logger.trace(e.getMessage());
+			e.getStackTrace();
+			ret = false;
+		}
+
+		if (rent != null ) {
+
+		}else{
+
+
+
+			dao.storeRent(r);
+
+
+		}
+
+		return ret;
+	}
+
+	@Override
+	public boolean addRentToDB1(Rent r) {
+		// TODO Auto-generated method stub
+		Rent rent = null;
+
+		boolean ret=true;
+
+		try {
+			rent=dao.retrieveRent(r.getId_rent());
+			//car  = dao.retrieveCar(b.getMat());
+
+
+		} catch (Exception  e) {
+			logger.error("Exception launched in checking if the data already exist: ");
+			logger.trace(e.getMessage());
+			e.getStackTrace();
+			ret = false;
+		}
+
+		if (rent != null ) {
+
+		}else{
+
+
+			dao.storeRent(r);
+//			dao.storeCar(b);
+
+
+		}
+
+		return ret;
 	}
 
 }

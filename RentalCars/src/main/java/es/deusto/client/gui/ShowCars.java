@@ -40,6 +40,7 @@ import javax.swing.table.TableRowSorter;
 
 import es.deusto.server.data.Car;
 import es.deusto.server.data.Client;
+import es.deusto.server.data.Rent;
 //import es.deusto.server.remote.IRemote;
 //import es.deusto.server.remote.Remote;
 import es.deusto.server.remote.*;
@@ -72,7 +73,8 @@ public class ShowCars {
 	//private String cl=null;
 	
 	private static Client client;
-	
+	private static Rent rent;
+	//static Client client= new Client("Janire","pass", false);
 	/**
 	 * Launch the application.
 	 */

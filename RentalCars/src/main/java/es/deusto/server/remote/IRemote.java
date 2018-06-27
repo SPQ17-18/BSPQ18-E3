@@ -30,6 +30,8 @@ public interface IRemote extends Remote{
 	 * @throws RemoteException
 	 */
 	boolean addCar(Car car) throws RemoteException;
+	boolean addRent(Rent rent)throws RemoteException;
+	boolean addRentBuena(Car car)throws RemoteException;
 	//boolean addRent(Rent rent)throws RemoteException;
 
 	/**
@@ -177,8 +179,9 @@ public interface IRemote extends Remote{
 	 * @throws RemoteException
 	 */
 	boolean addCar(int mat, String colour, String brand, String model, String type, double price, String accesories, String img) throws RemoteException;
-
+	boolean addRent1(int id_rent, int mat, String email)throws RemoteException;
 	boolean performRent(Client client, Car car)throws RemoteException;
+	
 }
 
 	

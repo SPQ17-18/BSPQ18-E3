@@ -17,9 +17,9 @@ import javax.jdo.annotations.PrimaryKey;
 public class Car implements Serializable{
 	
 	// Añadir clients para que salga en la tabla de rents
-	@Persistent(table="rent")
+/*	@Persistent(table="rent")
 	@Join(column="mat")
-	@Element(column="car_id")
+	//@Element(column="car_id")*/
 	List<Client> clients= new ArrayList<Client>();
 	
 	private static final long serialVersionUID = 2L;
