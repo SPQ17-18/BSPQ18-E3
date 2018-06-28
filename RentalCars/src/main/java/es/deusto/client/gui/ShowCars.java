@@ -41,8 +41,7 @@ import javax.swing.table.TableRowSorter;
 import es.deusto.server.data.Car;
 import es.deusto.server.data.Client;
 import es.deusto.server.data.Rent;
-//import es.deusto.server.remote.IRemote;
-//import es.deusto.server.remote.Remote;
+
 import es.deusto.server.remote.*;
 
 
@@ -63,18 +62,18 @@ public class ShowCars {
 	private JScrollPane scrollListCars;
 	private JButton btnRefresh;
 	private JButton btnLogOut;
-	//private JPanel pcar;
+	
 
 	private static String email;
 	private static String brand;
 	private LogIn logIn;
 	IRemote server;
 	private ShowDescription showDescrip;
-	//private String cl=null;
+	
 	
 	private static Client client;
 	private static Rent rent;
-	//static Client client= new Client("Janire","pass", false);
+	
 	/**
 	 * Launch the application.
 	 */
@@ -115,7 +114,7 @@ public class ShowCars {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		//this.email = client.getEmail();
+		
 		initializeShowCars();
 		System.out.println("...................."+client);
 	}
@@ -145,33 +144,8 @@ public class ShowCars {
 		btnPanel.setLayout(new FlowLayout());
 		frame.getContentPane().add(btnPanel, BorderLayout.SOUTH);
 
-	/*	btnSearch = new JButton("Searaaaach");
-		btnSearch.setVerticalAlignment(SwingConstants.TOP);
-		btnSearch.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
-		btnSearch.setBackground(SystemColor.controlHighlight);
-		GridBagConstraints gbc_btnAddACar = new GridBagConstraints();
-		gbc_btnAddACar.insets = new Insets(0, 0, 5, 0);
-		gbc_btnAddACar.gridx = 4;
-		gbc_btnAddACar.gridy = 0;
-		carSearch.add(btnSearch, gbc_btnAddACar);
-		btnSearch.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				try {
-					showDescrip = new ShowDescription(brand, email);
-				} catch (RemoteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				frame.dispose();
-				frame.revalidate();
-				frame.repaint();
-			}
-		});
-		
-	*/	
+	
+
 		
 		// JLabel component about search message
 		lblSearch = new JLabel("Car Search");
@@ -222,16 +196,14 @@ public class ShowCars {
 		 final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(CarTableModel);
 		listOfCars = new JTable(CarTableModel);
 		listOfCars.setRowHeight(40);
-		// listOfCars.setSize(500,500 );
+		
 		listOfCars.setRowSorter(sorter);
-		//listOfCars.set
+		
 		listOfCars.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listOfCars.setBackground(SystemColor.window);
 		listOfCars.setFont(new Font("Yu Gothic", Font.PLAIN, 20));
 		listOfCars.setVisible(true);
-    	//setViewportView(CarTableModel); //La tabla se verá dentro del panel de barras de desplazamiento   	
-		//listOfCars.setVisible(true);
-		
+    	
 		
 		//Create the scroll pane and add the table to it
 		scrollListCars = new JScrollPane(listOfCars);
@@ -252,12 +224,7 @@ public class ShowCars {
 				
 				
 				
-				//String brand = (String) CarTableModel.getValueAt(rowSelected, 0);
-
-				
-				
-				
-				//double d=;
+			
 				String s = (String) CarTableModel.getValueAt(rowSelected,6 );
 				System.out.println("..............."+s);
 				Car car =
@@ -269,7 +236,7 @@ public class ShowCars {
 						((String) CarTableModel.getValueAt(rowSelected,5)),
 						Double.parseDouble(s));
 						
-						//(Double.parseDouble((String) CarTableModel.getValueAt(rowSelected,6 ))));
+						
 				
 				try {
 					System.out.println("............"+client+"..........." +car);
@@ -347,8 +314,7 @@ public class ShowCars {
 		
 		btnPanel.add(btnLogOut);
 		
-		//carSearch.add(btnLogOut, BorderLayout.NORTH);
-		//carSearch.add(panel, BorderLayout.CENTER);
+	
 		
 		frame.revalidate();
 		frame.repaint();
@@ -410,7 +376,7 @@ final class CarTableModel  extends AbstractTableModel {
 		System.out.println("********rellenando tabla");
 		try {
 			if(server.showCarsInStore().size()!= 0){
-				//data = new ArrayList<>();
+				
 				System.out.println("********111111rellenando tabla");
 
 				data=new String[server.showCarsInStore().size()][7];
@@ -437,20 +403,13 @@ final class CarTableModel  extends AbstractTableModel {
 					data[i][4] = " "+tempCar.getModel();
 					data[i][5] = " "+tempCar.getAccesories();
 					data[i][6] = "" + tempCar.getPrice();
-					/*data.add(new 
-							Car(server.showCarsInStore().get(i).getMat(),
-							server.showCarsInStore().get(i).getColour(),
-							server.showCarsInStore().get(i).getBrand(),
-							server.showCarsInStore().get(i).getModel(),
-							server.showCarsInStore().get(i).getType(),
-							server.showCarsInStore().get(i).getAccesories(),							
-							server.showCarsInStore().get(i).getPrice()));*/
+					
 					System.out.println("********4444444444444444rellenando tabla");
 
 				}
 			
-			// TODO: for que llame a setvalueat con los datos de cada columna
-//			
+			
+		
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}

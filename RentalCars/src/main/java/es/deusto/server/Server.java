@@ -77,33 +77,7 @@ public class Server{
 			Client a5=db.showClient("javier");
 			Client ad=db.showClient("admin");
 			
-			//Rent r1=new Rent(001);
-			//db.addRentToDb(r1);
-			
-//			db.addRent(c1, r1, a1);	
-//			db.addRent(c2, r2, a2);
-//			db.addRent(c5, r5, ad);
-//			
-//			db.addRent(c3, r3, a2);
-//			db.addRent(c3, r4, a3);
-//			db.addRent(c2, r5, a4);
-//			
-//			db.registerRent(r1);
-			
-			
-			
-	
-			//db.rentCar("jon", "Brand1");
-			//db.addRent(c4, r, a5);
-			//double carAverage=db.averageRatingByCar(c2.getBrand());
-			
-			//logger.info("car average: "+carAverage);
-			
-			//double clientAverage=db.averageRatingByClient(a2.getEmail());
 
-			//logger.info("client average: "+clientAverage);
-
-		
 			
 		
 			

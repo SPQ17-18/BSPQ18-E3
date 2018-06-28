@@ -48,15 +48,6 @@ public class Car implements Serializable{
 	this.clients = new ArrayList<Client>();
 }
 
-	/*public Car(int mat, String brand, String model, double price) {
-		this.mat = mat;
-		this.brand = brand;
-		this.model = model;
-		this.price = price;
-	}
-*/
-//	@Persistent(defaultFetchGroup="true", mappedBy="email", dependentElement="true")
-
 
 	public int getMat() {
 		return mat;

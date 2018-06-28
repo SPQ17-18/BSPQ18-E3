@@ -1,4 +1,7 @@
-/*login window*/
+/*login window:
+ * ADMIN:role =0  ->> ShowCars
+ *  * CLIENT:role =1 ->>ShowCarsAdmin
+ * */
 
 package es.deusto.client.gui;
 

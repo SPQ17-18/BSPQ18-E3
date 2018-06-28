@@ -140,42 +140,11 @@ public class ShowCarsAdmin {
 		btnPanel.setLayout(new FlowLayout());
 		frame.getContentPane().add(btnPanel, BorderLayout.SOUTH);
 
-	/*	btnSearch = new JButton("Searaaaach");
-		btnSearch.setVerticalAlignment(SwingConstants.TOP);
-		btnSearch.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
-		btnSearch.setBackground(SystemColor.controlHighlight);
-		GridBagConstraints gbc_btnAddACar = new GridBagConstraints();
-		gbc_btnAddACar.insets = new Insets(0, 0, 5, 0);
-		gbc_btnAddACar.gridx = 4;
-		gbc_btnAddACar.gridy = 0;
-		carSearch.add(btnSearch, gbc_btnAddACar);
-		btnSearch.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				try {
-					showDescrip = new ShowDescription(brand, email);
-				} catch (RemoteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				frame.dispose();
-				frame.revalidate();
-				frame.repaint();
-			}
-		});
-		
-	*/	
+	
 		btnAddCar = new JButton("Add car");
-		//btnAddCar.setVerticalAlignment(SwingConstants.TOP);
 		btnAddCar.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
 		btnAddCar.setBackground(SystemColor.controlHighlight);
-		/*GridBagConstraints gbc_btnAddACar = new GridBagConstraints();
-		gbc_btnAddACar.insets = new Insets(0, 0, 5, 0);
-		gbc_btnAddACar.gridx = 4;
-		gbc_btnAddACar.gridy = 0;
-		carSearch.add(btnAddCar, gbc_btnAddACar);*/
+		
 		btnAddCar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -194,7 +163,6 @@ public class ShowCarsAdmin {
 		lblSearch.setBackground(SystemColor.window);
 		lblSearch.setForeground(new Color(0, 0, 0));
 		lblSearch.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
-		//panel.add(lblSearch);
 				
 		// JComboBox component about choosing according what is the search
 		cmbSearch = new JComboBox<Object>(Menu);
@@ -244,9 +212,7 @@ public class ShowCarsAdmin {
 		listOfCars.setBackground(SystemColor.window);
 		listOfCars.setFont(new Font("Yu Gothic", Font.PLAIN, 20));
 		listOfCars.setVisible(true);
-    	//setViewportView(CarTableModel); //La tabla se verá dentro del panel de barras de desplazamiento   	
-		//listOfCars.setVisible(true);
-		
+    	
 		
 		//Create the scroll pane and add the table to it
 		scrollListCars = new JScrollPane(listOfCars);
@@ -336,14 +302,9 @@ public class ShowCarsAdmin {
 		btnPanel.add(btnLogOut);
 		
 		btnDeleteCar = new JButton("Delete");
-		//btnDeleteCar.setVerticalAlignment(SwingConstants.TOP);
 		btnDeleteCar.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
 		btnDeleteCar.setBackground(SystemColor.controlHighlight);
-		/*GridBagConstraints gbc_btnDeleteACar = new GridBagConstraints();
-		gbc_btnDeleteACar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnDeleteACar.gridx = 3;
-		gbc_btnDeleteACar.gridy = 4;
-		carSearch.add(btnDeleteCar, gbc_btnDeleteACar);*/
+		
 		
 		btnDeleteCar.addActionListener(new ActionListener() {
 			
@@ -364,8 +325,6 @@ public class ShowCarsAdmin {
 		});
 		btnPanel.add(btnDeleteCar);
 		
-		//carSearch.add(btnLogOut, BorderLayout.NORTH);
-		//carSearch.add(panel, BorderLayout.CENTER);
 		
 		frame.revalidate();
 		frame.repaint();
@@ -374,100 +333,8 @@ public class ShowCarsAdmin {
 	
 
 	
-	/*public void setVisible(boolean b) {
-		// TODO Auto-generated method stub
-		
-	}*/
 }
 
 }
-/*final class CarTableModel  extends AbstractTableModel {
-	
-	private static final long serialVersionUID = 3L;
-	String[] columnNames = { "Brand", "Colour", "Mat", "Type","Model", "Accesories", "Price" };
-	String[][] data;
-	//Object[][]data=null;
-	@Override
-	public int getColumnCount() {
-		return columnNames.length;
-	}
-	
-	@Override
-	public String getColumnName(int col) {
-		 return columnNames[col];
-	}
 
-	@Override
-	public int getRowCount() {
-		//return data.size();
-		return data.length;
-	}
-
-	@Override
-	public Object getValueAt(int row, int col) {
-		//return data.get(row);
-		return data[row][col];
-	}
-
-	@Override
-	public boolean isCellEditable(int row, int col) {
-		return false;
-	}
-
-	@Override
-	public void setValueAt(Object value, int row, int col) {
-//		data.get(row) = value;
-		data[row][col]=(String) value;
-        fireTableCellUpdated(row, col);
-	}
-	
-	public void setValues(IRemote server) {
-		System.out.println("********rellenando tabla");
-		try {
-			if(server.showCarsInStore().size()!= 0){
-				//data = new ArrayList<>();
-				System.out.println("********111111rellenando tabla");
-
-				data=new String[server.showCarsInStore().size()][7];
-				System.out.println("********22222222222rellenando tabla");
-
-			}else{
-					data = new String[7][7];
-				}
-			
-			
-			
-			System.out.println("coches en tienda: " + server.showCarsInStore().size());
-			List<Car> listCars = server.showCarsInStore();	
-			for(int i = 0 ; i < listCars.size() ; i++)
-				{
-					System.out.println("********3333333333333rellenando tabla");
-					Car tempCar = listCars.get(i);
-					System.out.println("********+Coche: " + tempCar);
-
-					data[i][0] = tempCar.getBrand();
-					data[i][1] = tempCar.getColour();
-					data[i][2] = "" + tempCar.getMat();
-					data[i][3] = "" + tempCar.getType();
-					data[i][4] = " "+tempCar.getModel();
-					data[i][5] = " "+tempCar.getAccesories();
-					data[i][6] = "" + tempCar.getPrice() + " €";
-					/*data.add(new 
-							Car(server.showCarsInStore().get(i).getMat(),
-							server.showCarsInStore().get(i).getColour(),
-							server.showCarsInStore().get(i).getBrand(),
-							server.showCarsInStore().get(i).getModel(),
-							server.showCarsInStore().get(i).getType(),
-							server.showCarsInStore().get(i).getAccesories(),							
-							server.showCarsInStore().get(i).getPrice()));*/
-					//System.out.println("********4444444444444444rellenando tabla");
-
-			//	}
-			
-			// TODO: for que llame a setvalueat con los datos de cada columna
-//			
-	//	} catch (RemoteException e) {
-		//	e.printStackTrace();
-		//}
-	//}
 

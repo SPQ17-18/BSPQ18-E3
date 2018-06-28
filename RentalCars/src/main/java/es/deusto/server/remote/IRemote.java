@@ -30,9 +30,7 @@ public interface IRemote extends Remote{
 	 * @throws RemoteException
 	 */
 	boolean addCar(Car car) throws RemoteException;
-	boolean addRent(Rent rent)throws RemoteException;
-	boolean addRentBuena(Car car)throws RemoteException;
-	//boolean addRent(Rent rent)throws RemoteException;
+	
 
 	/**
 	 * gives you a all the cars in the database
@@ -40,10 +38,7 @@ public interface IRemote extends Remote{
 	 * @throws RemoteException
 	 */
 	List<Car> showCarsInStore() throws RemoteException;
-	//List<Car> showOwnedCars(String email) throws RemoteException;
 	
-	//List<Car> showRentsOfCar(int mat) throws RemoteException;
-	//List<Car> showRentsOfCar(String colour) throws RemoteException;
 	
 	/**
 	 * gives you a all the clients in the database
@@ -67,19 +62,12 @@ public interface IRemote extends Remote{
 	Car carTest()throws RemoteException;
 	
 	/**
-	 * Get a car by its mat
+	 * Get a car by its mat,brand or model
 	 * @param mat unique car ID
 	 * @return a Car with the selected mat
 	 * @throws RemoteException
 	 */
 	Car getCarBymat	(int mat)throws RemoteException;
-	
-	/**
-	 * Get a Car by its brand
-	 * @param brand name of the car
-	 * @return a Car with the selected Title
-	 * @throws RemoteException
-	 */
 	Car getCarByBrand	(String brand)throws RemoteException;
 	Car getCarByModel(String model) throws RemoteException;
 	
@@ -101,25 +89,6 @@ public interface IRemote extends Remote{
 	
 	
 	 /**
-	  * rent a car
-	 * @param email of the client
-	 * @param car_colour colour of the car
-	 * @return true of false to tell if it worked
-	 * @throws RemoteException
-	 */
-	boolean rentCar(String email, String car_brand /* int mat*/) throws RemoteException;
-	
-	 /**
-	  * add a new rent to a car
-	 * @param b the car to add a rent
-	 * @param r the Rent
-	 * @param u the Client who made the rent
-	 * @return true of false to tell if it worked
-	 * @throws RemoteException
-	 */
-	boolean addRent(Client client,Car car) throws RemoteException;
-	
-	 /**
 	  * Get all the Rents a Client Made
 	 * @param email of the user
 	 * @return a List<Rent> 
@@ -134,23 +103,7 @@ public interface IRemote extends Remote{
 	 * @throws RemoteException
 	 */
 	List<Rent> getCarRents(String brand)  throws RemoteException;
-	
-	 /**
-	  * Get the average Rating of a car
-	 * @param colour of the car
-	 * @return a double 
-	 * @throws RemoteException
-	 */
-	//double averageRatingByCar(String colour)  throws RemoteException;
-	
-	 /**
-	  * Get the average Rating given by a Client
-	 * @param email
-	 * @return a double 
-	 * @throws RemoteException
-	 */
-	//double averageRatingByClient(String email)  throws RemoteException;
-	
+		
 	 /**
 	  * Eliminates a Rent
 	 * @param id_rent
@@ -180,7 +133,7 @@ public interface IRemote extends Remote{
 	 */
 	boolean addCar(int mat, String colour, String brand, String model, String type, double price, String accesories, String img) throws RemoteException;
 	boolean addRent1(int id_rent, int mat, String email)throws RemoteException;
-	boolean performRent(Client client, Car car)throws RemoteException;
+	//boolean performRent(Client client, Car car)throws RemoteException;
 	
 }
 

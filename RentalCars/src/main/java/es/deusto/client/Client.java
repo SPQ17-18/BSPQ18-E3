@@ -5,7 +5,8 @@ import org.slf4j.LoggerFactory;
 import es.deusto.client.gui.LogIn;
 import es.deusto.server.remote.IRemote;
 
-
+/*Lado cliente
+ * */
 
 	public class Client {
 

@@ -22,13 +22,13 @@ public class Client implements Serializable{
 	@Join
 	List<Car> cars = new ArrayList<Car>();
 	private static final long serialVersionUID = 2L;
-	//private String user;
+	
 	@PrimaryKey
 	private String email;
 	private String name;
 	private String address;
 	private String password;
-	//private String age;
+	
 	private boolean role;//true:admin ; false:client
 	private double money;
 	List<Rent> rents;
@@ -39,16 +39,7 @@ public class Client implements Serializable{
 	public void setMoney(double money) {
 		this.money = money;
 	}
-/*	public Client(String email, String password, String name, String address, boolean role) {
-		
-		this.email = email;
-		this.password = password;
-		this.name = name;
-		this.address = address;
-		this.role = role;
-		this.money=1000;
-		this.cars= new ArrayList<Car>();
-	}*/
+
 	public Client(String email, String password, boolean role) {
 		// TODO Auto-generated constructor stub
 		this.email = email;

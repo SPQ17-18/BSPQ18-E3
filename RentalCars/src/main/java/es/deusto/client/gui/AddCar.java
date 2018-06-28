@@ -1,6 +1,7 @@
 package es.deusto.client.gui;
 
-
+/*Ventana añadir coches: entrando como admin en la ventana de LogIn
+ * */
 
 
 import javax.swing.*;

@@ -164,18 +164,7 @@ public class CarsRemote extends UnicastRemoteObject implements IRemote {
 
 	}
 
-	@Override
-	public boolean rentCar(String email, String car_brand/*int car_mat*/) throws RemoteException{
-		// TODO Auto-generated method stub
-		IDB db =new DB();
-		boolean a=false;
-		try{
-			a = db.rentCar(email, car_brand/*car_mat*/);
-		}catch(Exception e){
-
-		}
-		return a;
-	}
+	
 
 	public boolean addRent(Car b,Client u) {
 		// TODO Auto-generated method stub
@@ -209,28 +198,7 @@ public class CarsRemote extends UnicastRemoteObject implements IRemote {
 		}
 		return carRents;
 	}
-	/*public  double averageRatingByCar(String colour){
-		IDB db =new DB();
-		double average=0;
-		try{
-			average= db.averageRatingByCar(colour);
-		}catch(Exception e){
 
-		}
-		return average;
-
-	}
-	public  double averageRatingByClient(String email){
-		IDB db =new DB();
-		double average=0;
-		try{
-			average= db.averageRatingByClient(email);
-		}catch(Exception e){
-
-		}
-		return average;
-
-	}*/
 
 	
 	@Override
@@ -276,17 +244,7 @@ public class CarsRemote extends UnicastRemoteObject implements IRemote {
 		return false;
 	}
 
-@Override
-public boolean addRent(Client client, Car car) throws RemoteException {
-	// TODO Auto-generated method stub
-	if(car!=null && client !=null){
-		IDB db = new DB();
-		return db.addRentToDb(client, car);
-		//return db.addRentToDb(rent);
-	}else{
-		throw new RemoteException("Invalid rent");
-	}
-}
+
 
 @Override
 public Car getCarByModel(String model) throws RemoteException {
@@ -301,34 +259,7 @@ public Car getCarByModel(String model) throws RemoteException {
 			return b;
 		}
 
-@Override
-public boolean performRent(Client client, Car car) {
-	// TODO Auto-generated method stub
-	IDB db = new DB();
-	return db.performRent(client, car);
-}
 
-@Override
-public boolean addRentBuena(Car car) throws RemoteException {
-	if(car!=null){
-		IDB db = new DB();
-		return db.addRentToDBBuena(car);
-		//return db.addCarToDb(car);
-	}else{
-		throw new RemoteException("Invalid car");
-	}
-}
-
-@Override
-public boolean addRent(Rent rent) throws RemoteException {
-	// TODO Auto-generated method stub
-	if(rent!=null){
-		IDB db = new DB();
-		return db.addRentToDb(rent);
-	}else{
-		throw new RemoteException("Invalid rent");
-	}
-}
 
 @Override
 public boolean addRent1(int id_rent, int mat, String email) throws RemoteException {
@@ -347,11 +278,7 @@ public boolean addRent1(int id_rent, int mat, String email) throws RemoteExcepti
 }
 }
 
-/*@Override
-public boolean addRent(Rent rent) throws RemoteException {
-	// TODO Auto-generated method stub
-	return false;
-}*/
+
 
 
 
