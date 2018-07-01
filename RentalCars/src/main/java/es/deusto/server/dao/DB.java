@@ -273,30 +273,7 @@ public class DB implements IDB{
 		List<Rent> carRents=b.getRents();
 		return carRents;
 	}
-	/*public double averageRatingByCar(String brand){
-		List<Rent> carRents=null;
-		carRents=getCarRents(brand);
-		double total=0;
-
-
-		for(Rent r : carRents){
-			total=total+r.getRating();
-
-		}
-		return total/carRents.size();
-	}
-	public double averageRatingByClient(String email){
-		List<Rent> clientRents=null;
-		clientRents=getClientRents(email);
-		double total=0;
-
-
-		for(Rent r : clientRents){
-			total=total+r.getRating();
-
-		}
-		return total/clientRents.size();
-	}*/
+	
 	public boolean deleteRent(int id_rent){
 		boolean ret=false;
 		Rent r;
@@ -358,8 +335,7 @@ public class DB implements IDB{
 			if (rent != null) {
 
 				rent.setId_rent(r.getId_rent());
-				//rent.setComment(r.getComment());
-				//rent.setRating(r.getRating());
+				
 
 				
 				dao.updateRent(rent);
@@ -370,39 +346,6 @@ public class DB implements IDB{
 			}
 			return ret;
 		}
-
-	@Override
-	public boolean addRentToDb(Client client,Car car) {
-		// TODO Auto-generated method stub
-		//Rent ren = null;
-
-		boolean ret=true;
-
-		try {
-			car=dao.retrieveCar(car.getMat());
-		//	client=dao.retrieveClient(client.getEmail());
-			//ren=dao.retrieveRent(rent.getId_rent());
-
-		} catch (Exception  e) {
-			logger.error("Exception launched in checking if the data already exist: ");
-			logger.trace(e.getMessage());
-			e.getStackTrace();
-			ret = false;
-		}
-
-		if (car != null  /*&& client !=null*/) {
-
-		}else{
-
-
-			//dao.performRent(client, car);
-			//dao.storeRent(rent);
-
-
-		}
-
-		return ret;
-	}
 
 	@Override
 	public Car showCarByModel(String model) {
@@ -417,70 +360,6 @@ public class DB implements IDB{
 		return dao.performRent(client, car);
 	}
 
-	@Override
-	public boolean addRentToDBBuena(Car b) {
-		Car car = null;
-		Rent rent =null;
-		boolean ret=true;
-
-		try {
-
-			car  = dao.retrieveCar(b.getMat());
-			rent= dao.retrieveRent(b.getMat());
-
-		} catch (Exception  e) {
-			logger.error("Exception launched in checking if the data already exist: ");
-			logger.trace(e.getMessage());
-			e.getStackTrace();
-			ret = false;
-		}
-
-		if (car != null ) {
-
-		}else{
-
-
-
-			dao.storeCar(b);
-
-
-		}
-
-		return ret;
-	}
-
-	@Override
-	public boolean addRentToDb(Rent r) {
-		// TODO Auto-generated method stub
-		Rent rent = null;
-		Car car=null;
-		boolean ret=true;
-
-		try {
-			rent=dao.retrieveRent(car.getMat());
-			//rent  = dao.retrieveRent(r.getId_rent());
-
-
-		} catch (Exception  e) {
-			logger.error("Exception launched in checking if the data already exist: ");
-			logger.trace(e.getMessage());
-			e.getStackTrace();
-			ret = false;
-		}
-
-		if (rent != null ) {
-
-		}else{
-
-
-
-			dao.storeRent(r);
-
-
-		}
-
-		return ret;
-	}
 
 	@Override
 	public boolean addRentToDB1(Rent r) {
@@ -491,7 +370,6 @@ public class DB implements IDB{
 
 		try {
 			rent=dao.retrieveRent(r.getId_rent());
-			//car  = dao.retrieveCar(b.getMat());
 
 
 		} catch (Exception  e) {
@@ -507,7 +385,6 @@ public class DB implements IDB{
 
 
 			dao.storeRent(r);
-//			dao.storeCar(b);
 
 
 		}

@@ -1,6 +1,8 @@
 package es.deusto.client.gui;
 
-
+/*SHOW CARS: Accessing as a client (role = 0), all the cars in the database will be displayed in a table.
+ * You can search a car by mat, model and brand.
+ * */
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -223,10 +225,10 @@ public class ShowCars {
 				
 				
 				
-				
+				//Insert mat, model, brand, colour, type, accesories and price in the right row and column of the table.
 			
 				String s = (String) CarTableModel.getValueAt(rowSelected,6 );
-				System.out.println("..............."+s);
+				//System.out.println("..............."+s);
 				Car car =
 						new Car((/*(int)*/ Integer.parseInt((String) CarTableModel.getValueAt(rowSelected,2 ))),
 						((String) CarTableModel.getValueAt(rowSelected, 0)),
@@ -373,14 +375,14 @@ final class CarTableModel  extends AbstractTableModel {
 	}
 	
 	public void setValues(IRemote server) {
-		System.out.println("********rellenando tabla");
+		//System.out.println("********rellenando tabla");
 		try {
 			if(server.showCarsInStore().size()!= 0){
 				
-				System.out.println("********111111rellenando tabla");
+			//	System.out.println("********111111rellenando tabla");
 
 				data=new String[server.showCarsInStore().size()][7];
-				System.out.println("********22222222222rellenando tabla");
+			//	System.out.println("********22222222222rellenando tabla");
 
 			}else{
 					data = new String[7][7];
@@ -392,9 +394,9 @@ final class CarTableModel  extends AbstractTableModel {
 			List<Car> listCars = server.showCarsInStore();	
 			for(int i = 0 ; i < listCars.size() ; i++)
 				{
-					System.out.println("********3333333333333rellenando tabla");
+				//	System.out.println("********3333333333333rellenando tabla");
 					Car tempCar = listCars.get(i);
-					System.out.println("********+Coche: " + tempCar);
+					//System.out.println("********+Coche: " + tempCar);
 
 					data[i][0] = tempCar.getBrand();
 					data[i][1] = tempCar.getColour();
@@ -404,7 +406,7 @@ final class CarTableModel  extends AbstractTableModel {
 					data[i][5] = " "+tempCar.getAccesories();
 					data[i][6] = "" + tempCar.getPrice();
 					
-					System.out.println("********4444444444444444rellenando tabla");
+					//System.out.println("********4444444444444444rellenando tabla");
 
 				}
 			

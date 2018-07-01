@@ -1,6 +1,8 @@
 package es.deusto.client.gui;
 
-
+/*SHOW CARS ADMIN: Accessing as an admin (role = 1), all the cars in the database will be displayed in a table.
+ * The admin cad ADD & DELETE cars.
+ * */
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -71,7 +73,6 @@ public class ShowCarsAdmin {
 	private AddCar addCar;
 	IRemote server;
 	private ShowDescriptionAdmin showDescriptionAdmin;
-	//private String cl=null;
 	
 	/**
 	 * Launch the application.
@@ -195,7 +196,7 @@ public class ShowCarsAdmin {
 		textSearchUser.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
 		panel.add(textSearchUser);
 
-		// JTable with all the available s
+		// JTable with all the available 
 		
 		// Create the JTable and the table model 
 		final TableModel CarTableModel = new CarTableModel();
@@ -205,9 +206,7 @@ public class ShowCarsAdmin {
 		 final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(CarTableModel);
 		listOfCars = new JTable(CarTableModel);
 		listOfCars.setRowHeight(40);
-		// listOfCars.setSize(500,500 );
 		listOfCars.setRowSorter(sorter);
-		//listOfCars.set
 		listOfCars.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listOfCars.setBackground(SystemColor.window);
 		listOfCars.setFont(new Font("Yu Gothic", Font.PLAIN, 20));

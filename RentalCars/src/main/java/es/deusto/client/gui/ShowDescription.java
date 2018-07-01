@@ -63,10 +63,12 @@ public class ShowDescription {
 	private JTextField txtPrice;
 	private JLabel lblMat;
 	private JTextField txtMat;
-	private JLabel lblRank;
+	
 	private JButton btnRent;
 	private JButton btnGoBack;
+	
 	private JPanel rentPanel;
+	
 	private static String email;
 	private static String brand;
 	private static int mat;
@@ -164,10 +166,6 @@ public class ShowDescription {
 		lblPrice.setBounds(674, 80, 64, 24);
 		carPanel.add(lblPrice);
 		
-		lblRank = new JLabel("Rank: ");
-		lblRank.setBounds(674, 136, 45, 23);
-		carPanel.add(lblRank);
-		
 		txtBrand = new JTextField(colour);
 		txtBrand.setEditable(false);
 		txtBrand.setBounds(415, 59, 177, 23);
@@ -237,8 +235,8 @@ public class ShowDescription {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-		
-					id_rent=id_rent+4;
+					
+					id_rent=id_rent+1;
 					int matricula=Integer.parseInt(txtMat.getText());
 					String email=client.getEmail();
 					System.out.println("MATRICULAAAAA----------->"+matricula);

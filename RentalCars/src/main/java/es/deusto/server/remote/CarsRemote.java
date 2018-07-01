@@ -9,9 +9,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import es.deusto.server.dao.DAO;
 import es.deusto.server.dao.DB;
-import es.deusto.server.dao.IDAO;
 import es.deusto.server.dao.IDB;
 import es.deusto.server.data.Car;
 import es.deusto.server.data.Client;

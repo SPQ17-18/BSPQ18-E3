@@ -312,23 +312,7 @@ public class ShowDescriptionAdmin implements ActionListener {
 		label.setFont(new Font("Tahoma", Font.BOLD, 14));
 		label.setBounds(10, 5, 68, 17);
 		rentPanel.add(label);
-		
-	/*	// Create the JTable and the table model 
-		TableModel rentTableModel = new RentTableModel(brand,server);
-		rentsTable = new JTable(rentTableModel);
-		((es.deusto.client.gui.RentTableModel) rentTableModel).setValues(server);
-		//rentsTable.setBounds(106, 34, 682, 33);
-		rentsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		rentsTable.setBackground(SystemColor.window);
-		
-		//Create the scroll pane and add the table to it
-		scrollRents = new JScrollPane(rentsTable);
-		scrollRents.setEnabled(false);
-		scrollRents.getViewport().setBackground(Color.white);
-		
-		//Add the scroll pane to this panel.
-		scrollRents.setBounds(106, 100, 682, 80);
-		rentPanel.add(scrollRents);*/
+	
 		
 		btnGoBack = new JButton("Go Back");
 		btnGoBack.setBounds(10, 251, 89, 23);

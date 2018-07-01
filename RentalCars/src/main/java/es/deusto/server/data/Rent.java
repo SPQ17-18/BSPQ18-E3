@@ -2,12 +2,9 @@ package es.deusto.server.data;
 
 import java.io.Serializable;
 
-import javax.jdo.annotations.ForeignKey;
-import javax.jdo.annotations.ForeignKeyAction;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 

@@ -1,6 +1,7 @@
 package es.deusto.client.gui;
 
-/*Ventana añadir coches: entrando como admin en la ventana de LogIn
+/*Add cars (mat, brand, colour, type, model, accesories and price)
+ * Only the admin can add new cars
  * */
 
 

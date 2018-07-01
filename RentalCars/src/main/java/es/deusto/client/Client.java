@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import es.deusto.client.gui.LogIn;
 import es.deusto.server.remote.IRemote;
 
-/*Lado cliente
+/*CLIENT SIDE
  * */
 
 	public class Client {
@@ -22,11 +22,12 @@ import es.deusto.server.remote.IRemote;
 			}
 			LogIn logIn;
 			try{
+				
 				String name = "//" + args[0] + ":" + args[1] + "/" + args[2];
 				IRemote server = (IRemote) java.rmi.Naming.lookup(name);
-				//Menu
-				//mainMenu(server);
+				
 				logIn = new LogIn(server);
+				
 			}catch (Exception e) {
 				logger.error("RMI Example exception: " + e.getMessage());
 				e.printStackTrace();

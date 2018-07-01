@@ -64,18 +64,14 @@ import es.deusto.server.data.Rent;
 		boolean addRent(Car b,Client client );
 
 		/**
-		 * Get a car from  the database by its mat
-		 * @param mat
+		 * Get a car from  the database by its mat, brand or model
+		 * @param mat,brand,model
 		 * @return The Car 
 		 */
 		Car showCarBymat	(int mat);
-		
-		/**
-		 * Get a Car from the database by its brand
-		 * @param brand of the car
-		 * @return The car
-		 */
 		Car showCarByBrand	(String brand);
+		Car showCarByModel(String model);
+
 		
 		/**
 		 * Get a Rent from the database by its ID
@@ -108,20 +104,7 @@ import es.deusto.server.data.Rent;
 		 * @return A List<Rent> of a given car
 		 */
 		List<Rent> getCarRents(String brand);
-		
-		/**
-		 * Gets the average rating of a car
-		 * @param brand of the car
-		 * @return a double the average rating
-		 */
-		//double averageRatingByCar(String brand);
-		
-		/**
-		 * Gets the average rating given by a client
-		 * @param email of the client
-		 * @return a double the average rating
-		 */
-		//double averageRatingByClient(String email);
+	
 		
 		/**
 		 * Eliminates a Rent from the database
@@ -137,15 +120,15 @@ import es.deusto.server.data.Rent;
 		 */
 		boolean deleteCar(int mat);
 
-		boolean addRentToDb(Client client, Car car);
-
-		Car showCarByModel(String model);
+		
 		boolean performRent(Client client, Car car);
 
-		boolean addRentToDBBuena(Car b);
 
-		boolean addRentToDb(Rent rent);
-
+		/**
+		 * Adds a new rent to the database
+		 * @param b the rent to add
+		 * @return true or false to tell if it worked
+		 */
 		boolean addRentToDB1(Rent r);
 		
 

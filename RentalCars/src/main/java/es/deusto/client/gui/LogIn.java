@@ -187,7 +187,7 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 					role =server.getClient(accessEmail).getRole();
 					System.out.println("*****role" + role);
 					server.registerClient(accessEmail, accessPassword, role);
-					System.out.println("ha vuelto de registrar el cliente");
+					//System.out.println("ha vuelto de registrar el cliente");
 
 					clientEmail = accessEmail;
 					client = new es.deusto.server.data.Client(accessEmail, accessPassword, role);
@@ -201,7 +201,6 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 				if(role == false){
 					logger.info("*************show cars for client"+client);
 					ShowCars = new ShowCars(client);
-					//ShowCars = new ShowCars(new Client(clientEmail, new String(client.getPassword()), false));
 					frame.setVisible(false);
 					frame.dispose();
 					frame.revalidate();

@@ -121,8 +121,8 @@ public interface IRemote extends Remote{
 	 /**
 	  * Creates new car in the database
 	 * @param mat unique identifier
-	 * @param colour  String of the car
-	 * @param brand genre of car
+	 * @param colour of the car
+	 * @param brand of car
 	 * @param model 
 	 * @param type
 	 * @param price
@@ -133,7 +133,7 @@ public interface IRemote extends Remote{
 	 */
 	boolean addCar(int mat, String colour, String brand, String model, String type, double price, String accesories, String img) throws RemoteException;
 	boolean addRent1(int id_rent, int mat, String email)throws RemoteException;
-	//boolean performRent(Client client, Car car)throws RemoteException;
+	
 	
 }
 
