@@ -228,7 +228,7 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 		
 
 		// JLabel component about sign up message
-		signUpMesage = new JLabel("Sign Up");
+		/*signUpMesage = new JLabel("Sign Up");
 		signUpMesage.setBackground(new Color(169, 169, 169));
 		signUpMesage.setForeground(new Color(0, 0, 0));
 		signUpMesage.setFont(new Font("Yu Gothic", Font.PLAIN, 25));
@@ -238,13 +238,13 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 		gbc_signUpMesage.gridx = 1;
 		gbc_signUpMesage.gridy = 1;
 		gbc_signUpMesage.fill = GridBagConstraints.BOTH;
-		logIn.add(signUpMesage, gbc_signUpMesage);
+		logIn.add(signUpMesage, gbc_signUpMesage);*/
 
 		// JTextField component about full name
-		fullName = new JTextField("Full Name");
+	//	fullName = new JTextField("Full Name");
 
 		// mouse event listeners about filling the full name component
-		fullName.addMouseListener(new MouseAdapter() {
+/*		fullName.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				String fullNameText = fullName.getText();
@@ -255,9 +255,9 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 				String fullNameText = fullName.getText();
 				if (fullNameText.equals("")) fullName.setText("Full Name");
 			}
-		});
+		});*/
 
-		fullName.setForeground(SystemColor.textInactiveText);
+/*		fullName.setForeground(SystemColor.textInactiveText);
 		fullName.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		GridBagConstraints gbc_fullName = new GridBagConstraints();
 		gbc_fullName.insets = new Insets(0, 0, 3, 10);
@@ -265,13 +265,13 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 		gbc_fullName.gridx = 1;
 		gbc_fullName.gridy = 2;
 		fullName.setColumns(12);
-		logIn.add(fullName, gbc_fullName);
+		logIn.add(fullName, gbc_fullName);*/
 
 		// JTextField component about email
-		emailSignUp = new JTextField("Email Address");
+//		emailSignUp = new JTextField("Email Address");
 
 		// mouse event listeners about filling the email component
-		emailSignUp.addMouseListener(new MouseAdapter() {
+/*		emailSignUp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				String emailTxtSign = emailSignUp.getText();
@@ -282,9 +282,9 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 				String emailTxtSign = emailSignUp.getText();
 				if (emailTxtSign.equals("")) emailSignUp.setText("Email Address");
 			}
-		});
+		});*/
 
-		emailSignUp.setForeground(SystemColor.textInactiveText);
+/*		emailSignUp.setForeground(SystemColor.textInactiveText);
 		emailSignUp.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		GridBagConstraints gbc_EmailSignUp = new GridBagConstraints();
 		gbc_EmailSignUp.insets = new Insets(0, 0, 3, 10);
@@ -292,13 +292,13 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 		gbc_EmailSignUp.gridx = 1;
 		gbc_EmailSignUp.gridy = 3;
 		email.setColumns(12);
-		logIn.add(emailSignUp, gbc_EmailSignUp);
+		logIn.add(emailSignUp, gbc_EmailSignUp);*/
 
 		// JTextField component about password
-		passwordSignUp = new JTextField("Password");
+//		passwordSignUp = new JTextField("Password");
 		
 		// mouse event listeners about filling the password component
-		passwordSignUp.addMouseListener(new MouseAdapter() {
+/*		passwordSignUp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				String passwordTxtSign = passwordSignUp.getText();
@@ -319,13 +319,13 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 		gbc_passwordSignUp.gridx = 1;
 		gbc_passwordSignUp.gridy = 4;
 		passwordSignUp.setColumns(12);
-		logIn.add(passwordSignUp, gbc_passwordSignUp);
+		logIn.add(passwordSignUp, gbc_passwordSignUp);*/
 		
 		// JTextField component about confirming password
-		confirmPass = new JTextField("Confirm Password");
+//		confirmPass = new JTextField("Confirm Password");
 		
 		// mouse event listeners about filling the password component
-		confirmPass.addMouseListener(new MouseAdapter() {
+/*		confirmPass.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				String confirmPassText = confirmPass.getText();
@@ -346,12 +346,13 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 		gbc_confirmPass.gridx = 1;
 		gbc_confirmPass.gridy = 5;
 		confirmPass.setColumns(12);
-		logIn.add(confirmPass, gbc_confirmPass);
+		logIn.add(confirmPass, gbc_confirmPass);*/
 		
 
-		btnNewClient = new JButton("Sign Me Up");
+		btnNewClient = new JButton("");
 		btnNewClient.setBackground(new Color(95, 158, 160));
 		btnNewClient.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		btnNewClient.setOpaque(true);
 		btnNewClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String passtxt = passwordSignUp.getText();
@@ -378,7 +379,7 @@ final static  Logger logger = LoggerFactory.getLogger(Client.class);
 		gbc_btnNewClient.gridx = 1;
 		gbc_btnNewClient.gridy = 6;
 		gbc_btnNewClient.fill = GridBagConstraints.BOTH;
-		logIn.add(btnNewClient, gbc_btnNewClient);	
+		//logIn.add(btnNewClient, gbc_btnNewClient);	
 		
 		logIn.revalidate();
 		logIn.repaint();

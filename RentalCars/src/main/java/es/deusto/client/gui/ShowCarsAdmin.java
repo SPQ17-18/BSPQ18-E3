@@ -72,7 +72,7 @@ public class ShowCarsAdmin {
 	private LogIn logIn;
 	private AddCar addCar;
 	IRemote server;
-	private ShowDescriptionAdmin showDescriptionAdmin;
+	//private ShowDescriptionAdmin showDescriptionAdmin;
 	
 	/**
 	 * Launch the application.
@@ -229,10 +229,10 @@ public class ShowCarsAdmin {
 				String brand = (String) CarTableModel.getValueAt(listOfCars.getSelectedRow(), 0);
 				
 				
-				showDescriptionAdmin = new ShowDescriptionAdmin(brand, email);
+				/*showDescriptionAdmin = new ShowDescriptionAdmin(brand, email);
 				frame.dispose();
 				frame.revalidate();
-				frame.repaint();
+				frame.repaint();*/
 
 			}
 		});

@@ -490,44 +490,9 @@ public class DAO implements IDAO {
 		logger.info(car.toString());
 		return car;
 	}
-
-
-	/*
-	public  boolean deleteDatabase() {
-		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-		PersistenceManager pm = pmf.getPersistenceManager();
-        Transaction tx = pm.currentTransaction();
-        boolean r = true;
-        try
-        {
-            tx.begin();
-
-            logger.info("Deleting test clients from persistence. Cleaning up.");
-            Query<Client> q1 = pm.newQuery(Client.class);
-            Query<car> q2 = pm.newQuery(car.class);
-            Query<Rent> q3 = pm.newQuery(Rent.class);
-            	q1.deletePersistentAll();
-            	q2.deletePersistentAll();
-            	q3.deletePersistentAll();
-
-
-            tx.commit();
-
-        }
-        catch(Exception ex) {
-            logger.error("# Error deleting DB: " + ex.getMessage());
-            r = false;
-        }
-        finally
-        {
-            if (tx.isActive())
-            {
-                tx.rollback();
-            }
-            pm.close();
-        }
-        return r;
-
+	
 	}
-	 */
-}
+
+
+	
+

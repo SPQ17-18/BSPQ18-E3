@@ -16,6 +16,7 @@ import es.deusto.server.data.Rent;
 import es.deusto.server.remote.IRemote;
 import es.deusto.server.remote.CarsRemote;
 
+import org.databene.contiperf.PerfTest;
 import org.databene.contiperf.Required;
 import org.junit.AfterClass;
 
@@ -166,9 +167,9 @@ public class RMITest {
 	@Test public void registerExistingClientTest() {
 		try{
 			logger.info("Test 2 - Register existing client. Change password");
-			remote.registerClient("smith", "smith",false);
+			remote.registerClient("jon", "jon",false);
 			// Silly way of testing the password testing
-			remote.registerClient("smith", "doe",false);
+			remote.registerClient("jon", "doe",false);
 			
 		}
 		catch (Exception re) {
@@ -181,6 +182,7 @@ public class RMITest {
 		 */
 		assertTrue( true );
 	}
+	
 	
 	
 	/*	@Test public void carTestValidation() {
@@ -248,42 +250,7 @@ public class RMITest {
 			
 			
 		}
-		/*@Test public void getThings(){
-			boolean a = true;
-			
-			try {
-				logger.info("Test 6 - showClients");
-				
-				Client cl1;
-				
-				Rent r1 = new Rent( "Rent 1",56.6);
-				Car c1 =new Car(123, "red", "brand11", "model11", "Type11", "accesoriess", 20.45);
-				Car c2=null;
-				remote.registerClient("Janire","janire",false);
-				cl1=remote.getClient("Janire");
-				
-				remote.addCar(c1);
-				
-				
-				
-				c2 =remote.getCarBymat(c1.getMat());
-				
-				remote.addRent(c2, r1, cl1);
-				remote.getRent(r1.getId_rent());
-				remote.getAllRents();
-				remote.rentCar(cl1.getEmail(), c2.getBrand());
-				
-				
-			}
-				catch (Exception re){
-					logger.error(" RemoteException: " );
-					logger.trace(re.getMessage());
-					re.printStackTrace();
-					a=false;
-					
-			}
-			assertTrue(a);
-		}*/
+		
 		@Test(expected=RemoteException.class)
 		public void showClientFailTest() throws RemoteException{
 				
@@ -298,38 +265,8 @@ public class RMITest {
 					
 		}
 		
-	
-/**
-	@After public  void deleteDatabase() {
-		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-		PersistenceManager pm = pmf.getPersistenceManager();
-        Transaction tx = pm.currentTransaction();
-        try
-        {
-            tx.begin();
-	
-            logger.info("Deleting test clients from persistence. Cleaning up.");
-            Query<Client> q1 = pm.newQuery(Client.class);
-            Query<Car> q2 = pm.newQuery(Car.class);
-            Query<Review> q3 = pm.newQuery(Review.class);
-            long numberInstancesDeleted1 = q1.deletePersistentAll();
-            long numberInstancesDeleted2 = q2.deletePersistentAll();
-            long numberInstancesDeleted3 = q3.deletePersistentAll();
-           
-			
-            tx.commit();
-        }
-        finally
-        {
-            if (tx.isActive())
-            {
-                tx.rollback();
-            }
-            pm.close();
-        }
+
 		
-	}
-	**/
 
 	@AfterClass static public void tearDown() {
 		try	{

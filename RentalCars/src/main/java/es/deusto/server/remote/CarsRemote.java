@@ -274,6 +274,8 @@ public boolean addRent1(int id_rent, int mat, String email) throws RemoteExcepti
 	
 	return false;
 }
+
+
 }
 
 

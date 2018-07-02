@@ -134,7 +134,7 @@ public interface IRemote extends Remote{
 	boolean addCar(int mat, String colour, String brand, String model, String type, double price, String accesories, String img) throws RemoteException;
 	boolean addRent1(int id_rent, int mat, String email)throws RemoteException;
 	
-	
+
 }
 
 	
