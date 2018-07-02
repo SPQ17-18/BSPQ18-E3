@@ -15,7 +15,7 @@ import es.deusto.server.data.Client;
 import es.deusto.server.data.Rent;
 import es.deusto.server.remote.IRemote;
 import es.deusto.server.remote.CarsRemote;
-
+import es.deusto.client.*;
 import org.databene.contiperf.PerfTest;
 import org.databene.contiperf.Required;
 import org.junit.AfterClass;
@@ -208,6 +208,35 @@ public class RMITest {
 		assertEquals(c.toString(), carTest.toString());
 		
 	}*/
+	
+	@Test 
+	public void searchCarTest() 
+	{ 
+		try{
+	
+		  logger.info("Test 3 - find cars"); 
+		  String ca="Seat";
+		  remote.getCarByBrand(ca);
+		  } catch (Exception e) {
+			  logger.error(" # RemoteException: " + e.getMessage());
+				logger.trace(e.getMessage());
+				e.printStackTrace();
+		  }
+	}
+	
+	@Test
+	public void deleteCarTest() {
+		try {
+			logger.info("Test 3.1");
+			remote.deleteCar(123);
+			} catch (Exception re) {
+				logger.error(" # RemoteException: " + re.getMessage());
+				logger.trace(re.getMessage());
+				re.printStackTrace();
+		}
+	}
+	
+	
 		
 		@Test public void showCarsInStoreTest() {
 			try{
@@ -251,7 +280,7 @@ public class RMITest {
 			
 		}
 		
-		@Test(expected=RemoteException.class)
+		/*@Test(expected=RemoteException.class)
 		public void showClientFailTest() throws RemoteException{
 				
 				logger.info("Test 7 - showClientsFail");
@@ -260,10 +289,8 @@ public class RMITest {
 				remote.getClient(null);
 				
 				
-		
-			
 					
-		}
+		}*/
 		
 
 		

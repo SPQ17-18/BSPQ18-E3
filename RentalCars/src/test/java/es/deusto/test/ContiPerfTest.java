@@ -104,7 +104,7 @@ public class ContiPerfTest {
 		
 		
 		
-		db.showCarBymat(60);
+		db.showCarBymat(123);
 		count2++;
 	}
 
